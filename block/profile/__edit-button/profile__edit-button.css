@@ -5,6 +5,6 @@
   display: grid;
   align-items: center;
   background-color: black;
-  align-self: center;  
-  vertical-align: bottom; 
+  float: right;
+  margin-left: 24px;
 }
