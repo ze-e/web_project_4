@@ -6,6 +6,9 @@
 @import url(./__add-button/profile__add-button.css);
 @import url(./__add-icon/profile__add-icon.css);
 @import url(./__info/profile__info.css);
+
 .profile{
   display: flex;
+  margin-top: 40px;
+  margin-bottom: 51px;
 }
