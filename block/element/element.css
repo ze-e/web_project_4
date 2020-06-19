@@ -3,4 +3,7 @@
 @import url(./__title/element__title.css);
 
 .element{
-  background: #FFFFFF;}
+  background: #FFFFFF;
+  border-radius: 10px;
+  text-align: center;
+}
