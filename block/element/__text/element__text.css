@@ -1,0 +1,6 @@
+.element__text{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 15px;
+  margin-left: 21px;
+}

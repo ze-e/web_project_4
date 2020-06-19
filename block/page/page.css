@@ -9,12 +9,7 @@
 
 
   /* style */
-  max-width: 1200px;
+  max-width: 882px;
   background-color: #000000;
   margin: auto;
-}
-
-/* */
-div, header, section, footer, h1, h2, h3, h4, button, p{
-  border: red 1px solid;
 }

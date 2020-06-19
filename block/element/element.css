@@ -1,9 +1,11 @@
 @import url(./__image/element__image.css);
 @import url(./__like-icon/element__like-icon.css);
 @import url(./__title/element__title.css);
+@import url(./__text/element__text.css);
 
 .element{
   background: #FFFFFF;
   border-radius: 10px;
   text-align: center;
+  max-width: 282px;
 }
