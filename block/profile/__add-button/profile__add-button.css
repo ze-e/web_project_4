@@ -6,4 +6,6 @@
   display: grid;
   align-items: center;
   align-self: flex-end;
+  background-color: black;
+
 }

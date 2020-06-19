@@ -9,6 +9,9 @@
 
 .profile{
   display: flex;
-  margin-top: 40px;
-  margin-bottom: 51px;
+  flex-wrap: wrap;
+  align-content: center;
+  margin-top: 36.25px;
+  margin-bottom: 47.25px;
+
 }

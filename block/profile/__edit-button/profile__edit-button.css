@@ -4,4 +4,7 @@
   border: 1px solid #FFFFFF;
   display: grid;
   align-items: center;
+  background-color: black;
+  align-self: center;  
+  vertical-align: bottom; 
 }
