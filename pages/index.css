@@ -5,6 +5,7 @@
 @import url(../fonts/Inter-3.13/Inter_Web/inter.css);
 
 /* block */
+@import url(../block/overlay/overlay.css);
 @import url(../block/page/page.css);
 @import url(../block/popup/popup.css);
 @import url(../block/header/header.css);

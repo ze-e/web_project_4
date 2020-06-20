@@ -7,3 +7,7 @@
   align-items: center;
   background-color: black;
 }
+
+.profile__add-button:hover{
+  cursor: pointer;
+}

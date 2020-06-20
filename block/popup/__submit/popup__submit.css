@@ -1,0 +1,13 @@
+.popup__submit{
+  width: 358px;
+  height: 50.15px;
+  background: #000000;
+  border-radius: 2px;
+  margin: auto;
+  color: white;
+  cursor: pointer;
+}
+
+.popup__submit:hover{
+  cursor: pointer;
+}

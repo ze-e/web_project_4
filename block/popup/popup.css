@@ -1,3 +1,11 @@
+@import url(./__close/popup__close.css);
+@import url(./__container/popup__container.css);
+@import url(./__title/popup__title.css);
+@import url(./__input-description/popup__input-description.css);
+@import url(./__input-name/popup__input-name.css);
+@import url(./__submit/popup__submit.css);
+
 .popup{
   display: none;
+  z-index: 1; 
 }

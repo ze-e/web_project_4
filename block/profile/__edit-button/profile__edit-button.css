@@ -8,3 +8,7 @@
   float: right;
   margin-left: 24px;
 }
+
+.profile__edit-button:hover{
+  cursor: pointer;
+}
