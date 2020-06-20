@@ -4,8 +4,10 @@
 @import url(./__input-description/popup__input-description.css);
 @import url(./__input-name/popup__input-name.css);
 @import url(./__submit/popup__submit.css);
+@import url(./_opened/popup_opened.css);
+@import url(./_unopened/popup_unopened.css);
+
 
 .popup{
-  display: none;
   z-index: 1; 
 }
