@@ -6,11 +6,12 @@
 @import url(./__add-button/profile__add-button.css);
 @import url(./__add-icon/profile__add-icon.css);
 @import url(./__info/profile__info.css);
+@import url(./__profile-content/profile__profile-content.css);
+@import url(./__button-content/profile__button-content.css);
 
 .profile{
   display: flex;
-  flex-wrap: wrap;
-  align-content: center;
+  justify-content: space-between;
   margin-top: 36.25px;
   margin-bottom: 47.25px;
 }
