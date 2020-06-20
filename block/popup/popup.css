@@ -7,7 +7,6 @@
 @import url(./_opened/popup_opened.css);
 @import url(./_unopened/popup_unopened.css);
 
-
 .popup{
   z-index: 1; 
 }
