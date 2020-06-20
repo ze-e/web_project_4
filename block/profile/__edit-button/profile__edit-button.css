@@ -8,8 +8,11 @@
   float: right;
   margin-left: 24px;
   align-self: center;
+  opacity: 1.0;
 }
 
-.profile__edit-button:hover{
+.profile__edit-button:hover, .profile__edit-button:hover .profile__edit-icon{
   cursor: pointer;
+  opacity: 0.6;
 }
+
