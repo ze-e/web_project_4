@@ -9,6 +9,7 @@
 
 
   /* style */
+  display: relative;
   max-width: 882px;
   background-color: #000000;
   margin: auto;
