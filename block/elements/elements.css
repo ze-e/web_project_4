@@ -5,3 +5,9 @@
   margin-bottom: 66px;
   margin: auto;
 }
+
+@media screen and (max-width: 581px){
+  .header{
+    max-width: 282px;
+  }
+}

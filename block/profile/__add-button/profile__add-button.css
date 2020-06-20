@@ -11,3 +11,12 @@
 .profile__add-button:hover{
   cursor: pointer;
 }
+
+@media screen and (max-width: 581px){
+
+  .profile__add-button{
+
+    width: 282px;
+    height: 50px;
+  }
+]
