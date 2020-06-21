@@ -13,6 +13,4 @@
 @import url(../block/element/element.css);
 @import url(../block/footer/footer.css);
 
-div, h1, h2, h3, h4, button, section, header, footer{
-  border: 1px red solid;
-}
+
