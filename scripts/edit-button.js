@@ -1,12 +1,10 @@
-document.addEventListener("DOMContentLoaded", function(){
-  let editButton = document.querySelector('.profile__edit-button');
-  console.log(`${editButton.classList}`);
+let editButton = document.querySelector('.profile__edit-button');
   
-  editButton.addEventListener('click', function popupOpen(){
+  editButton.addEventListener('click', () => {
     let popup = document.querySelector('.popup');
-    popup.classList.toggle('popup_unopened');
     popup.classList.toggle('popup_opened');
+    popup.classList.toggle('popup_unopened');
+
     console.log(`${popup.classList}`);
     }
   );
-});

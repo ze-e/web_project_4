@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="./pages/index.css">
-    <script src="scripts/edit-button.js"></script>
-    <script src="scripts/close-button.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Around the US</title>
   </head>
@@ -83,17 +82,19 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Around The U.S.</p>
     </footer>
-<div class="overlay">     
     <section class="popup popup_unopened">
+      <div class="popup__container">
       <img class="popup__close" src="./images/ui/close.svg" alt="close-icon">
-      <form class="popup__container">
-        <h4 class="popup__title">Edit profile</h4>
-        <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau">
-        <input class="popup__input-description" type="text" name="description" value="Explorer">
-        <input class="popup__submit" type="submit" value="Save">
-      </form>
+        <form class="popup__form">
+          <h4 class="popup__title">Edit profile</h4>
+          <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau">
+          <input class="popup__input-description" type="text" name="description" value="Explorer">
+          <input class="popup__submit" type="submit" value="Save">
+        </form>
+      </div>
     </section>
- </div>
 
+    <script src="scripts/edit-button.js"></script>
+    <script src="scripts/close-button.js"></script>
   </body>
 </html>
