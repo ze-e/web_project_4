@@ -2,3 +2,8 @@
   margin-block-start: 0px;
   margin-block-end: 0px;
 }
+@media screen and (max-width: 979px){
+  .footer__copyright{
+    padding-left: 19px;
+  }
+}

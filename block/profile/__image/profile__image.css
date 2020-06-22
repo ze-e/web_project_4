@@ -6,10 +6,13 @@
 }
 
 @media screen and (max-width: 1279px){
-
-
-
   .profile__image{
     align-self: center;
+  }
+}
+
+@media screen and (max-width: 979px){
+  .profile__image{
+    margin-right: 0px;
   }
 }

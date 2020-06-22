@@ -5,8 +5,15 @@
 }
 
 @media screen and (max-width: 1279px){
-
   .footer{
     max-width: 582px;
+  }
+}
+
+@media screen and (max-width: 979px){
+  .footer{
+    max-width: 282px;
+    margin:auto;
+    padding-left: 19px;
   }
 }

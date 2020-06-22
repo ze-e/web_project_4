@@ -8,8 +8,16 @@
 }
 
 @media screen and (max-width: 1279px){
-
   .elements{
     max-width: 582px;
+  }
+}
+
+@media screen and (max-width: 979px){
+  .elements{
+    max-width: 282px;
+    grid-gap: 20px;
+    padding-left: 19px;
+    padding-right: 19px;
   }
 }
