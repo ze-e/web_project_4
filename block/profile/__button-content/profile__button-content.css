@@ -3,7 +3,8 @@
   align-items: center;
 }
 
-@media screen and (max-width: 581px){
+@media screen and (max-width: 1279px){
+
   .profile__button-content{
     align-self: center;
   }
