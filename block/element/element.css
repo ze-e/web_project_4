@@ -7,11 +7,7 @@
   background: #FFFFFF;
   border-radius: 10px;
   text-align: center;
-  width: 282px;
-}
-
-@media screen and (max-width: 581px){
-  .element{
-    margin: 0px 19px;
-  }
+  width: 100%;
+  height: auto;
+  max-width: 282px;
 }
