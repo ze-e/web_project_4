@@ -1,6 +1,5 @@
 .profile__name{
   color: white;
-  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
@@ -9,15 +8,13 @@
   margin-block-start: 0px;
   margin-block-end: 0px;
   margin-right: 24px;
-  vertical-align: text-bottom ;
   display: flex;
 }
 
 @media screen and (max-width: 1279px){
-
   .profile__name{
+    margin: 0px;
     font-size: 22px;
-    line-height: 56px;
     text-align: center;
     margin-right: 12px;
   }

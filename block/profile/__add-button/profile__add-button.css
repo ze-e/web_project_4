@@ -7,12 +7,22 @@
   align-items: center;
   background-color: black;
   opacity: 1;
+  justify-self: center;
+  align-self: center;
+  margin-left: 154px;
 }
 
 .profile__add-button:hover, .profile__add-button:hover .profile__add-icon{
   cursor: pointer;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 1279px){
+  .profile__add-button{
+    margin-left: 0px;
+  }
+}
+
 @media screen and (max-width: 979px){
 
   .profile__add-button{
