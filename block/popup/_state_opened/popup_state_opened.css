@@ -1,4 +1,4 @@
-.popup_opened{
+.popup_state_opened{
   display: flex;
   flex-direction: column;
   align-items: center;
