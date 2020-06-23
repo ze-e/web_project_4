@@ -24,8 +24,6 @@ function formSubmitHandler (evt) {
     // Insert new values using the textContent property of the querySelector() method
     profileName.textContent = name;
     profileDescription.textContent = description;
-
-    console.log(`name: ${profileName.textContent} description: ${profileDescription.textContent}`)
 }
 
 // Connect the handler to the form:
