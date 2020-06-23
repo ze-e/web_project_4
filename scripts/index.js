@@ -1,12 +1,26 @@
-// Let's find the form in the DOM
+/* popup handler */
+
+function popupHandler(){
+    let popup = document.querySelector('.popup');
+    popup.classList.toggle('popup_state_opened');
+    //console.log(`${popup.classList}`);
+}
+
+//add handler to edit button and close button
+let editButton = document.querySelector('.profile__edit-button');
+editButton.addEventListener('click', popupHandler);
+
+let closeButton = document.querySelector('.popup__close');
+closeButton.addEventListener('click', popupHandler);
+
+
+/*   submit handler  */
+
 let form = document.querySelector('.popup__form');
 
-// Next is the form submit handler, though
-// it won't submit anywhere just yet
 function formSubmitHandler (evt) {
     evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
-                          // Having done so, we can define our own way of submitting the form.
-                          // We'll explain it in more detail later.
+
 
     // Let's find the form fields in the DOM
     let nameInput = form.querySelector('.popup__input-name');
@@ -24,6 +38,9 @@ function formSubmitHandler (evt) {
     // Insert new values using the textContent property of the querySelector() method
     profileName.textContent = name;
     profileDescription.textContent = description;
+
+    //close window after changing values
+    popupHandler();
 }
 
 // Connect the handler to the form:
