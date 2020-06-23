@@ -3,8 +3,9 @@
   height: 58px;
   opacity: 1.0;
   z-index: 2;
-  right: -430px;
-  position: relative;
+  top: -58px;
+  right: -58px;
+  position: absolute;
 }
 
 .popup__close:hover{
