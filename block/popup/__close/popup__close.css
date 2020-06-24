@@ -6,6 +6,14 @@
   top: -58px;
   right: -58px;
   position: absolute;
+
+  background-image: url("../../../images/ui/close.svg");
+  background-position: center;
+  object-fit: cover; 
+  background-repeat: no-repeat;
+  border: none;
+  align-self: center;
+  background-color: black;
 }
 
 .popup__close:hover{

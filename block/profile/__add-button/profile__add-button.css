@@ -3,13 +3,17 @@
   height: 50px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  display: grid;
-  align-items: center;
   background-color: black;
   opacity: 1;
   justify-self: center;
   align-self: center;
   margin-left: 154px;
+
+  background-image: url('../../../images/ui/add.svg');
+  background-position: center;
+  object-fit: cover; 
+  background-repeat: no-repeat;
+
 }
 
 .profile__add-button:hover, .profile__add-button:hover .profile__add-icon{

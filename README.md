@@ -1,5 +1,6 @@
 # Project 4: Around The U.S.
 
+* [Link to the project on github](https://ze-e.github.io/web_project_4/)
 ### Overview
 
 * Figma
