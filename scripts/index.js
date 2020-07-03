@@ -120,8 +120,14 @@ function renderCards(cards){
     cards.forEach( item => {
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
-        newCard.querySelector(".element__image").src = item.link;
-        newCard.querySelector(".element__image").alt = item.name + "-img";
+        if(item.link !== undefined){
+            newCard.querySelector(".element__image").src = item.link;
+            newCard.querySelector(".element__image").alt = item.name + "-img";
+        }
+        else{
+            newCard.querySelector(".element__image").src = './images/element/default.jpg';
+            newCard.querySelector(".element__image").alt = "default-img"; 
+        }
         cardGrid.appendChild(newCard);
     })
 }
@@ -140,7 +146,7 @@ function addCardSubmitHandler (evt) {
     const newCard = {};
     newCard.name = cardName;
     newCard.cardDescription = cardDescription;
-    cardList.push(newCard);
+    cardList.unshift(newCard);
     renderCards(cardList);
 
     //close window after changing values
