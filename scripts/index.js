@@ -118,7 +118,7 @@ function renderCards(cards){
     cardGrid.innerHTML= '';
 
     //add cards
-    cards.forEach( item => {
+    cards.forEach( (item, index) => {
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
         if(item.link !== undefined){
@@ -135,7 +135,13 @@ function renderCards(cards){
         likeButton.addEventListener('click', evt => {
             evt.target.classList.toggle('.element__like-button_state_liked');
         });
-        
+
+        //add eventListener to delete button
+        const deleteButton = newCard.querySelector('.element__delete-button');
+        deleteButton.addEventListener('click', evt => {
+            cardList.splice(index, 1);
+            renderCards(cardList);
+        });
 
         cardGrid.appendChild(newCard);
     })
@@ -161,4 +167,3 @@ function addCardHandler (evt) {
     //close window after changing values
     cardPopUpHandler(evt);
 }
-
