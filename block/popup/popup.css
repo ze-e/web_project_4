@@ -2,9 +2,12 @@
 @import url(./__container/popup__container.css);
 @import url(./__form/popup__form.css);
 @import url(./__title/popup__title.css);
-@import url(./__input-description/popup__input-description.css);
 @import url(./__input-name/popup__input-name.css);
+@import url(./__input-description/popup__input-description.css);
+@import url(./__input-card-name/popup__input-card-name.css);
+@import url(./__input-card-description/popup__input-card-description.css);
 @import url(./__submit/popup__submit.css);
+@import url(./__card-submit/popup__card-submit.css);
 @import url(./_state_opened/popup_state_opened.css);
 
 .popup{

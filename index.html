@@ -72,14 +72,26 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Around The U.S.</p>
     </footer>
-    <section class="popup">
+    <section class="popup popup_type_edit-profile">
       <div class="popup__container">
-        <form class="popup__form">
+        <form class="popup__form popup__form_type_edit-profile">
           <button class="popup__close"></button>  
           <h4 class="popup__title">Edit profile</h4>
           <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau">
           <input class="popup__input-description" type="text" name="description" value="Explorer">
           <button class="popup__submit" type="submit">Save</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_type_add-card">
+      <div class="popup__container">
+        <form class="popup__form popup__form_type_add-card">
+          <button class="popup__close"></button>  
+          <h4 class="popup__title">New Place</h4>
+          <input class="popup__input-card-name" type="text" name="card-name" placeholder="Title">
+          <input class="popup__input-card-description" type="text" name="card-description" placeholder="Image URL">
+          <button class="popup__card-submit" type="submit">Save</button>
         </form>
       </div>
     </section>
