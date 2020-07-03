@@ -1,4 +1,6 @@
-/* DOM ELEMENTS */
+/* MODAL FORMS */
+
+/* asign DOM elements */
 //assigning all DOM elements at the beginning optimizes performance
 
 //popup handler
@@ -21,7 +23,6 @@ const formAddCard = document.querySelector('.popup__form_type_add-card');
 const cardNameInput = document.querySelector('.popup__input-card-name');
 const cardDescriptionInput = document.querySelector('.popup__input-card-description');
 
-/* MODAL FORMS */
 
 /* popup handlers */
 
@@ -67,29 +68,20 @@ function formSubmitHandler (evt) {
 
 }
 
-function addCardSubmitHandler (evt) {
-    evt.preventDefault(); 
-
-    // Get the values of each field from the corresponding value property
-    const name = cardNameInput.value;
-    const description = cardNameInput.value;
-
-    // Insert new values using the textContent property of the querySelector() method
-    //profileName.textContent = name;
-    //profileDescription.textContent = description;
-
-    //close window after changing values
-    addCardHandler(evt);
-
-}
 
 // Connect the handler to the form:
 // it will watch the submit event
 form.addEventListener('submit', formSubmitHandler);
 formAddCard.addEventListener('submit', addCardSubmitHandler);
 
+
 /* CARDS */
-/*populate initial cards */
+
+/* asign DOM elements */
+const cardGrid = document.querySelector(".elements");
+const cardTemplate = document.querySelector("#card");
+
+/* initial cards */
 
 const initialCards = [
     {
@@ -118,53 +110,43 @@ const initialCards = [
     }
 ];
 
-/* old card elements: 
+//add initial cards
+addCards(initialCards);
 
-      <div class="element">
-        <img class="element__image" src="./images/element/yosemite.jpg" alt="yosemite">
-        <div class="element__text">
-          <h3 class="element__title">Yosemite Valley</h3>
-          <button class="element__like-button"></button>
-        </div>
-      </div>
+/* add cards */
+/*  FIXME: I tried checking if the parameter was an array
+    or single object, but was getting undefined errors */
 
-      <div class="element">
-        <img class="element__image" src="./images/element/lake_louise.jpg" alt="lake-louise">
-        <div class="element__text">
-          <h3 class="element__title">Lake Louise</h3>
-          <button class="element__like-button"></button>
-        </div>
-      </div>
+function addCards(cards){
+    cards.forEach( item => {
+    const newCard = cardTemplate.cloneNode(true).content;
+    newCard.querySelector(".element__title").textContent = item.name;
+    newCard.querySelector(".element__image").src = item.link;
+    newCard.querySelector(".element__image").alt = item.name + "-img";
+    cardGrid.appendChild(newCard);
+    })
+}
 
-      <div class="element">
-        <img class="element__image" src="./images/element/bald_mountains.jpg" alt="bald-mountains">
-        <div class="element__text">
-          <h3 class="element__title">Bald Mountains</h3>
-          <button class="element__like-button"></button>
-        </div>
-      </div>
+function addCardSubmitHandler (evt) {
+    evt.preventDefault(); 
+    // Get the values of each field from the corresponding value property
+    const cardName = cardNameInput.value;
+    const cardDescription = cardDescriptionInput.value;
 
-      <div class="element">
-        <img class="element__image" src="./images/element/latemar.jpg" alt="latemar">
-        <div class="element__text">
-          <h3 class="element__title">Latemar</h3>
-          <button class="element__like-button"></button>
-        </div>
-      </div>
+    // Insert new values using the textContent property of the querySelector() method
+    profileName.textContent = cardName;
+    profileDescription.textContent = cardDescription;
 
-      <div class="element">
-        <img class="element__image" src="./images/element/vanois.jpg" alt="vanois">
-        <div class="element__text">
-          <h3 class="element__title">Vanois National Park</h3>
-          <button class="element__like-button"></button>
-        </div>
-      </div>
+    //add the new card object to the DOM. The card is added to an array so we don't have 
+    //to write a new function (see FIXME note)
+    const newCards = [];
+    const newCard = {};
+    newCard.name = cardName;
+    newCard.cardDescription = cardDescription;
+    newCards.push(newCard);
+    addCards(newCards);
 
-      <div class="element">
-        <img class="element__image" src="./images/element/lago_di_braies.jpg" alt="lago-di-braies">
-        <div class="element__text">
-          <h3 class="element__title">Lago di Braies</h3>
-          <button class="element__like-button"></button>
-      </div>
-      </div>
-      */
+    //close window after changing values
+    addCardHandler(evt);
+
+}
