@@ -129,6 +129,14 @@ function renderCards(cards){
             newCard.querySelector(".element__image").src = './images/element/default.jpg';
             newCard.querySelector(".element__image").alt = "default-img"; 
         }
+
+        //add eventListener to like button
+        const likeButton = newCard.querySelector('.element__like-button');
+        likeButton.addEventListener('click', evt => {
+            evt.target.classList.toggle('.element__like-button_state_liked');
+        });
+        
+
         cardGrid.appendChild(newCard);
     })
 }
@@ -153,3 +161,4 @@ function addCardHandler (evt) {
     //close window after changing values
     cardPopUpHandler(evt);
 }
+
