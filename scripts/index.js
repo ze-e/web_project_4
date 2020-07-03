@@ -83,7 +83,7 @@ const cardTemplate = document.querySelector("#card");
 
 /* initial cards */
 
-const initialCards = [
+const cardList = [
     {
         name: "Yosemite Valley",
         link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
@@ -110,20 +110,19 @@ const initialCards = [
     }
 ];
 
-//add initial cards
-addCards(initialCards);
+renderCards(cardList);
 
-/* add cards */
-/*  FIXME: I tried checking if the parameter was an array
-    or single object, but was getting undefined errors */
+function renderCards(cards){
+    //clear cards
+    cardGrid.innerHTML= '';
 
-function addCards(cards){
+    //add cards
     cards.forEach( item => {
-    const newCard = cardTemplate.cloneNode(true).content;
-    newCard.querySelector(".element__title").textContent = item.name;
-    newCard.querySelector(".element__image").src = item.link;
-    newCard.querySelector(".element__image").alt = item.name + "-img";
-    cardGrid.appendChild(newCard);
+        const newCard = cardTemplate.cloneNode(true).content;
+        newCard.querySelector(".element__title").textContent = item.name;
+        newCard.querySelector(".element__image").src = item.link;
+        newCard.querySelector(".element__image").alt = item.name + "-img";
+        cardGrid.appendChild(newCard);
     })
 }
 
@@ -137,16 +136,13 @@ function addCardSubmitHandler (evt) {
     profileName.textContent = cardName;
     profileDescription.textContent = cardDescription;
 
-    //add the new card object to the DOM. The card is added to an array so we don't have 
-    //to write a new function (see FIXME note)
-    const newCards = [];
+    //create new card object and add it to the array
     const newCard = {};
     newCard.name = cardName;
     newCard.cardDescription = cardDescription;
-    newCards.push(newCard);
-    addCards(newCards);
+    cardList.push(newCard);
+    renderCards(cardList);
 
     //close window after changing values
     addCardHandler(evt);
-
 }
