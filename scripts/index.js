@@ -24,6 +24,11 @@ const cardDescriptionInput = document.querySelector('.popup__input-card-descript
 
 /* popup handlers */
 
+/*FIXME: Tried to consolidate the popuphandler 
+and addcardhandler into one function, using evt.target, but it was unresponsive
+consider refactoring in the future
+*/
+
 function popupHandler(evt){
 
     evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
