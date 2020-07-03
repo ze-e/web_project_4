@@ -20,8 +20,9 @@ const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
 const formAddCard = document.querySelector('.popup__form_type_add-card');
+const cardSubmitButton = document.querySelector('.popup__card-submit');
 const cardNameInput = document.querySelector('.popup__input-card-name');
-const cardDescriptionInput = document.querySelector('.popup__input-card-description');
+const cardURLInput = document.querySelector('.popup__input-card-url');
 
 
 /* popup handlers */
@@ -38,7 +39,7 @@ function popupHandler(evt){
 
 }
 
-function addCardHandler(evt){
+function cardPopUpHandler(evt){
 
     evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
     popup_addCard.classList.toggle('popup_state_opened');
@@ -48,7 +49,7 @@ function addCardHandler(evt){
 //add handlers to buttons
 editButton.addEventListener('click', popupHandler);
 closeButton.addEventListener('click', popupHandler);
-addButton.addEventListener('click', addCardHandler);
+addButton.addEventListener('click', cardPopUpHandler);
 
 
 /*   form handlers  */
@@ -72,7 +73,7 @@ function formSubmitHandler (evt) {
 // Connect the handler to the form:
 // it will watch the submit event
 form.addEventListener('submit', formSubmitHandler);
-formAddCard.addEventListener('submit', addCardSubmitHandler);
+cardSubmitButton.addEventListener('click', addCardHandler);
 
 
 /* CARDS */
@@ -132,23 +133,23 @@ function renderCards(cards){
     })
 }
 
-function addCardSubmitHandler (evt) {
+function addCardHandler (evt) {
     evt.preventDefault(); 
     // Get the values of each field from the corresponding value property
     const cardName = cardNameInput.value;
-    const cardDescription = cardDescriptionInput.value;
+    const cardURL = cardURLInput.value;
 
     // Insert new values using the textContent property of the querySelector() method
     profileName.textContent = cardName;
-    profileDescription.textContent = cardDescription;
+    profileDescription.textContent = cardURL;
 
     //create new card object and add it to the array
     const newCard = {};
     newCard.name = cardName;
-    newCard.cardDescription = cardDescription;
+    newCard.cardURL = cardURL;
     cardList.unshift(newCard);
     renderCards(cardList);
 
     //close window after changing values
-    addCardHandler(evt);
+    cardPopUpHandler(evt);
 }
