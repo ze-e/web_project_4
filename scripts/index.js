@@ -113,6 +113,9 @@ const cardList = [
 
 renderCards(cardList);
 
+/* this renderCards function allows the script to easily accept an array of places from
+a database or API, and manipulate them using normal array functions such as push, shift, etc. */
+
 function renderCards(cards){
     //clear cards
     cardGrid.innerHTML= '';
@@ -121,13 +124,11 @@ function renderCards(cards){
     cards.forEach( (item, index) => {
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
-        if(item.link !== undefined){
-            newCard.querySelector(".element__image").src = item.link;
-            newCard.querySelector(".element__image").alt = item.name + "-img";
+        if(item.link !== undefined && item.link !== ""){
+            newCard.querySelector(".element__image").style.backgroundImage = 'url(' + item.link + ')';
         }
         else{
-            newCard.querySelector(".element__image").src = './images/element/default.jpg';
-            newCard.querySelector(".element__image").alt = "default-img"; 
+            newCard.querySelector(".element__image").style.backgroundImage = 'url(images/element/default.jpg)';
         }
 
         //add eventListener to like button
@@ -151,16 +152,16 @@ function addCardHandler (evt) {
     evt.preventDefault(); 
     // Get the values of each field from the corresponding value property
     const cardName = cardNameInput.value;
-    const cardURL = cardURLInput.value;
+    const cardLink = cardURLInput.value;
 
     // Insert new values using the textContent property of the querySelector() method
-    profileName.textContent = cardName;
-    profileDescription.textContent = cardURL;
+    cardName.textContent = cardName;
+    cardLink.textContent = cardLink;
 
     //create new card object and add it to the array
     const newCard = {};
     newCard.name = cardName;
-    newCard.cardURL = cardURL;
+    newCard.link = cardLink;
     cardList.unshift(newCard);
     renderCards(cardList);
 

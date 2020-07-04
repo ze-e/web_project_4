@@ -25,7 +25,7 @@
 <template id="card">
   <div class="element">
     <div class="element__delete-button"></div>
-    <img class="element__image">
+    <div class="element__image"></div>
     <div class="element__text">
       <h3 class="element__title"></h3>
       <button class="element__like-button"></button>
@@ -48,15 +48,14 @@
         </form>
       </div>
     </section>
-
     <section class="popup popup_type_add-card">
       <div class="popup__container">
         <form class="popup__form popup__form_type_add-card">
           <button class="popup__close"></button>  
           <h4 class="popup__title">New Place</h4>
-          <input class="popup__input-card-name" type="text" name="card-name" placeholder="Title">
-          <input class="popup__input-card-url" type="text" name="card-url" placeholder="Image URL">
-          <button class="popup__card-submit" type="button">Save</button>
+          <input class="popup__input-card-name" type="text" name="name" placeholder="Title">
+          <input class="popup__input-card-url" type="url" name="link" placeholder="Image URL">
+          <button class="popup__card-submit" type="button">Create</button>
         </form>
       </div>
     </section>
