@@ -8,8 +8,9 @@ const popup_editProfile = document.querySelector('.popup_type_edit-profile');
 const popup_addCard = document.querySelector('.popup_type_add-card');
 
 const editButton = document.querySelector('.profile__edit-button');
-const closeButton = document.querySelector('.popup__close');
+const closeButton = document.querySelector('.popup__close_type_edit-profile');
 const addButton = document.querySelector('.profile__add-button');
+const closeAddButton = document.querySelector('.popup__close_type_add-card');
 
 
 //form handlers
@@ -27,29 +28,19 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 
 /* popup handlers */
 
-/*FIXME: Tried to consolidate the popuphandler 
-and addcardhandler into one function, using evt.target, but it was unresponsive
-consider refactoring in the future
-*/
-
-function popupHandler(evt){
+function popupHandler(evt, modal){
 
     evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
-    popup_editProfile.classList.toggle('popup_state_opened');
+    modal.classList.toggle('popup_state_opened');
 
 }
 
-function cardPopUpHandler(evt){
-
-    evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
-    popup_addCard.classList.toggle('popup_state_opened');
-
-}
 
 //add handlers to buttons
-editButton.addEventListener('click', popupHandler);
-closeButton.addEventListener('click', popupHandler);
-addButton.addEventListener('click', cardPopUpHandler);
+editButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)});
+closeButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)});
+addButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
+closeAddButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
 
 
 /*   form handlers  */
@@ -65,7 +56,7 @@ function formSubmitHandler (evt) {
     profileDescription.textContent = description;
 
     //close window after changing values
-    popupHandler(evt);
+    popupHandler(evt, popup_editProfile);
 
 }
 
@@ -166,5 +157,5 @@ function addCardHandler (evt) {
     renderCards(cardList);
 
     //close window after changing values
-    cardPopUpHandler(evt);
+    popupHandler(evt, popup_addCard);
 }
