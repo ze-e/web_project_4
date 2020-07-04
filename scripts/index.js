@@ -6,11 +6,13 @@
 //popup handler
 const popup_editProfile = document.querySelector('.popup_type_edit-profile');
 const popup_addCard = document.querySelector('.popup_type_add-card');
+const popup_image = document.querySelector('.popup_type_image');
 
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close_type_edit-profile');
 const addButton = document.querySelector('.profile__add-button');
 const closeAddButton = document.querySelector('.popup__close_type_add-card');
+const closeImageButton = document.querySelector('.popup__close_type_image');
 
 
 //form handlers
@@ -41,6 +43,7 @@ editButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)})
 closeButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)});
 addButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
 closeAddButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
+closeImageButton.addEventListener('click',()=>{popupHandler(event,popup_image)});
 
 
 /*   form handlers  */
@@ -115,12 +118,16 @@ function renderCards(cards){
     cards.forEach( (item, index) => {
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
+        const cardImage = newCard.querySelector(".element__image");
         if(item.link !== undefined && item.link !== ""){
-            newCard.querySelector(".element__image").style.backgroundImage = 'url(' + item.link + ')';
+            cardImage.style.backgroundImage = 'url(' + item.link + ')';
         }
         else{
-            newCard.querySelector(".element__image").style.backgroundImage = 'url(images/element/default.jpg)';
+            cardImage.style.backgroundImage = 'url(images/element/default.jpg)';
         }
+
+        //add eventListener to image
+        cardImage.addEventListener('click',()=>{openModalImage(event,item)});
 
         //add eventListener to like button
         const likeButton = newCard.querySelector('.element__like-button');
@@ -158,4 +165,11 @@ function addCardHandler (evt) {
 
     //close window after changing values
     popupHandler(evt, popup_addCard);
+}
+
+/* MODAL IMAGE */
+function openModalImage(evt,image){
+    popup_image.querySelector('.popup__image').style.backgroundImage = 'url(' + image.link + ')';
+    popup_image.querySelector('.popup__image-caption').textContent = image.name;
+    popupHandler(event,popup_image);
 }
