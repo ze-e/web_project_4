@@ -119,13 +119,7 @@ function renderCards(cards){
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
         const cardImage = newCard.querySelector(".element__image");
-        if(item.link !== undefined && item.link !== ""){
-            cardImage.style.backgroundImage = 'url(' + item.link + ')';
-        }
-        else{
-            cardImage.style.backgroundImage = 'url(images/element/default.jpg)';
-        }
-
+        cardImage.style.backgroundImage = 'url(' + item.link + ')';
         //add eventListener to image
         cardImage.addEventListener('click',()=>{openModalImage(event,item)});
 
@@ -168,8 +162,16 @@ function addCardHandler (evt) {
 }
 
 /* MODAL IMAGE */
-function openModalImage(evt,image){
-    popup_image.querySelector('.popup__image').style.backgroundImage = 'url(' + image.link + ')';
-    popup_image.querySelector('.popup__image-caption').textContent = image.name;
+function openModalImage(evt,item){
+    const image = popup_image.querySelector('.popup__image');
+    image.src = item.link;
+    image.alt = item.name;
+
+    popup_image.querySelector('.popup__image-caption').textContent = item.name;
     popupHandler(event,popup_image);
+}
+
+/* Don't display broken images */
+function imgError(image){
+    image.src = "./images/element/default.jpg";
 }

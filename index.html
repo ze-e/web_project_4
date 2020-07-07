@@ -64,13 +64,13 @@
 
     <section class="popup popup_type_image">
       <div class="popup__container">
-        <form class="popup__form popup__form_type_image">
+        <div class="popup__image-modal">
           <button class="popup__close popup__close_type_image"></button>  
           <figure>
-            <div class="popup__image"></div>
+            <img class="popup__image" onerror="imgError(this);">
             <figcaption class="popup__image-caption"></figcaption>
           </figure>
-        </form>
+        </div>
       </div>
     </section>
 
