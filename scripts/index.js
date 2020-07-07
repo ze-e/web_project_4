@@ -76,7 +76,7 @@ const cardTemplate = document.querySelector("#card");
 
 /* initial cards */
 
-const cardList = [
+const initialCards = [
     {
         name: "Yosemite Valley",
         link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
@@ -103,6 +103,8 @@ const cardList = [
     }
 ];
 
+//add initial cards to our total list of cards
+const cardList = initialCards.slice();
 
 /* MODAL IMAGE */
 function openModalImage(evt,item){
