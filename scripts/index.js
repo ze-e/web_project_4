@@ -107,8 +107,6 @@ const cardList = [
 
 renderCards(cardList);
 
-/* this renderCards function allows the script to easily accept an array of places from
-a database or API, and manipulate them using normal array functions such as push, shift, etc. */
 
 function renderCards(cards){
     //clear cards
@@ -128,7 +126,6 @@ function renderCards(cards){
         const likeButton = newCard.querySelector('.element__like-button');
         likeButton.addEventListener('click', evt => {
             evt.target.classList.toggle('element__like-button_state_liked');
-            console.log(evt.target.classList);
         });
 
         //add eventListener to delete button
