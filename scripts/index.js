@@ -4,9 +4,9 @@
 //assigning all DOM elements at the beginning optimizes performance
 
 //popup handler
-const popup_editProfile = document.querySelector('.popup_type_edit-profile');
-const popup_addCard = document.querySelector('.popup_type_add-card');
-const popup_image = document.querySelector('.popup_type_image');
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
 
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close_type_edit-profile');
@@ -22,7 +22,6 @@ const descriptionInput = document.querySelector('.popup__input-description');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-const formAddCard = document.querySelector('.popup__form_type_add-card');
 const cardSubmitButton = document.querySelector('.popup__card-submit');
 const cardNameInput = document.querySelector('.popup__input-card-name');
 const cardURLInput = document.querySelector('.popup__input-card-url');
@@ -30,20 +29,20 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 
 /* popup handlers */
 
-function popupHandler(evt, modal){
+function popupHandler(event, modal){
 
-    evt.preventDefault(); // This line stops the browser from submitting the form in the default way.
+    event.preventDefault(); // This line stops the browser from submitting the form in the default way.
     modal.classList.toggle('popup_state_opened');
 
 }
 
 
 //add handlers to buttons
-editButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)});
-closeButton.addEventListener('click',()=>{popupHandler(event,popup_editProfile)});
-addButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
-closeAddButton.addEventListener('click',()=>{popupHandler(event,popup_addCard)});
-closeImageButton.addEventListener('click',()=>{popupHandler(event,popup_image)});
+editButton.addEventListener('click',()=>{popupHandler(event,popupEditProfile)});
+closeButton.addEventListener('click',()=>{popupHandler(event,popupEditProfile)});
+addButton.addEventListener('click',()=>{popupHandler(event,popupAddCard)});
+closeAddButton.addEventListener('click',()=>{popupHandler(event,popupAddCard)});
+closeImageButton.addEventListener('click',()=>{popupHandler(event,popupImage)});
 
 
 /*   form handlers  */
@@ -59,7 +58,7 @@ function formSubmitHandler (evt) {
     profileDescription.textContent = description;
 
     //close window after changing values
-    popupHandler(evt, popup_editProfile);
+    popupHandler(evt, popupEditProfile);
 
 }
 
@@ -67,7 +66,6 @@ function formSubmitHandler (evt) {
 // Connect the handler to the form:
 // it will watch the submit event
 form.addEventListener('submit', formSubmitHandler);
-cardSubmitButton.addEventListener('click', addCardHandler);
 
 
 /* CARDS */
@@ -105,8 +103,16 @@ const cardList = [
     }
 ];
 
-renderCards(cardList);
 
+/* MODAL IMAGE */
+function openModalImage(evt,item){
+    const image = popupImage.querySelector('.popup__image');
+    image.src = item.link;
+    image.alt = item.name;
+
+    popupImage.querySelector('.popup__image-caption').textContent = item.name;
+    popupHandler(event,popupImage);
+}
 
 function renderCards(cards){
     //clear cards
@@ -139,6 +145,9 @@ function renderCards(cards){
     })
 }
 
+//render the initial cards
+renderCards(cardList);
+
 function addCardHandler (evt) {
     evt.preventDefault(); 
     // Get the values of each field from the corresponding value property
@@ -157,18 +166,13 @@ function addCardHandler (evt) {
     renderCards(cardList);
 
     //close window after changing values
-    popupHandler(evt, popup_addCard);
+    popupHandler(evt, popupAddCard);
 }
 
-/* MODAL IMAGE */
-function openModalImage(evt,item){
-    const image = popup_image.querySelector('.popup__image');
-    image.src = item.link;
-    image.alt = item.name;
+//add handler to card submit button
+cardSubmitButton.addEventListener('click', addCardHandler);
 
-    popup_image.querySelector('.popup__image-caption').textContent = item.name;
-    popupHandler(event,popup_image);
-}
+
 
 // Replace broken images with a default image
 // This is used in the image's onError attribute
