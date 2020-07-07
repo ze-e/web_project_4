@@ -136,7 +136,7 @@ function renderCards(cards){
 
         //add eventListener to delete button
         const deleteButton = newCard.querySelector('.element__delete-button');
-        deleteButton.addEventListener('click', evt => {
+        deleteButton.addEventListener('click', () => {
             cardList.splice(index, 1);
             renderCards(cardList);
         });
