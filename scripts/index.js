@@ -171,6 +171,7 @@ function openModalImage(evt,item){
 }
 
 // Replace broken images with a default image
+// This is used in the image's onError attribute
 function imgError(image){
     image.src = "./images/element/default.jpg";
     image.alt = "image-broken"
