@@ -119,14 +119,16 @@ function renderCards(cards){
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
         const cardImage = newCard.querySelector(".element__image");
-        cardImage.style.backgroundImage = 'url(' + item.link + ')';
+        cardImage.src = item.link;
+        cardImage.alt = item.name;
         //add eventListener to image
-        cardImage.addEventListener('click',()=>{openModalImage(event,item)});
+        cardImage.addEventListener('click', () => {openModalImage(event,item)});
 
         //add eventListener to like button
         const likeButton = newCard.querySelector('.element__like-button');
         likeButton.addEventListener('click', evt => {
             evt.target.classList.toggle('.element__like-button_state_liked');
+            console.log(evt.target.classList);
         });
 
         //add eventListener to delete button
@@ -174,4 +176,5 @@ function openModalImage(evt,item){
 // Replace broken images with a default image
 function imgError(image){
     image.src = "./images/element/default.jpg";
+    image.alt = "image-broken"
 }

@@ -1,11 +1,7 @@
 .element__image{
   width: 282px;
   height: 282px;
-  border-radius: 10px 10px 0px 0px;  
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  background-position: center;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .element__image:hover{
