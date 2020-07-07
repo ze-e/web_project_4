@@ -127,7 +127,7 @@ function renderCards(cards){
         //add eventListener to like button
         const likeButton = newCard.querySelector('.element__like-button');
         likeButton.addEventListener('click', evt => {
-            evt.target.classList.toggle('.element__like-button_state_liked');
+            evt.target.classList.toggle('element__like-button_state_liked');
             console.log(evt.target.classList);
         });
 
