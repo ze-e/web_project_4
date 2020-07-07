@@ -171,7 +171,7 @@ function openModalImage(evt,item){
     popupHandler(event,popup_image);
 }
 
-/* Don't display broken images */
+// Replace broken images with a default image
 function imgError(image){
     image.src = "./images/element/default.jpg";
 }
