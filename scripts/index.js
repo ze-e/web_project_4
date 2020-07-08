@@ -108,17 +108,15 @@ function openModalImage(evt,item){
     const image = popupImage.querySelector('.popup__image');
     image.src = item.link;
     image.alt = item.name;
-
     popupImage.querySelector('.popup__image-caption').textContent = item.name;
     popupHandler(event,popupImage);
 }
 
+
 function addInitial(cards){
-    //clear cards
-    cardGrid.innerHTML= '';
 
     //add cards
-    cards.forEach( (item, index) => {
+    cards.forEach( (item) => {
         const newCard = cardTemplate.cloneNode(true).content;
         newCard.querySelector(".element__title").textContent = item.name;
         const cardImage = newCard.querySelector(".element__image");
@@ -129,17 +127,18 @@ function addInitial(cards){
 
         //add eventListener to like button
         const likeButton = newCard.querySelector('.element__like-button');
-        likeButton.addEventListener('click', evt => {
-            evt.target.classList.toggle('element__like-button_state_liked');
+        likeButton.addEventListener('click', (event) => {
+            event.target.classList.toggle('element__like-button_state_liked');
         });
 
         //add eventListener to delete button
         const deleteButton = newCard.querySelector('.element__delete-button');
         deleteButton.addEventListener('click', (event) => {
-            cardGrid.removeChild(card);
+            event.target.closest('.element').remove();
         });
 
         cardGrid.appendChild(newCard);
+
     })
 }
 
@@ -185,7 +184,7 @@ function addNewcard(item){
     //add eventListener to delete button
     const deleteButton = card.querySelector('.element__delete-button');
     deleteButton.addEventListener('click', (event) => {
-        cardGrid.removeChild(card);
+        event.target.closest('.element').remove();
     });
 
     cardGrid.prepend(card);
@@ -194,11 +193,3 @@ function addNewcard(item){
 //add handler to card submit button
 cardSubmitButton.addEventListener('click', addCardHandler);
 
-
-
-// Replace broken images with a default image
-// This is used in the image's onError attribute
-function imgError(image){
-    image.src = "./images/element/default.jpg";
-    image.alt = "image-broken"
-}
