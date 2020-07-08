@@ -103,9 +103,6 @@ const initialCards = [
     }
 ];
 
-//initialize our list of cards with the initial cards without modifying initialCards
-const cardList = initialCards.slice();
-
 /* MODAL IMAGE */
 function openModalImage(evt,item){
     const image = popupImage.querySelector('.popup__image');
@@ -116,7 +113,7 @@ function openModalImage(evt,item){
     popupHandler(event,popupImage);
 }
 
-function renderCards(cards){
+function addInitial(cards){
     //clear cards
     cardGrid.innerHTML= '';
 
@@ -139,8 +136,7 @@ function renderCards(cards){
         //add eventListener to delete button
         const deleteButton = newCard.querySelector('.element__delete-button');
         deleteButton.addEventListener('click', () => {
-            cardList.splice(index, 1);
-            renderCards(cardList);
+            cardGrid.removeChild(card);
         });
 
         cardGrid.appendChild(newCard);
@@ -148,7 +144,7 @@ function renderCards(cards){
 }
 
 //render the initial cards
-renderCards(cardList);
+addInitial(initialCards);
 
 function addCardHandler (evt) {
     evt.preventDefault(); 
@@ -164,11 +160,35 @@ function addCardHandler (evt) {
     const newCard = {};
     newCard.name = cardName;
     newCard.link = cardLink;
-    cardList.unshift(newCard);
-    renderCards(cardList);
+    addNewcard(newCard);
 
     //close window after changing values
     popupHandler(evt, popupAddCard);
+}
+
+//adds new cards to the grid
+function addNewcard(item){
+    const card = cardTemplate.cloneNode(true).content;
+    card.querySelector(".element__title").textContent = item.name;
+    const cardImage = card.querySelector(".element__image");
+    cardImage.src = item.link;
+    cardImage.alt = item.name;
+    //add eventListener to image
+    cardImage.addEventListener('click', () => {openModalImage(event,item)});
+
+    //add eventListener to like button
+    const likeButton = card.querySelector('.element__like-button');
+    likeButton.addEventListener('click', evt => {
+        evt.target.classList.toggle('element__like-button_state_liked');
+    });
+
+    //add eventListener to delete button
+    const deleteButton = card.querySelector('.element__delete-button');
+    deleteButton.addEventListener('click', () => {
+        cardGrid.removeChild(card);
+    });
+
+    cardGrid.prepend(card);
 }
 
 //add handler to card submit button
