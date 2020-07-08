@@ -103,7 +103,7 @@ const initialCards = [
     }
 ];
 
-//add initial cards to our total list of cards
+//initialize our list of cards with the initial cards without modifying initialCards
 const cardList = initialCards.slice();
 
 /* MODAL IMAGE */

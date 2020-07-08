@@ -13,6 +13,7 @@
 @import url(./_state_opened/popup_state_opened.css);
 @import url(./__image-modal/popup__image-modal.css);
 @import url(./__image-caption/popup__image-caption.css);
+@import url(../popup/__close/_type_image/popup__close_type_image.css);
 
 .popup{
   position: fixed;
@@ -34,3 +35,4 @@
   opacity: 1;
 
 }
+

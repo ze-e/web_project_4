@@ -8,3 +8,11 @@
   margin: auto;
   position: relative;
 }
+@media screen and (max-width: 320px){
+  .popup__form{
+    max-width: 240px;
+    max-height: 258px;
+    padding: 30px 40px 30px 40px;
+    box-sizing: border-box;
+  }
+}
