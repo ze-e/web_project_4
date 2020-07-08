@@ -112,33 +112,37 @@ function openModalImage(evt,item){
     popupHandler(event,popupImage);
 }
 
+//adds new cards to the grid
+function addNewcard(item){
+    const card = cardTemplate.cloneNode(true).content;
+    card.querySelector(".element__title").textContent = item.name;
+    const cardImage = card.querySelector(".element__image");
+    cardImage.src = item.link;
+    cardImage.alt = item.name;
+    //add eventListener to image
+    cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
 
+    //add eventListener to like button
+    const likeButton = card.querySelector('.element__like-button');
+    likeButton.addEventListener('click', evt => {
+        evt.target.classList.toggle('element__like-button_state_liked');
+    });
+
+    //add eventListener to delete button
+    const deleteButton = card.querySelector('.element__delete-button');
+    deleteButton.addEventListener('click', (event) => {
+        event.target.closest('.element').remove();
+    });
+
+    cardGrid.prepend(card);
+}
+
+//call addNewCard for each item in the initial card array
 function addInitial(cards){
 
     //add cards
     cards.forEach( (item) => {
-        const newCard = cardTemplate.cloneNode(true).content;
-        newCard.querySelector(".element__title").textContent = item.name;
-        const cardImage = newCard.querySelector(".element__image");
-        cardImage.src = item.link;
-        cardImage.alt = item.name;
-        //add eventListener to image
-        cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
-
-        //add eventListener to like button
-        const likeButton = newCard.querySelector('.element__like-button');
-        likeButton.addEventListener('click', (event) => {
-            event.target.classList.toggle('element__like-button_state_liked');
-        });
-
-        //add eventListener to delete button
-        const deleteButton = newCard.querySelector('.element__delete-button');
-        deleteButton.addEventListener('click', (event) => {
-            event.target.closest('.element').remove();
-        });
-
-        cardGrid.appendChild(newCard);
-
+        addNewcard(item);
     })
 }
 
@@ -163,31 +167,6 @@ function addCardHandler (evt) {
 
     //close window after changing values
     popupHandler(evt, popupAddCard);
-}
-
-//adds new cards to the grid
-function addNewcard(item){
-    const card = cardTemplate.cloneNode(true).content;
-    card.querySelector(".element__title").textContent = item.name;
-    const cardImage = card.querySelector(".element__image");
-    cardImage.src = item.link;
-    cardImage.alt = item.name;
-    //add eventListener to image
-    cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
-
-    //add eventListener to like button
-    const likeButton = card.querySelector('.element__like-button');
-    likeButton.addEventListener('click', evt => {
-        evt.target.classList.toggle('element__like-button_state_liked');
-    });
-
-    //add eventListener to delete button
-    const deleteButton = card.querySelector('.element__delete-button');
-    deleteButton.addEventListener('click', (event) => {
-        event.target.closest('.element').remove();
-    });
-
-    cardGrid.prepend(card);
 }
 
 //add handler to card submit button
