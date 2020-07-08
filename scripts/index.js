@@ -38,11 +38,11 @@ function popupHandler(event, modal){
 
 
 //add handlers to buttons
-editButton.addEventListener('click',()=>{popupHandler(event,popupEditProfile)});
-closeButton.addEventListener('click',()=>{popupHandler(event,popupEditProfile)});
-addButton.addEventListener('click',()=>{popupHandler(event,popupAddCard)});
-closeAddButton.addEventListener('click',()=>{popupHandler(event,popupAddCard)});
-closeImageButton.addEventListener('click',()=>{popupHandler(event,popupImage)});
+editButton.addEventListener('click',(event)=>{popupHandler(event,popupEditProfile)});
+closeButton.addEventListener('click',(event)=>{popupHandler(event,popupEditProfile)});
+addButton.addEventListener('click',(event)=>{popupHandler(event,popupAddCard)});
+closeAddButton.addEventListener('click',(event)=>{popupHandler(event,popupAddCard)});
+closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImage)});
 
 
 /*   form handlers  */
@@ -125,7 +125,7 @@ function addInitial(cards){
         cardImage.src = item.link;
         cardImage.alt = item.name;
         //add eventListener to image
-        cardImage.addEventListener('click', () => {openModalImage(event,item)});
+        cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
 
         //add eventListener to like button
         const likeButton = newCard.querySelector('.element__like-button');
@@ -135,7 +135,7 @@ function addInitial(cards){
 
         //add eventListener to delete button
         const deleteButton = newCard.querySelector('.element__delete-button');
-        deleteButton.addEventListener('click', () => {
+        deleteButton.addEventListener('click', (event) => {
             cardGrid.removeChild(card);
         });
 
@@ -174,7 +174,7 @@ function addNewcard(item){
     cardImage.src = item.link;
     cardImage.alt = item.name;
     //add eventListener to image
-    cardImage.addEventListener('click', () => {openModalImage(event,item)});
+    cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
 
     //add eventListener to like button
     const likeButton = card.querySelector('.element__like-button');
@@ -184,7 +184,7 @@ function addNewcard(item){
 
     //add eventListener to delete button
     const deleteButton = card.querySelector('.element__delete-button');
-    deleteButton.addEventListener('click', () => {
+    deleteButton.addEventListener('click', (event) => {
         cardGrid.removeChild(card);
     });
 
