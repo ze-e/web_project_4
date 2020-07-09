@@ -46,8 +46,8 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 
 
 /*   form handlers  */
-function formSubmitHandler (evt) {
-    evt.preventDefault(); 
+function formSubmitHandler (event) {
+    event.preventDefault(); 
 
     // Get the values of each field from the corresponding value property
     const name = nameInput.value;
@@ -58,7 +58,7 @@ function formSubmitHandler (evt) {
     profileDescription.textContent = description;
 
     //close window after changing values
-    popupHandler(evt, popupEditProfile);
+    popupHandler(event, popupEditProfile);
 
 }
 
@@ -104,7 +104,7 @@ const initialCards = [
 ];
 
 /* MODAL IMAGE */
-function openModalImage(evt,item){
+function openModalImage(event,item){
     const image = popupImage.querySelector('.popup__image');
     image.src = item.link;
     image.alt = item.name;
@@ -113,7 +113,7 @@ function openModalImage(evt,item){
 }
 
 //adds new cards to the grid
-function addNewcard(item){
+function addNewCard(item){
     const card = cardTemplate.cloneNode(true).content;
     card.querySelector(".element__title").textContent = item.name;
     const cardImage = card.querySelector(".element__image");
@@ -124,8 +124,8 @@ function addNewcard(item){
 
     //add eventListener to like button
     const likeButton = card.querySelector('.element__like-button');
-    likeButton.addEventListener('click', evt => {
-        evt.target.classList.toggle('element__like-button_state_liked');
+    likeButton.addEventListener('click', (event) => {
+        event.target.classList.toggle('element__like-button_state_liked');
     });
 
     //add eventListener to delete button
@@ -138,19 +138,13 @@ function addNewcard(item){
 }
 
 //call addNewCard for each item in the initial card array
-function addInitial(cards){
+initialCards.forEach( (item) => {
+    addNewCard(item);
+})
 
-    //add cards
-    cards.forEach( (item) => {
-        addNewcard(item);
-    })
-}
 
-//render the initial cards
-addInitial(initialCards);
-
-function addCardHandler (evt) {
-    evt.preventDefault(); 
+function addCardHandler (event) {
+    event.preventDefault(); 
     // Get the values of each field from the corresponding value property
     const cardName = cardNameInput.value;
     const cardLink = cardURLInput.value;
@@ -163,10 +157,10 @@ function addCardHandler (evt) {
     const newCard = {};
     newCard.name = cardName;
     newCard.link = cardLink;
-    addNewcard(newCard);
+    addNewCard(newCard);
 
     //close window after changing values
-    popupHandler(evt, popupAddCard);
+    popupHandler(event, popupAddCard);
 }
 
 //add handler to card submit button
