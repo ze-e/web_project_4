@@ -108,6 +108,7 @@ function openModalImage(event,item){
     const image = popupImage.querySelector('.popup__image');
     image.src = item.link;
     image.alt = item.name;
+
     popupImage.querySelector('.popup__image-caption').textContent = item.name;
     popupHandler(event,popupImage);
 }
@@ -119,6 +120,7 @@ function addNewCard(item){
     const cardImage = card.querySelector(".element__image");
     cardImage.src = item.link;
     cardImage.alt = item.name;
+
     //add eventListener to image
     cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
 

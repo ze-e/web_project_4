@@ -43,8 +43,8 @@
         <form class="popup__form popup__form_type_edit-profile">
           <button class="popup__close popup__close_type_edit-profile"></button>  
           <h4 class="popup__title">Edit profile</h4>
-          <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau">
-          <input class="popup__input-description" type="text" name="description" value="Explorer">
+          <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau" required minlength="2" maxlength="40">
+          <input class="popup__input-description" type="text" name="description" value="Explorer" required minlength="2" maxlength="200">
           <button class="popup__submit" type="submit">Save</button>
         </form>
       </div>
@@ -55,8 +55,8 @@
         <form class="popup__form popup__form_type_add-card">
           <button class="popup__close popup__close_type_add-card"></button>  
           <h4 class="popup__title">New Place</h4>
-          <input class="popup__input-card-name" type="text" name="name" placeholder="Title">
-          <input class="popup__input-card-url" type="url" name="link" placeholder="Image URL">
+          <input class="popup__input-card-name" type="text" name="name" placeholder="Title" required minlength="1" maxlength="30">
+          <input class="popup__input-card-url" type="url" name="link" placeholder="Image URL" required>
           <button class="popup__card-submit" type="button">Create</button>
         </form>
       </div>
@@ -75,6 +75,7 @@
     </section>
 
     <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
 
   </body>
 </html>
