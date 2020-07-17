@@ -6,8 +6,9 @@
 @import url(./__input-description/popup__input-description.css);
 @import url(./__input-card-name/popup__input-card-name.css);
 @import url(./__input-card-url/popup__input-card-url.css);
+@import url(./__input/_type_error/popup__input_type_error.css);
 @import url(./__submit/popup__submit.css);
-
+@import url(./__error/_visible/popup__error_visible.css);
 @import url(./__image/popup__image.css);
 @import url(./__card-submit/popup__card-submit.css);
 @import url(./_state_opened/popup_state_opened.css);

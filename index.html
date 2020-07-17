@@ -43,8 +43,12 @@
         <form class="popup__form popup__form_type_edit-profile">
           <button class="popup__close popup__close_type_edit-profile"></button>  
           <h4 class="popup__title">Edit profile</h4>
-          <input class="popup__input-name" type="text" name="name" value="Jacques Cousteau" required minlength="2" maxlength="40">
-          <input class="popup__input-description" type="text" name="description" value="Explorer" required minlength="2" maxlength="200">
+          <input class="popup__input popup__input-name" id="name-input" type="text" name="name" value="Jacques Cousteau" required minlength="2" maxlength="40" novalidate>
+          <span class="popup__input-error" id="name-input-error"></span>
+
+          <input class="popup__input popup__input-description" id="description-input" type="text" name="description" value="Explorer" required minlength="2" maxlength="200" novalidate>
+          <span class="popup__input-error" id="description-input-error"></span>
+
           <button class="popup__submit" type="submit">Save</button>
         </form>
       </div>
@@ -55,8 +59,14 @@
         <form class="popup__form popup__form_type_add-card">
           <button class="popup__close popup__close_type_add-card"></button>  
           <h4 class="popup__title">New Place</h4>
-          <input class="popup__input-card-name" type="text" name="name" placeholder="Title" required minlength="1" maxlength="30">
-          <input class="popup__input-card-url" type="url" name="link" placeholder="Image URL" required>
+          
+          <input class="popup__input popup__input-card-name" id="card-name-input" type="text" name="name" placeholder="Title" required minlength="1" maxlength="30">
+          <span class="popup__input-error" id="card-name-input-error"></span>
+          
+          <input class="popup__input popup__input-card-url" id="url-input" type="url" name="link" placeholder="Image URL" required>
+          <span class="popup__input-error" id="url-input-error"></span>
+
+
           <button class="popup__card-submit" type="button">Create</button>
         </form>
       </div>

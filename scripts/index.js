@@ -1,3 +1,4 @@
+
 /* MODAL FORMS */
 
 /* asign DOM elements */
@@ -59,7 +60,7 @@ function formSubmitHandler (event) {
 
     //close window after changing values
     popupHandler(event, popupEditProfile);
-
+    
 }
 
 
