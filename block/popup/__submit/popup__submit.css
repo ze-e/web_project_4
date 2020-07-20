@@ -21,7 +21,7 @@
   }
 }
 
-.popup__submit.popup__submit_disabled{
+.popup__submit.popup__submit_disabled, .popup__submit.popup__submit_disabled:hover{
   background: #FFFFFF;
   color: #000000;
   opacity: 0.2;

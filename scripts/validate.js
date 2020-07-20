@@ -49,7 +49,7 @@ const setEventListeners = (formElement) => {
 
 const enableValidation = (obj) => {
   console.log("running verification");
-    const fieldsetList = Array.from(document.querySelectorAll(".form__set"));
+    const fieldsetList = Array.from(document.querySelectorAll(".fieldset"));
     console.log(fieldsetList);  
     fieldsetList.forEach((fieldset) => {
       console.log(fieldset+"added");

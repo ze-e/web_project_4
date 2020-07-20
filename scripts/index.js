@@ -18,6 +18,7 @@ const closeImageButton = document.querySelector('.popup__close_type_image');
 
 //form handlers
 const form = document.querySelector('.popup__form_type_edit-profile');
+const formAddCard = document.querySelector('.popup__form_type_add-card');
 const nameInput = document.querySelector('.popup__input-name');
 const descriptionInput = document.querySelector('.popup__input-description');
 const profileName = document.querySelector('.profile__name');
@@ -49,18 +50,19 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 /*   form handlers  */
 function formSubmitHandler (event) {
     event.preventDefault(); 
+    if(hasInvalidInput(form)){
 
-    // Get the values of each field from the corresponding value property
-    const name = nameInput.value;
-    const description = descriptionInput.value;
+        // Get the values of each field from the corresponding value property
+        const name = nameInput.value;
+        const description = descriptionInput.value;
 
-    // Insert new values using the textContent property of the querySelector() method
-    profileName.textContent = name;
-    profileDescription.textContent = description;
+        // Insert new values using the textContent property of the querySelector() method
+        profileName.textContent = name;
+        profileDescription.textContent = description;
 
-    //close window after changing values
-    popupHandler(event, popupEditProfile);
-    
+        //close window after changing values
+        popupHandler(event, popupEditProfile);
+    }
 }
 
 
@@ -116,6 +118,7 @@ function openModalImage(event,item){
 
 //adds new cards to the grid
 function addNewCard(item){
+
     const card = cardTemplate.cloneNode(true).content;
     card.querySelector(".element__title").textContent = item.name;
     const cardImage = card.querySelector(".element__image");
@@ -138,6 +141,7 @@ function addNewCard(item){
     });
 
     cardGrid.prepend(card);
+    
 }
 
 //call addNewCard for each item in the initial card array
@@ -148,22 +152,24 @@ initialCards.forEach( (item) => {
 
 function addCardHandler (event) {
     event.preventDefault(); 
-    // Get the values of each field from the corresponding value property
-    const cardName = cardNameInput.value;
-    const cardLink = cardURLInput.value;
+    if(hasInvalidInput(formAddCard)){    
+        // Get the values of each field from the corresponding value property
+        const cardName = cardNameInput.value;
+        const cardLink = cardURLInput.value;
 
-    // Insert new values using the textContent property of the querySelector() method
-    cardName.textContent = cardName;
-    cardLink.textContent = cardLink;
+        // Insert new values using the textContent property of the querySelector() method
+        cardName.textContent = cardName;
+        cardLink.textContent = cardLink;
 
-    //create new card object and add it to the array
-    const newCard = {};
-    newCard.name = cardName;
-    newCard.link = cardLink;
-    addNewCard(newCard);
+        //create new card object and add it to the array
+        const newCard = {};
+        newCard.name = cardName;
+        newCard.link = cardLink;
+        addNewCard(newCard);
 
-    //close window after changing values
-    popupHandler(event, popupAddCard);
+        //close window after changing values
+        popupHandler(event, popupAddCard);
+    }
 }
 
 //add handler to card submit button
