@@ -46,7 +46,7 @@ const setEventListeners = (formElement) => {
   });
 };
 
-const enableValidation = (obj) => {
+const enableValidation = (settings) => {
     const fieldsetList = Array.from(document.querySelectorAll(".fieldset"));
     fieldsetList.forEach((fieldset) => {
       setEventListeners(fieldset);

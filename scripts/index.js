@@ -32,10 +32,8 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 /* popup handlers */
 
 const popupHandler = (event, modal) => {
-
     event.preventDefault(); // This line stops the browser from submitting the form in the default way.
     modal.classList.toggle('popup_state_opened');
-
 }
 
 
@@ -175,14 +173,15 @@ const addCardHandler = (event) => {
 //add handler to card submit button
 cardSubmitButton.addEventListener('click', addCardHandler);
 
-/* ESC */
+/* Popup event listeners */
 //allow users to close modal windows with the escape key
-document.addEventListener("keydown",  (evt) => {
-      if ((evt.key)=="Escape") {
+
+
+document.addEventListener("keydown",  (event) => {
+      if ((event.key)=="Escape") {
         const popupElements = Array.from(document.querySelectorAll(".popup"));
         popupElements.forEach((popupElement) => {
             popupElement.classList.remove("popup_state_opened");
         });
       }
 });
-
