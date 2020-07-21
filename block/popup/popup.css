@@ -7,6 +7,7 @@
 @import url(./__input-card-name/popup__input-card-name.css);
 @import url(./__input-card-url/popup__input-card-url.css);
 @import url(./__input/_type_error/popup__input_type_error.css);
+@import url(./__input-error/popup__input-error.css);
 @import url(./__submit/popup__submit.css);
 @import url(./__profile-submit/popup__profile-submit.css);
 
