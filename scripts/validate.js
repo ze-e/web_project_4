@@ -27,7 +27,6 @@ const hasInvalidInput = (inputList) => {
 };
 
 const toggleButtonState = (inputList, buttonElement) => {
-  console.log(hasInvalidInput(inputList));
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("popup__submit_disabled");
   } else {
@@ -48,14 +47,10 @@ const setEventListeners = (formElement) => {
 };
 
 const enableValidation = (obj) => {
-  console.log("running verification");
     const fieldsetList = Array.from(document.querySelectorAll(".fieldset"));
-    console.log(fieldsetList);  
     fieldsetList.forEach((fieldset) => {
-      console.log(fieldset+"added");
       setEventListeners(fieldset);
     });
-
 };
 
 enableValidation({

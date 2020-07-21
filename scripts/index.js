@@ -31,7 +31,7 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 
 /* popup handlers */
 
-function popupHandler(event, modal){
+const popupHandler = (event, modal) => {
 
     event.preventDefault(); // This line stops the browser from submitting the form in the default way.
     modal.classList.toggle('popup_state_opened');
@@ -48,7 +48,7 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 
 
 /*   form handlers  */
-function formSubmitHandler (event) {
+const formSubmitHandler = (event) => {
     event.preventDefault(); 
     if(hasInvalidInput(form)){
 
@@ -107,7 +107,7 @@ const initialCards = [
 ];
 
 /* MODAL IMAGE */
-function openModalImage(event,item){
+const openModalImage = (event,item) => {
     const image = popupImage.querySelector('.popup__image');
     image.src = item.link;
     image.alt = item.name;
@@ -117,7 +117,7 @@ function openModalImage(event,item){
 }
 
 //adds new cards to the grid
-function addNewCard(item){
+const addNewCard = (item) => {
 
     const card = cardTemplate.cloneNode(true).content;
     card.querySelector(".element__title").textContent = item.name;
@@ -150,7 +150,7 @@ initialCards.forEach( (item) => {
 })
 
 
-function addCardHandler (event) {
+const addCardHandler = (event) => {
     event.preventDefault(); 
     if(hasInvalidInput(formAddCard)){    
         // Get the values of each field from the corresponding value property
@@ -174,4 +174,15 @@ function addCardHandler (event) {
 
 //add handler to card submit button
 cardSubmitButton.addEventListener('click', addCardHandler);
+
+/* ESC */
+//allow users to close modal windows with the escape key
+document.addEventListener("keydown",  (evt) => {
+      if ((evt.key)=="Escape") {
+        const popupElements = Array.from(document.querySelectorAll(".popup"));
+        popupElements.forEach((popupElement) => {
+            popupElement.classList.remove("popup_state_opened");
+        });
+      }
+});
 
