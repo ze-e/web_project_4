@@ -18,7 +18,11 @@ const closeImageButton = document.querySelector('.popup__close_type_image');
 
 //form handlers
 const form = document.querySelector('.popup__form_type_edit-profile');
+const formFields = form.querySelectorAll('.popup__input');
 const formAddCard = document.querySelector('.popup__form_type_add-card');
+const formAddCardFields = formAddCard.querySelectorAll('.popup__input');
+
+
 const nameInput = document.querySelector('.popup__input-name');
 const descriptionInput = document.querySelector('.popup__input-description');
 const profileName = document.querySelector('.profile__name');
@@ -50,7 +54,8 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 /*   form handlers  */
 const formSubmitHandler = (event) => {
     event.preventDefault(); 
-    if(hasInvalidInput(form)){
+
+    if(!hasInvalidInput(Array.from(formFields))){
 
         // Get the values of each field from the corresponding value property
         const name = nameInput.value;
@@ -152,7 +157,7 @@ initialCards.forEach( (item) => {
 
 const addCardHandler = (event) => {
     event.preventDefault(); 
-    if(hasInvalidInput(formAddCard)){    
+    if(!hasInvalidInput(Array.from(formAddCardFields))){
         // Get the values of each field from the corresponding value property
         const cardName = cardNameInput.value;
         const cardLink = cardURLInput.value;
@@ -179,21 +184,20 @@ cardSubmitButton.addEventListener('click', addCardHandler);
 //allow users to close modal windows with the escape key
 
 
-document.addEventListener("keydown",  (event) => {
-      if ((event.key)=="Escape") {
-        const popupElements = Array.from(document.querySelectorAll(".popup"));
-        popupElements.forEach((popupElement) => {
-            popupElement.classList.remove("popup_state_opened");
-        });
-      }
+document.addEventListener("keydown", (event) => {
+    if ((event.key)=="Escape") {
+    const popupElements = Array.from(document.querySelectorAll(".popup"));
+    popupElements.forEach((popupElement) => {
+        popupElement.classList.remove("popup_state_opened");
+    });
+    }
 });
 
 const popupContainers = Array.from(document.querySelectorAll('.popup'));
     popupContainers.forEach((popupContainer) => {
         popupContainer.addEventListener("click",  (event) => {
             if(event.target == popupContainer){
-                console.log(event.target);
-                popupContainer.classList.remove("popup_state_opened");
+                popupHandler(event, popupContainer);
             }
         });
 });
