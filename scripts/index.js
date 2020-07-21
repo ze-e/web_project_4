@@ -29,6 +29,8 @@ const cardNameInput = document.querySelector('.popup__input-card-name');
 const cardURLInput = document.querySelector('.popup__input-card-url');
 
 
+
+
 /* popup handlers */
 
 const popupHandler = (event, modal) => {
@@ -184,4 +186,14 @@ document.addEventListener("keydown",  (event) => {
             popupElement.classList.remove("popup_state_opened");
         });
       }
+});
+
+const popupContainers = Array.from(document.querySelectorAll('.popup'));
+    popupContainers.forEach((popupContainer) => {
+        popupContainer.addEventListener("click",  (event) => {
+            if(event.target == popupContainer){
+                console.log(event.target);
+                popupContainer.classList.remove("popup_state_opened");
+            }
+        });
 });
