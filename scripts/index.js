@@ -40,6 +40,21 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 const popupHandler = (event, modal) => {
     event.preventDefault(); // This line stops the browser from submitting the form in the default way.
     modal.classList.toggle('popup_state_opened');
+
+    //if the modal is open, add an eventlistener that closes the modal when esc is pressed,
+    //otherwise remove this event listener
+    if(modal.classList.contains('popup_state_opened')){
+        document.addEventListener("keydown", (event) => {
+            if ((event.key)=="Escape") {
+            const popupElements = Array.from(document.querySelectorAll(".popup"));
+            popupElements.forEach((popupElement) => {
+                popupElement.classList.remove("popup_state_opened");
+            });
+            }
+        });
+    }else{
+        document.removeEventListener("keydown");
+    }
 }
 
 
@@ -55,19 +70,17 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 const formSubmitHandler = (event) => {
     event.preventDefault(); 
 
-    if(!hasInvalidInput(Array.from(formFields))){
+    // Get the values of each field from the corresponding value property
+    const name = nameInput.value;
+    const description = descriptionInput.value;
 
-        // Get the values of each field from the corresponding value property
-        const name = nameInput.value;
-        const description = descriptionInput.value;
+    // Insert new values using the textContent property of the querySelector() method
+    profileName.textContent = name;
+    profileDescription.textContent = description;
 
-        // Insert new values using the textContent property of the querySelector() method
-        profileName.textContent = name;
-        profileDescription.textContent = description;
-
-        //close window after changing values
-        popupHandler(event, popupEditProfile);
-    }
+    //close window after changing values
+    popupHandler(event, popupEditProfile);
+    
 }
 
 
@@ -157,42 +170,29 @@ initialCards.forEach( (item) => {
 
 const addCardHandler = (event) => {
     event.preventDefault(); 
-    if(!hasInvalidInput(Array.from(formAddCardFields))){
-        // Get the values of each field from the corresponding value property
-        const cardName = cardNameInput.value;
-        const cardLink = cardURLInput.value;
+    // Get the values of each field from the corresponding value property
+    const cardName = cardNameInput.value;
+    const cardLink = cardURLInput.value;
 
-        // Insert new values using the textContent property of the querySelector() method
-        cardName.textContent = cardName;
-        cardLink.textContent = cardLink;
+    // Insert new values using the textContent property of the querySelector() method
+    cardName.textContent = cardName;
+    cardLink.textContent = cardLink;
 
-        //create new card object and add it to the array
-        const newCard = {};
-        newCard.name = cardName;
-        newCard.link = cardLink;
-        addNewCard(newCard);
+    //create new card object and add it to the array
+    const newCard = {};
+    newCard.name = cardName;
+    newCard.link = cardLink;
+    addNewCard(newCard);
 
-        //close window after changing values
-        popupHandler(event, popupAddCard);
-    }
+    //close window after changing values
+    popupHandler(event, popupAddCard);
+    
 }
 
 //add handler to card submit button
 cardSubmitButton.addEventListener('click', addCardHandler);
 
-/* Popup event listeners */
-//allow users to close modal windows with the escape key
-
-
-document.addEventListener("keydown", (event) => {
-    if ((event.key)=="Escape") {
-    const popupElements = Array.from(document.querySelectorAll(".popup"));
-    popupElements.forEach((popupElement) => {
-        popupElement.classList.remove("popup_state_opened");
-    });
-    }
-});
-
+//close popup by clicking outside of the form
 const popupContainers = Array.from(document.querySelectorAll('.popup'));
     popupContainers.forEach((popupContainer) => {
         popupContainer.addEventListener("click",  (event) => {
