@@ -42,7 +42,7 @@ const popupHandler = (event, modal) => {
     //otherwise remove this event listener
     if(modal.classList.contains('popup_state_opened')){
         document.addEventListener("keydown", (event) => {
-            if ((event.key)=="Escape") {
+            if ((event.key) === "Escape") {
             const popupElements = Array.from(document.querySelectorAll(".popup"));
             popupElements.forEach((popupElement) => {
                 popupElement.classList.remove("popup_state_opened");
@@ -193,7 +193,7 @@ cardSubmitButton.addEventListener('click', addCardHandler);
 const popupContainers = Array.from(document.querySelectorAll('.popup'));
     popupContainers.forEach((popupContainer) => {
         popupContainer.addEventListener("click",  (event) => {
-            if(event.target == popupContainer){
+            if(event.target === popupContainer){
                 popupHandler(event, popupContainer);
             }
         });
