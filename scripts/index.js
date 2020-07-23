@@ -18,10 +18,7 @@ const closeImageButton = document.querySelector('.popup__close_type_image');
 
 //form handlers
 const form = document.querySelector('.popup__form_type_edit-profile');
-const formFields = form.querySelectorAll('.popup__input');
 const formAddCard = document.querySelector('.popup__form_type_add-card');
-const formAddCardFields = formAddCard.querySelectorAll('.popup__input');
-
 
 const nameInput = document.querySelector('.popup__input-name');
 const descriptionInput = document.querySelector('.popup__input-description');
