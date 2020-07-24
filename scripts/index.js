@@ -31,7 +31,7 @@ const cardURLInput = document.querySelector('.popup__input-card-url');
 
 /* escape handler*/
 //close modal when escape is pressed
-const escapeHandler = (event) => {
+const escapeHandler = () => {
     if ((event.key) === "Escape") {
         const popupElements = Array.from(document.querySelectorAll(".popup"));
         popupElements.forEach((popupElement) => {
@@ -49,9 +49,9 @@ const popupHandler = (event, modal) => {
     //if the modal is open, add an eventlistener that closes the modal when esc is pressed,
     //otherwise remove this event listener
     if(modal.classList.contains('popup_state_opened')){
-        document.addEventListener("keydown", (event)=>{escapeHandler(event)});
+        document.addEventListener("keydown", escapeHandler);
     }else{
-        document.removeEventListener("keydown", (event)=>{escapeHandler(event)});
+        document.removeEventListener("keydown", escapeHandler);
     }
 }
 
