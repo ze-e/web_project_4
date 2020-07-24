@@ -29,8 +29,16 @@ const cardSubmitButton = document.querySelector('.popup__card-submit');
 const cardNameInput = document.querySelector('.popup__input-card-name');
 const cardURLInput = document.querySelector('.popup__input-card-url');
 
-
-
+/* escape handler*/
+//close modal when escape is pressed
+const escapeHandler = (event) => {
+    if ((event.key) === "Escape") {
+        const popupElements = Array.from(document.querySelectorAll(".popup"));
+        popupElements.forEach((popupElement) => {
+            popupElement.classList.remove("popup_state_opened");
+        });
+    }
+}
 
 /* popup handlers */
 
@@ -41,16 +49,9 @@ const popupHandler = (event, modal) => {
     //if the modal is open, add an eventlistener that closes the modal when esc is pressed,
     //otherwise remove this event listener
     if(modal.classList.contains('popup_state_opened')){
-        document.addEventListener("keydown", (event) => {
-            if ((event.key) === "Escape") {
-            const popupElements = Array.from(document.querySelectorAll(".popup"));
-            popupElements.forEach((popupElement) => {
-                popupElement.classList.remove("popup_state_opened");
-            });
-            }
-        });
+        document.addEventListener("keydown", (event)=>{escapeHandler(event)});
     }else{
-        document.removeEventListener("keydown");
+        document.removeEventListener("keydown", (event)=>{escapeHandler(event)});
     }
 }
 
