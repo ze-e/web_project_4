@@ -7,7 +7,7 @@ class Card{
     this._selector = selector;
   }
 
-  /* event handlers */
+  /* EVENT HANDLERS */
 
   _openModalImage(event){
     //open card in modal window
@@ -35,7 +35,7 @@ class Card{
     });  
   }
   
-/* functions */
+/* FUNCTIONS */
 
 _getTemplate() {
   const _cardElement = document

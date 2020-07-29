@@ -1,4 +1,3 @@
-
 import {Card} from "./Card.js";
 
 /* MODAL FORMS */
@@ -124,12 +123,8 @@ const initialCards = [
     }
 ];
 
-/* MODAL IMAGE */
-
-
 //call addNewCard for each item in the initial card array
 initialCards.forEach( (item) => {
-    //addNewCard(item);
     const card = new Card(item, cardTemplate);
     cardGrid.prepend(card.createCard());
 })
@@ -145,11 +140,13 @@ const addCardHandler = (event) => {
     cardName.textContent = cardName;
     cardLink.textContent = cardLink;
 
-    //create new card object and add it to the array
+    //create new card object and add it to the grid
     const newCard = {};
     newCard.name = cardName;
     newCard.link = cardLink;
-    addNewCard(newCard);
+
+    const card = new Card(newCard, cardTemplate);
+    cardGrid.prepend(card.createCard());
 
     //close window after changing values
     popupHandler(event, popupAddCard);
