@@ -1,4 +1,6 @@
 
+import {Card} from "./Card.js";
+
 /* MODAL FORMS */
 
 /* asign DOM elements */
@@ -91,7 +93,7 @@ form.addEventListener('submit', formSubmitHandler);
 
 /* asign DOM elements */
 const cardGrid = document.querySelector(".elements");
-const cardTemplate = document.querySelector("#card");
+const cardTemplate = "#card";
 
 /* initial cards */
 
@@ -123,46 +125,13 @@ const initialCards = [
 ];
 
 /* MODAL IMAGE */
-const openModalImage = (event,item) => {
-    const image = popupImage.querySelector('.popup__image');
-    image.src = item.link;
-    image.alt = item.name;
 
-    popupImage.querySelector('.popup__image-caption').textContent = item.name;
-    popupHandler(event,popupImage);
-}
-
-//adds new cards to the grid
-const addNewCard = (item) => {
-
-    const card = cardTemplate.cloneNode(true).content;
-    card.querySelector(".element__title").textContent = item.name;
-    const cardImage = card.querySelector(".element__image");
-    cardImage.src = item.link;
-    cardImage.alt = item.name;
-
-    //add eventListener to image
-    cardImage.addEventListener('click', (event) => {openModalImage(event,item)});
-
-    //add eventListener to like button
-    const likeButton = card.querySelector('.element__like-button');
-    likeButton.addEventListener('click', (event) => {
-        event.target.classList.toggle('element__like-button_state_liked');
-    });
-
-    //add eventListener to delete button
-    const deleteButton = card.querySelector('.element__delete-button');
-    deleteButton.addEventListener('click', (event) => {
-        event.target.closest('.element').remove();
-    });
-
-    cardGrid.prepend(card);
-    
-}
 
 //call addNewCard for each item in the initial card array
 initialCards.forEach( (item) => {
-    addNewCard(item);
+    //addNewCard(item);
+    const card = new Card(item, cardTemplate);
+    cardGrid.prepend(card.createCard());
 })
 
 
@@ -199,3 +168,5 @@ const popupContainers = Array.from(document.querySelectorAll('.popup'));
             }
         });
 });
+
+export {popupHandler, popupImage};
