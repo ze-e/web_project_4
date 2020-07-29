@@ -1,6 +1,15 @@
 import {Card} from "./Card.js";
+import {FormValidator} from "./FormValidator.js";
 
-/* MODAL FORMS */
+/* settings */
+const settings = {  
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__submit",
+    inactiveButtonClass: "popup__submit_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible"
+}
 
 /* asign DOM elements */
 //assigning all DOM elements at the beginning optimizes performance
@@ -20,6 +29,7 @@ const closeImageButton = document.querySelector('.popup__close_type_image');
 //form handlers
 const form = document.querySelector('.popup__form_type_edit-profile');
 const formAddCard = document.querySelector('.popup__form_type_add-card');
+
 
 const nameInput = document.querySelector('.popup__input-name');
 const descriptionInput = document.querySelector('.popup__input-description');
@@ -145,12 +155,11 @@ const addCardHandler = (event) => {
     newCard.name = cardName;
     newCard.link = cardLink;
 
-    const card = new Card(newCard, cardTemplate);
-    cardGrid.prepend(card.createCard());
+    const addCard = new Card(newCard, cardTemplate);
+    cardGrid.prepend(addCard.createCard());
 
     //close window after changing values
     popupHandler(event, popupAddCard);
-    
 }
 
 //add handler to card submit button
@@ -165,5 +174,14 @@ const popupContainers = Array.from(document.querySelectorAll('.popup'));
             }
         });
 });
+
+/* FORM VALIDATION */
+//validate fields on edit form
+const editFormValidator = new FormValidator(settings,form);
+editFormValidator.enableValidation();
+
+//validate fields on addCard form
+const addCardValidator = new FormValidator(settings,formAddCard);
+addCardValidator.enableValidation();
 
 export {popupHandler, popupImage};
