@@ -146,10 +146,6 @@ const addCardHandler = (event) => {
     const cardName = cardNameInput.value;
     const cardLink = cardURLInput.value;
 
-    // Insert new values using the textContent property of the querySelector() method
-    cardName.textContent = cardName;
-    cardLink.textContent = cardLink;
-
     //create new card object and add it to the grid
     const newCard = {};
     newCard.name = cardName;
