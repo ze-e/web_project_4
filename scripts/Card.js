@@ -1,4 +1,4 @@
-import {popupHandler, popupImage} from "./index.js";
+import {popupHandler, openModalImage} from "./util.js"
 
 class Card{
   constructor(data, selector = "#card"){
@@ -9,20 +9,10 @@ class Card{
 
   /* EVENT HANDLERS */
 
-  _openModalImage(event){
-    //open card in modal window
-
-    const image = popupImage.querySelector('.popup__image');
-    image.src = this._link;
-    image.alt = this._name;
-
-    popupImage.querySelector('.popup__image-caption').textContent = this._name;
-    popupHandler(event, popupImage);
-}
 
   _setEventListeners(_elements) {
     //add _openModalImage to image
-    _elements.imageElement.addEventListener('click', (event) => {this._openModalImage(event)});
+    _elements.imageElement.addEventListener('click', (event) => {openModalImage(event, this._link, this._name)});
 
     //add eventListener to like button
     _elements.likeButton.addEventListener('click', (event) => {

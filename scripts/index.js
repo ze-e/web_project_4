@@ -1,5 +1,6 @@
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
+import {popupHandler} from "./util.js"
 
 /* settings */
 const settings = {  
@@ -40,32 +41,7 @@ const cardSubmitButton = document.querySelector('.popup__card-submit');
 const cardNameInput = document.querySelector('.popup__input-card-name');
 const cardURLInput = document.querySelector('.popup__input-card-url');
 
-/* escape handler*/
-//close modal when escape is pressed
-const escapeHandler = () => {
-    if ((event.key) === "Escape") {
-        const popupElements = Array.from(document.querySelectorAll(".popup"));
-        popupElements.forEach((popupElement) => {
-            popupElement.classList.remove("popup_state_opened");
-        });
-    }
-}
-
 /* popup handlers */
-
-const popupHandler = (event, modal) => {
-    event.preventDefault(); // This line stops the browser from submitting the form in the default way.
-    modal.classList.toggle('popup_state_opened');
-
-    //if the modal is open, add an eventlistener that closes the modal when esc is pressed,
-    //otherwise remove this event listener
-    if(modal.classList.contains('popup_state_opened')){
-        document.addEventListener("keydown", escapeHandler);
-    }else{
-        document.removeEventListener("keydown", escapeHandler);
-    }
-}
-
 
 //add handlers to buttons
 editButton.addEventListener('click',(event)=>{popupHandler(event,popupEditProfile)});
@@ -89,7 +65,6 @@ const formSubmitHandler = (event) => {
 
     //close window after changing values
     popupHandler(event, popupEditProfile);
-    
 }
 
 
@@ -179,5 +154,3 @@ editFormValidator.enableValidation();
 //validate fields on addCard form
 const addCardValidator = new FormValidator(settings,formAddCard);
 addCardValidator.enableValidation();
-
-export {popupHandler, popupImage};
