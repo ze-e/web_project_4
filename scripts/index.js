@@ -1,6 +1,7 @@
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
-import {popupHandler} from "./util.js"
+import {popupHandler} from "./util.js";
+import {Section} from "./Section.js";
 
 /* settings */
 const settings = {  
@@ -76,8 +77,8 @@ form.addEventListener('submit', formSubmitHandler);
 /* CARDS */
 
 /* asign DOM elements */
-const cardGrid = document.querySelector(".elements");
-const cardTemplate = "#card";
+//const cardGrid = document.querySelector(".elements"); //
+//const cardTemplate = "#card"; //
 
 /* initial cards */
 
@@ -109,11 +110,19 @@ const initialCards = [
 ];
 
 //call addNewCard for each item in the initial card array
-initialCards.forEach( (item) => {
-    const card = new Card(item, cardTemplate);
-    cardGrid.prepend(card.createCard());
-})
+/*initialCards.forEach( (item) => {
+    const card = new Card(item, cardTemplate); //
+    cardGrid.prepend(card.createCard()); //
+})*/
+const cardList = new Section({
+    items : initialCards,
+    renderer : (item) => {
+        const card = new Card(item, "#card");
+        cardList.addItem(card.createCard());
+    }
+}, ".elements");
 
+cardList.renderItems();
 
 const addCardHandler = (event) => {
     event.preventDefault(); 
@@ -126,8 +135,8 @@ const addCardHandler = (event) => {
     newCard.name = cardName;
     newCard.link = cardLink;
 
-    const addCard = new Card(newCard, cardTemplate);
-    cardGrid.prepend(addCard.createCard());
+    const addCard = new Card(newCard, cardTemplate); //
+    cardGrid.prepend(addCard.createCard()); //
 
     //close window after changing values
     popupHandler(event, popupAddCard);
