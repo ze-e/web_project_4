@@ -1,4 +1,4 @@
-import {PopupWithImage as Modal} from './PopupWithImage.js';
+import {PopupWithImage as Popup} from './PopupWithImage.js';
 
 class Card{
   constructor(data, selector = "#card"){
@@ -9,12 +9,11 @@ class Card{
 
   /* EVENT HANDLERS */
 
-
   _setEventListeners(_elements) {
     //add _openModalImage to image
     _elements.imageElement.addEventListener('click', (event) => {
-      const modal = new Modal('.popup_type_image');
-      modal.open(this._link, this._name);
+      const popup = new Popup('.popup_type_image');
+      popup.open(this._link, this._name);
     });
 
     //add eventListener to like button

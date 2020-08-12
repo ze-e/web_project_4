@@ -2,8 +2,7 @@ import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
 import {popupHandler} from "./util.js";
 import {Section} from "./Section.js";
-import {Popup} from "./Popup.js";
-
+import {PopupWithForm as EditForm} from "./PopupWithForm";
 
 /* settings */
 const settings = {  
@@ -55,6 +54,7 @@ closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImag
 
 
 /*   form handlers  */
+/*
 const formSubmitHandler = (event) => {
     event.preventDefault(); 
 
@@ -74,7 +74,22 @@ const formSubmitHandler = (event) => {
 // Connect the handler to the form:
 // it will watch the submit event
 form.addEventListener('submit', formSubmitHandler);
+*/
+const editForm = new EditForm('popup_type_edit-profile',{callback:
+    (event) => {
+        event.preventDefault(); 
 
+        //query elements
+        const profileName = document.querySelector('.profile__name');
+        const profileDescription = document.querySelector('.profile__description');
+
+        //set element text content to form values
+        profileName.textContent = _formValues.name;
+        profileDescription.textContent = _formValues.description;
+
+        this.close();
+    }
+});
 
 /* CARDS */
 
