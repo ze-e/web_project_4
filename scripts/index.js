@@ -121,7 +121,6 @@ const cardList = new Section({
         cardList.addItem(card.createCard());
     }
 }, ".elements");
-
 cardList.renderItems();
 
 const addCardHandler = (event) => {
@@ -135,8 +134,16 @@ const addCardHandler = (event) => {
     newCard.name = cardName;
     newCard.link = cardLink;
 
-    const addCard = new Card(newCard, cardTemplate); //
-    cardGrid.prepend(addCard.createCard()); //
+    //const addCard = new Card(newCard, cardTemplate); //
+    //cardGrid.prepend(addCard.createCard()); //
+    const newCardList = new Section({
+        items : [newCard],
+        renderer : (item) => {
+            const card = new Card(item, "#card");
+            newCardList.addItem(card.createCard());
+        }
+    }, ".elements");
+    newCardList.renderItems();
 
     //close window after changing values
     popupHandler(event, popupAddCard);
