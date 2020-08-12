@@ -76,10 +76,6 @@ form.addEventListener('submit', formSubmitHandler);
 
 /* CARDS */
 
-/* asign DOM elements */
-//const cardGrid = document.querySelector(".elements"); //
-//const cardTemplate = "#card"; //
-
 /* initial cards */
 
 const initialCards = [
@@ -110,10 +106,6 @@ const initialCards = [
 ];
 
 //call addNewCard for each item in the initial card array
-/*initialCards.forEach( (item) => {
-    const card = new Card(item, cardTemplate); //
-    cardGrid.prepend(card.createCard()); //
-})*/
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
@@ -134,8 +126,6 @@ const addCardHandler = (event) => {
     newCard.name = cardName;
     newCard.link = cardLink;
 
-    //const addCard = new Card(newCard, cardTemplate); //
-    //cardGrid.prepend(addCard.createCard()); //
     const newCardList = new Section({
         items : [newCard],
         renderer : (item) => {
