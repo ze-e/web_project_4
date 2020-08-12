@@ -2,6 +2,8 @@ import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
 import {popupHandler} from "./util.js";
 import {Section} from "./Section.js";
+import {Popup} from "./Popup.js";
+
 
 /* settings */
 const settings = {  
