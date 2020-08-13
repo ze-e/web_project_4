@@ -2,7 +2,20 @@ import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
 import {Section} from "./Section.js";
 import {PopupWithForm as Form} from "./PopupWithForm.js";
+
 import {settings} from "./Settings.js";
+import {initialCards} from "./initialCards.js";
+
+/* CARDS */
+//call addNewCard for each item in the initial card array
+const cardList = new Section({
+    items : initialCards,
+    renderer : (item) => {
+        const card = new Card(item, "#card");
+        cardList.addItem(card.createCard());
+    }
+}, ".elements");
+cardList.renderItems();
 
 /* FORMS */
 /* add editButton and editform */
@@ -59,47 +72,6 @@ const _addCardForm = new Form(settings.addForm,{
 _addCardButton.addEventListener('click', (event) => {
     _addCardForm.open();
 });
-
-/* CARDS */
-
-/* initial cards */
-
-const initialCards = [
-    {
-        name: "Yosemite Valley",
-        link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-    },
-    {
-        name: "Lake Louise",
-        link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-    },
-    {
-        name: "Bald Mountains",
-        link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-    },
-    {
-        name: "Latemar",
-        link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-    },
-    {
-        name: "Vanois National Park",
-        link: "https://code.s3.yandex.net/web-code/vanois.jpg"
-    },
-    {
-        name: "Lago di Braies",
-        link: "https://code.s3.yandex.net/web-code/lago.jpg"
-    }
-];
-
-//call addNewCard for each item in the initial card array
-const cardList = new Section({
-    items : initialCards,
-    renderer : (item) => {
-        const card = new Card(item, "#card");
-        cardList.addItem(card.createCard());
-    }
-}, ".elements");
-cardList.renderItems();
 
 /* FORM VALIDATION */
 //validate fields on edit form

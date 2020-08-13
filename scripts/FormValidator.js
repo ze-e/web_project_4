@@ -1,6 +1,5 @@
 import {settings} from "./Settings.js";
 
-
 class FormValidator{
 constructor(formElement){
   this._settings = settings;
