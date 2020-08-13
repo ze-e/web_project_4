@@ -42,13 +42,13 @@ const _addCardForm = new Form('.popup_type_add-card',{
     callback : () => {
         event.preventDefault(); 
         // Get the values of each field from the corresponding value property
-        const _cardName = document.querySelector('.profile__name');
-        const _cardLink = document.querySelector('.profile__description');
+        const _cardName = document.querySelector('.popup__input-card-name');
+        const _cardLink = document.querySelector('.popup__input-card-url');
     
         //create new card object and add it to the grid
         const _newCard = {};
-        _newCard.name = _cardName;
-        _newCard.link = _cardLink;
+        _newCard.name = _cardName.value;
+        _newCard.link = _cardLink.value;
     
         const _newCardList = new Section({
             items : [_newCard],
