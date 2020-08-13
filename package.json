@@ -4,7 +4,8 @@
   "description": "* [Link to the project on github](https://ze-e.github.io/web_project_4/) ### Overview",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "webpack-dev-server": "^3.11.0"
   }
 }

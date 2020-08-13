@@ -1,10 +1,14 @@
-import {Card} from "./Card.js";
-import {FormValidator} from "./FormValidator.js";
-import {Section} from "./Section.js";
-import {PopupWithForm as Form} from "./PopupWithForm.js";
+//css
+import "./pages/index.css";
 
-import {settings} from "./Settings.js";
-import {initialCards} from "./initialCards.js";
+//js
+import {Card} from "./scripts/Card.js";
+import {FormValidator} from "./scripts/FormValidator.js";
+import {Section} from "./scripts/Section.js";
+import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
+
+import {settings} from "./scripts/Settings.js";
+import {initialCards} from "./scripts/initialCards.js";
 
 /* CARDS */
 //call addNewCard for each item in the initial card array
