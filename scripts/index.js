@@ -1,9 +1,9 @@
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
 import {Section} from "./Section.js";
-import {PopupWithForm as EditForm} from "./PopupWithForm.js";
+import {PopupWithForm as Form} from "./PopupWithForm.js";
 
-/* settings */
+/* SETTINGS */
 const settings = {  
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
@@ -13,49 +13,61 @@ const settings = {
     errorClass: "popup__error_visible"
 }
 
-/*   form handlers  */
-/*
-const formSubmitHandler = (event) => {
-    event.preventDefault(); 
-
-    // Get the values of each field from the corresponding value property
-    const name = nameInput.value;
-    const description = descriptionInput.value;
-
-    // Insert new values using the textContent property of the querySelector() method
-    profileName.textContent = name;
-    profileDescription.textContent = description;
-
-    //close window after changing values
-    popupHandler(event, popupEditProfile);
-}
-
-
-// Connect the handler to the form:
-// it will watch the submit event
-form.addEventListener('submit', formSubmitHandler);
-*/
-
-//add editButton and editform
+/* FORMS */
+/* add editButton and editform */
 const _editButton =  document.querySelector('.profile__edit-button');
-const editForm = new EditForm('.popup_type_edit-profile',{
+const _editForm = new Form('.popup_type_edit-profile',{
     callback : () => {
         //query elements
-        const profileName = document.querySelector('.profile__name');
-        const profileDescription = document.querySelector('.profile__description');
+        const _profileName = document.querySelector('.profile__name');
+        const _profileDescription = document.querySelector('.profile__description');
 
         //set element text content to form values
-        const _inputValues = editForm._getInputValues();
-        profileName.textContent = _inputValues.name;
-        profileDescription.textContent = _inputValues.description;
+        const _inputValues = _editForm._getInputValues();
+        _profileName.textContent = _inputValues.name;
+        _profileDescription.textContent = _inputValues.description;
 
-        editForm.close();
+        _editForm.close();
     }
 });
 
+//attach new form to edit button
 _editButton.addEventListener('click', (event) => {
-    editForm.open();
-  });
+    _editForm.open();
+});
+
+/* addCard button and form */
+const _addCardButton = document.querySelector('.profile__add-button');
+const _addCardForm = new Form('.popup_type_add-card',{
+    callback : () => {
+        event.preventDefault(); 
+        // Get the values of each field from the corresponding value property
+        const _cardName = document.querySelector('.profile__name');
+        const _cardLink = document.querySelector('.profile__description');
+    
+        //create new card object and add it to the grid
+        const _newCard = {};
+        _newCard.name = _cardName;
+        _newCard.link = _cardLink;
+    
+        const _newCardList = new Section({
+            items : [_newCard],
+            renderer : (item) => {
+                const _card = new Card(item, "#card");
+                _newCardList.addItem(_card.createCard());
+            }
+        }, ".elements");
+
+        //render card list and close the form
+        _newCardList.renderItems();
+        _addCardForm.close();
+    }
+});
+
+//attach new form to add button
+_addCardButton.addEventListener('click', (event) => {
+    _addCardForm.open();
+});
 
 /* CARDS */
 
