@@ -1,8 +1,7 @@
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
-import {popupHandler} from "./util.js";
 import {Section} from "./Section.js";
-import {PopupWithForm as EditForm} from "./PopupWithForm";
+import {PopupWithForm as EditForm} from "./PopupWithForm.js";
 
 /* settings */
 const settings = {  
@@ -13,45 +12,6 @@ const settings = {
     inputErrorClass: "popup__input_type_error",
     errorClass: "popup__error_visible"
 }
-
-/* asign DOM elements */
-//assigning all DOM elements at the beginning optimizes performance
-
-//popup handler
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupAddCard = document.querySelector('.popup_type_add-card');
-const popupImage = document.querySelector('.popup_type_image');
-
-const editButton = document.querySelector('.profile__edit-button');
-const closeButton = document.querySelector('.popup__close_type_edit-profile');
-const addButton = document.querySelector('.profile__add-button');
-const closeAddButton = document.querySelector('.popup__close_type_add-card');
-const closeImageButton = document.querySelector('.popup__close_type_image');
-
-
-//form handlers
-const form = document.querySelector('.popup__form_type_edit-profile');
-const formAddCard = document.querySelector('.popup__form_type_add-card');
-
-
-const nameInput = document.querySelector('.popup__input-name');
-const descriptionInput = document.querySelector('.popup__input-description');
-const profileName = document.querySelector('.profile__name');
-const profileDescription = document.querySelector('.profile__description');
-
-const cardSubmitButton = document.querySelector('.popup__card-submit');
-const cardNameInput = document.querySelector('.popup__input-card-name');
-const cardURLInput = document.querySelector('.popup__input-card-url');
-
-/* popup handlers */
-
-//add handlers to buttons
-editButton.addEventListener('click',(event)=>{popupHandler(event,popupEditProfile)});
-closeButton.addEventListener('click',(event)=>{popupHandler(event,popupEditProfile)});
-addButton.addEventListener('click',(event)=>{popupHandler(event,popupAddCard)});
-closeAddButton.addEventListener('click',(event)=>{popupHandler(event,popupAddCard)});
-closeImageButton.addEventListener('click',(event)=>{popupHandler(event,popupImage)});
-
 
 /*   form handlers  */
 /*
@@ -75,17 +35,17 @@ const formSubmitHandler = (event) => {
 // it will watch the submit event
 form.addEventListener('submit', formSubmitHandler);
 */
-const editForm = new EditForm('popup_type_edit-profile',{callback:
-    (event) => {
-        event.preventDefault(); 
 
+const editForm = new EditForm('.popup_type_edit-profile',{
+    callback :() => {
         //query elements
         const profileName = document.querySelector('.profile__name');
         const profileDescription = document.querySelector('.profile__description');
 
         //set element text content to form values
-        profileName.textContent = _formValues.name;
-        profileDescription.textContent = _formValues.description;
+        const _inputValues = this._getInputValues();
+        profileName.textContent = _inputValues.name;
+        profileDescription.textContent = _inputValues.description;
 
         this.close();
     }
@@ -131,7 +91,7 @@ const cardList = new Section({
     }
 }, ".elements");
 cardList.renderItems();
-
+/*
 const addCardHandler = (event) => {
     event.preventDefault(); 
     // Get the values of each field from the corresponding value property
@@ -158,22 +118,13 @@ const addCardHandler = (event) => {
 
 //add handler to card submit button
 cardSubmitButton.addEventListener('click', addCardHandler);
-
-//close popup by clicking outside of the form
-const popupContainers = Array.from(document.querySelectorAll('.popup'));
-    popupContainers.forEach((popupContainer) => {
-        popupContainer.addEventListener("click",  (event) => {
-            if(event.target === popupContainer){
-                popupHandler(event, popupContainer);
-            }
-        });
-});
+*/
 
 /* FORM VALIDATION */
 //validate fields on edit form
-const editFormValidator = new FormValidator(settings,form);
-editFormValidator.enableValidation();
+//const editFormValidator = new FormValidator(settings,form);
+//editFormValidator.enableValidation();
 
 //validate fields on addCard form
-const addCardValidator = new FormValidator(settings,formAddCard);
-addCardValidator.enableValidation();
+//const addCardValidator = new FormValidator(settings,formAddCard);
+//addCardValidator.enableValidation();
