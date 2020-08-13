@@ -12,8 +12,7 @@ class Card{
   _setEventListeners(_elements) {
     //add _openModalImage to image
     _elements.imageElement.addEventListener('click', (event) => {
-      const popup = new Popup('.popup_type_image');
-      popup.open(this._link, this._name);
+      this.handleCardClick();
     });
 
     //add eventListener to like button
@@ -25,6 +24,11 @@ class Card{
     _elements.deleteButton.addEventListener('click', (event) => {
         event.target.closest('.element').remove();
     });  
+  }
+
+  handleCardClick(){
+    const popup = new Popup('.popup_type_image');
+    popup.open(this._link, this._name);
   }
   
 /* FUNCTIONS */
@@ -56,9 +60,10 @@ _getTemplate() {
 
     //add event listners
     this._setEventListeners(_elements);
-
     return this._element;
   }
+
+  
 }
 
 export {Card};

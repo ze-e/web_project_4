@@ -11,8 +11,8 @@ import {initialCards} from "./initialCards.js";
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
-        const card = new Card(item, "#card");
-        cardList.addItem(card.createCard());
+        const _card = new Card(item, "#card");
+        cardList.addItem(_card.createCard());
     }
 }, ".elements");
 cardList.renderItems();
