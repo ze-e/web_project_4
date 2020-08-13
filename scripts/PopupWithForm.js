@@ -20,10 +20,8 @@ class PopupWithForm extends Popup {
   setEventListeners(){
       super.setEventListeners();
       const _submitButton = this._selector.querySelector('.popup__submit');
-      _submitButton.addEventListener("submit", () => {
-        console.log("working");   
-        event.preventDefault(); 
-        this._callback;
+      _submitButton.addEventListener("click", (event) => {
+        this._callback();
       });
     }
   
@@ -35,7 +33,7 @@ class PopupWithForm extends Popup {
   _clearForm(){
     const _inputList = this._selector.querySelectorAll('.popup__input');
     _inputList.forEach(input => {
-      input.value = "";
+      input.value = input.defaultValue;
     });
   }
 }

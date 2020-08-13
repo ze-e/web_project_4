@@ -36,20 +36,26 @@ const formSubmitHandler = (event) => {
 form.addEventListener('submit', formSubmitHandler);
 */
 
+//add editButton and editform
+const _editButton =  document.querySelector('.profile__edit-button');
 const editForm = new EditForm('.popup_type_edit-profile',{
-    callback :() => {
+    callback : () => {
         //query elements
         const profileName = document.querySelector('.profile__name');
         const profileDescription = document.querySelector('.profile__description');
 
         //set element text content to form values
-        const _inputValues = this._getInputValues();
+        const _inputValues = editForm._getInputValues();
         profileName.textContent = _inputValues.name;
         profileDescription.textContent = _inputValues.description;
 
-        this.close();
+        editForm.close();
     }
 });
+
+_editButton.addEventListener('click', (event) => {
+    editForm.open();
+  });
 
 /* CARDS */
 

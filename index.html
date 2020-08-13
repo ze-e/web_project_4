@@ -45,13 +45,13 @@
         <form class="popup__form popup__form_type_edit-profile">
           <button class="popup__close popup__close_type_edit-profile"></button>  
           <h4 class="popup__title">Edit profile</h4>
-          <input class="popup__input popup__input-name" id="name-input" type="text" name="name" value="Jacques Cousteau" required minlength="2" maxlength="40">
+          <input class="popup__input popup__input-name" id="name-input" type="text" name="name" value="Jacques Cousteau" defaultValue="Jacques Cousteau" required minlength="2" maxlength="40">
           <span class="popup__input-error" id="name-input-error"></span>
 
-          <input class="popup__input popup__input-description" id="description-input" type="text" name="description" value="Explorer" required minlength="2" maxlength="200" >
+          <input class="popup__input popup__input-description" id="description-input" type="text" name="description" value="Explorer" defaultValue="Explorer" required minlength="2" maxlength="200" >
           <span class="popup__input-error" id="description-input-error"></span>
 
-          <button class="popup__submit popup__profile-submit" type="submit">Save</button>
+          <button class="popup__submit popup__profile-submit" type="button">Save</button>
         </form>
       </div>
     </fieldset>
