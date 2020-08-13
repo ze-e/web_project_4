@@ -16,7 +16,7 @@ const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
         const _card = new Card(item, "#card");
-        cardList.addItem(_card.createCard());
+        cardList.addItem(_card);
     }
 }, ".elements");
 cardList.renderItems();
@@ -62,7 +62,7 @@ const _addCardForm = new Form(settings.addForm,{
             items : [_newCard],
             renderer : (item) => {
                 const _card = new Card(item, "#card");
-                _newCardList.addItem(_card.createCard());
+                _newCardList.addItem(_card);
             }
         }, ".elements");
 

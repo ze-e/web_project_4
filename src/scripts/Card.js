@@ -5,6 +5,7 @@ class Card{
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
+    return this.createCard();
   }
 
   /* EVENT HANDLERS */
