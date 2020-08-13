@@ -2,21 +2,12 @@ import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
 import {Section} from "./Section.js";
 import {PopupWithForm as Form} from "./PopupWithForm.js";
-
-/* SETTINGS */
-const settings = {  
-    formSelector: ".popup__form",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit",
-    inactiveButtonClass: "popup__submit_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible"
-}
+import {settings} from "./Settings.js";
 
 /* FORMS */
 /* add editButton and editform */
 const _editButton =  document.querySelector('.profile__edit-button');
-const _editForm = new Form('.popup_type_edit-profile',{
+const _editForm = new Form(settings.editForm,{
     callback : () => {
         //query elements
         const _profileName = document.querySelector('.profile__name');
@@ -38,7 +29,7 @@ _editButton.addEventListener('click', (event) => {
 
 /* addCard button and form */
 const _addCardButton = document.querySelector('.profile__add-button');
-const _addCardForm = new Form('.popup_type_add-card',{
+const _addCardForm = new Form(settings.addForm,{
     callback : () => {
         event.preventDefault(); 
         // Get the values of each field from the corresponding value property
@@ -109,40 +100,12 @@ const cardList = new Section({
     }
 }, ".elements");
 cardList.renderItems();
-/*
-const addCardHandler = (event) => {
-    event.preventDefault(); 
-    // Get the values of each field from the corresponding value property
-    const cardName = cardNameInput.value;
-    const cardLink = cardURLInput.value;
-
-    //create new card object and add it to the grid
-    const newCard = {};
-    newCard.name = cardName;
-    newCard.link = cardLink;
-
-    const newCardList = new Section({
-        items : [newCard],
-        renderer : (item) => {
-            const card = new Card(item, "#card");
-            newCardList.addItem(card.createCard());
-        }
-    }, ".elements");
-    newCardList.renderItems();
-
-    //close window after changing values
-    popupHandler(event, popupAddCard);
-}
-
-//add handler to card submit button
-cardSubmitButton.addEventListener('click', addCardHandler);
-*/
 
 /* FORM VALIDATION */
 //validate fields on edit form
-//const editFormValidator = new FormValidator(settings,form);
-//editFormValidator.enableValidation();
+const editFormValidator = new FormValidator(settings, document.querySelector(settings.editForm));
+editFormValidator.enableValidation();
 
 //validate fields on addCard form
-//const addCardValidator = new FormValidator(settings,formAddCard);
-//addCardValidator.enableValidation();
+const addCardValidator = new FormValidator(settings, document.querySelector(settings.addForm));
+addCardValidator.enableValidation();
