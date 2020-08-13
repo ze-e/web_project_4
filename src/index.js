@@ -11,7 +11,7 @@ import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
 
 /* CARDS */
-//call addNewCard for each item in the initial card array
+//add initial cards
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
