@@ -7,7 +7,7 @@ import {FormValidator} from "./scripts/FormValidator.js";
 import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 
-import {settings} from "./scripts/Settings.js";
+import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
 
 /* CARDS */

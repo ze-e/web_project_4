@@ -1,4 +1,4 @@
-import {settings} from "./Settings.js";
+import {settings} from "./settings.js";
 
 class FormValidator{
 constructor(formElement){
