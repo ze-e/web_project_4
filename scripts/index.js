@@ -103,9 +103,9 @@ cardList.renderItems();
 
 /* FORM VALIDATION */
 //validate fields on edit form
-const editFormValidator = new FormValidator(settings, document.querySelector(settings.editForm));
+const editFormValidator = new FormValidator(document.querySelector(settings.editForm));
 editFormValidator.enableValidation();
 
 //validate fields on addCard form
-const addCardValidator = new FormValidator(settings, document.querySelector(settings.addForm));
+const addCardValidator = new FormValidator(document.querySelector(settings.addForm));
 addCardValidator.enableValidation();
