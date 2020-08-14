@@ -17,6 +17,13 @@ class UserInfo{
     this._userjob = job;
   }
 
+  writeUserInfo(){
+    const _profileName = document.querySelector('.profile__name');
+    const _profileDescription = document.querySelector('.profile__description'); 
+    _profileName.textContent = this._username;
+    _profileDescription.textContent = this._userjob; 
+  }
+
 }
 
 export {UserInfo}

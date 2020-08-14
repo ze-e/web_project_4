@@ -16,8 +16,6 @@ import {initialCards} from "./scripts/initialCards.js";
 //elements
 import{
     editButton,
-    profileName,
-    profileDescription,
     addCardButton,
     cardName,
     cardLink
@@ -44,12 +42,7 @@ const editForm = new Form(settings.editForm,{
         //write our form values to the user object
         const inputValues = editForm.getFormInfo();
         const user = new User(inputValues.name,inputValues.description);
-        const userInfo = user.getUserInfo();
-       
-        //set element text content to the values from our user object
-        profileName.textContent = userInfo.name;
-        profileDescription.textContent = userInfo.job;
-
+        user.writeUserInfo();
         editForm.close();
     }
 });

@@ -37,7 +37,7 @@ class PopupWithForm extends Popup {
   _clearForm(){
     const _inputList = this._selector.querySelectorAll('.popup__input');
     _inputList.forEach(input => {
-      input.value = input.defaultValue;
+      input.value = '';
     });
   }
 }
