@@ -1,10 +1,9 @@
-import {PopupWithImage as Popup} from './PopupWithImage.js';
-
 class Card{
-  constructor(data, selector = "#card"){
+  constructor(data, selector = "#card", Popup){
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
+    this.popup = Popup;
     return this.createCard();
   }
 
@@ -28,8 +27,7 @@ class Card{
   }
 
   handleCardClick(){
-    const popup = new Popup('.popup_type_image');
-    popup.open(this._link, this._name);
+    this.popup.open(this._link, this._name);
   }
   
 /* FUNCTIONS */

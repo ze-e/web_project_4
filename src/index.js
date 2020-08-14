@@ -6,17 +6,21 @@ import {Card} from "./scripts/Card.js";
 import {FormValidator} from "./scripts/FormValidator.js";
 import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
+import {PopupWithImage as PopupImage} from "./scripts/PopupWithForm.js";
+
 import {UserInfo as User} from "./scripts/UserInfo";
 
 import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
 
 /* CARDS */
+//popup
+const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
-        const _card = new Card(item, "#card");
+        const _card = new Card(item, "#card", popupImage);
         cardList.addItem(_card);
     }
 }, ".elements");
@@ -66,7 +70,7 @@ const _addCardForm = new Form(settings.addForm,{
         const _newCardList = new Section({
             items : [_newCard],
             renderer : (item) => {
-                const _card = new Card(item, "#card");
+                const _card = new Card(item, "#card",popupImage);
                 _newCardList.addItem(_card);
             }
         }, ".elements");
