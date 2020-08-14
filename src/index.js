@@ -54,15 +54,14 @@ _editButton.addEventListener('click', (event) => {
 const _addCardButton = document.querySelector('.profile__add-button');
 const _addCardForm = new Form(settings.addForm,{
     callback : () => {
-        event.preventDefault(); 
         // Get the values of each field from the corresponding value property
-        const _cardName = document.querySelector('.popup__input-card-name');
-        const _cardLink = document.querySelector('.popup__input-card-url');
+        const cardName = document.querySelector('.popup__input-card-name');
+        const cardLink = document.querySelector('.popup__input-card-url');
     
         //create new card object and add it to the grid
-        const _newCard = {};
-        _newCard.name = _cardName.value;
-        _newCard.link = _cardLink.value;
+        const newCard = {};
+        newCard.name = cardName.value;
+        newCard.link = cardLink.value;
     
         const _newCardList = new Section({
             items : [_newCard],
