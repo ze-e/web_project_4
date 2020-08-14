@@ -17,12 +17,12 @@ class Card{
 
     //add eventListener to like button
     _elements.likeButton.addEventListener('click', (event) => {
-        event.target.classList.toggle('element__like-button_state_liked');
+      _elements.likeButton.classList.toggle('element__like-button_state_liked');
     });
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-        event.target.closest('.element').remove();
+      _elements.deleteButton.closest('.element').remove();
     });  
   }
 
