@@ -6,7 +6,7 @@ import {Card} from "./scripts/Card.js";
 import {FormValidator} from "./scripts/FormValidator.js";
 import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
-import {PopupWithImage as PopupImage} from "./scripts/PopupWithForm.js";
+import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/UserInfo";
 
 //settings
@@ -68,7 +68,7 @@ const addCardForm = new Form(settings.addForm,{
         newCard.link = cardLink.value;
     
         const newCardList = new Section({
-            items : [_newCard],
+            items : [newCard],
             renderer : (item) => {
                 const card = new Card(item, "#card",popupImage);
                 newCardList.addItem(card);
@@ -83,7 +83,7 @@ const addCardForm = new Form(settings.addForm,{
 
 //attach new form to add button
 addCardButton.addEventListener('click', (event) => {
-    _addCardForm.open();
+    addCardForm.open();
 });
 
 /* FORM VALIDATION */

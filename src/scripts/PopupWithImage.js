@@ -8,7 +8,6 @@ class PopupWithImage extends Popup {
     image.src = link;
     image.alt = name;
     this._selector.querySelector('.popup__image-caption').textContent = name;
-
     super.open();
   }
 }
