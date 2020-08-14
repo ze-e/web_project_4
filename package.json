@@ -30,10 +30,10 @@
     "mini-css-extract-plugin": "^0.10.0",
     "postcss-loader": "^3.0.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "webpack-dev-server": "^3.11.0"
+    "babel-polyfill": "^6.26.0"
   }
 }
