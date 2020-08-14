@@ -6,6 +6,7 @@ import {Card} from "./scripts/Card.js";
 import {FormValidator} from "./scripts/FormValidator.js";
 import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
+import {UserInfo as User} from "./scripts/UserInfo";
 
 import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
@@ -24,24 +25,29 @@ cardList.renderItems();
 /* FORMS */
 /* add editButton and editform */
 const _editButton =  document.querySelector('.profile__edit-button');
-const _editForm = new Form(settings.editForm,{
+const editForm = new Form(settings.editForm,{
     callback : () => {
-        //query elements
-        const _profileName = document.querySelector('.profile__name');
-        const _profileDescription = document.querySelector('.profile__description');
+        
+        //write our form values to the user object
+        const inputValues = editForm.getFormInfo();
+        const user = new User(inputValues.name,inputValues.description);
+        const userInfo = user.getUserInfo();
+       
+        //query elements which we will update with our values
+        const profileName = document.querySelector('.profile__name');
+        const profileDescription = document.querySelector('.profile__description');
+       
+        //set element text content to the values from our user object
+        profileName.textContent = userInfo.name;
+        profileDescription.textContent = userInfo.job;
 
-        //set element text content to form values
-        const _inputValues = _editForm._getInputValues();
-        _profileName.textContent = _inputValues.name;
-        _profileDescription.textContent = _inputValues.description;
-
-        _editForm.close();
+        editForm.close();
     }
 });
 
 //attach new form to edit button
 _editButton.addEventListener('click', (event) => {
-    _editForm.open();
+    editForm.open();
 });
 
 /* addCard button and form */

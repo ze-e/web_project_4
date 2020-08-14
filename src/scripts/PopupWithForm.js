@@ -17,6 +17,10 @@ class PopupWithForm extends Popup {
     return _formValues;
   }
 
+  getFormInfo(){
+    return this._getInputValues();
+  }
+
   setEventListeners(){
       super.setEventListeners();
       const _submitButton = this._selector.querySelector('.popup__submit');
