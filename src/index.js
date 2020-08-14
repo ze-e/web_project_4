@@ -7,11 +7,21 @@ import {FormValidator} from "./scripts/FormValidator.js";
 import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 import {PopupWithImage as PopupImage} from "./scripts/PopupWithForm.js";
-
 import {UserInfo as User} from "./scripts/UserInfo";
 
+//settings
 import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
+
+//elements
+import{
+    editButton,
+    profileName,
+    profileDescription,
+    addCardButton,
+    cardName,
+    cardLink
+} from "./scripts/elements.js"
 
 /* CARDS */
 //popup
@@ -20,15 +30,14 @@ const popupImage = new PopupImage('.popup_type_image');
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
-        const _card = new Card(item, "#card", popupImage);
-        cardList.addItem(_card);
+        const card = new Card(item, "#card", popupImage);
+        cardList.addItem(card);
     }
 }, ".elements");
 cardList.renderItems();
 
 /* FORMS */
 /* add editButton and editform */
-const _editButton =  document.querySelector('.profile__edit-button');
 const editForm = new Form(settings.editForm,{
     callback : () => {
         
@@ -36,10 +45,6 @@ const editForm = new Form(settings.editForm,{
         const inputValues = editForm.getFormInfo();
         const user = new User(inputValues.name,inputValues.description);
         const userInfo = user.getUserInfo();
-       
-        //query elements which we will update with our values
-        const profileName = document.querySelector('.profile__name');
-        const profileDescription = document.querySelector('.profile__description');
        
         //set element text content to the values from our user object
         profileName.textContent = userInfo.name;
@@ -50,39 +55,34 @@ const editForm = new Form(settings.editForm,{
 });
 
 //attach new form to edit button
-_editButton.addEventListener('click', (event) => {
+editButton.addEventListener('click', (event) => {
     editForm.open();
 });
 
 /* addCard button and form */
-const _addCardButton = document.querySelector('.profile__add-button');
-const _addCardForm = new Form(settings.addForm,{
+const addCardForm = new Form(settings.addForm,{
     callback : () => {
-        // Get the values of each field from the corresponding value property
-        const cardName = document.querySelector('.popup__input-card-name');
-        const cardLink = document.querySelector('.popup__input-card-url');
-    
         //create new card object and add it to the grid
         const newCard = {};
         newCard.name = cardName.value;
         newCard.link = cardLink.value;
     
-        const _newCardList = new Section({
+        const newCardList = new Section({
             items : [_newCard],
             renderer : (item) => {
-                const _card = new Card(item, "#card",popupImage);
-                _newCardList.addItem(_card);
+                const card = new Card(item, "#card",popupImage);
+                newCardList.addItem(card);
             }
         }, ".elements");
 
         //render card list and close the form
-        _newCardList.renderItems();
-        _addCardForm.close();
+        newCardList.renderItems();
+        addCardForm.close();
     }
 });
 
 //attach new form to add button
-_addCardButton.addEventListener('click', (event) => {
+addCardButton.addEventListener('click', (event) => {
     _addCardForm.open();
 });
 
