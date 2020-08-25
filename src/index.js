@@ -11,7 +11,7 @@ import {UserInfo as User} from "./scripts/UserInfo";
 import {Api} from "./scripts/Api.js"
 //settings
 import {settings} from "./scripts/settings.js";
-import {initialCards} from "./scripts/initialCards.js";
+//import {initialCards} from "./scripts/initialCards.js";
 
 //elements
 import{
@@ -21,10 +21,23 @@ import{
     cardLink
 } from "./scripts/elements.js"
 
+/* CONNECT TO THE APP */
+const api = new Api();
+const user = api.getUser();
 /* CARDS */
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
+const initialCards = () =>{
+    try{
+        return api.getCards();
+    }
+    catch(error){
+        console.error("Could not load initial cards");
+        return [];
+    }
+}
+
 const cardList = new Section({
     items : initialCards,
     renderer : (item) => {
