@@ -22,7 +22,7 @@ class Card{
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-      this._element.remove();
+      _elements.deleteButton.closest('.element').remove();
     });  
   }
 

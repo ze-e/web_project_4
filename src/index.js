@@ -8,7 +8,7 @@ import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/UserInfo";
-
+import {Api} from "./scripts/Api.js"
 //settings
 import {settings} from "./scripts/settings.js";
 import {initialCards} from "./scripts/initialCards.js";
