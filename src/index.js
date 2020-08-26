@@ -24,15 +24,16 @@ import{
 
 /* CREATE API CONNECTION */
 const api = new Api({
-    baseUrl : 'https://around.nomoreparties.co/v1/group-42/cards',
+    baseUrl : `https://around.nomoreparties.co/v1/${groupId}`,
     headers : {
         authorization : token
     }
 });
 /* LOAD USER */
-api.getUser(User);
+api.getUser('users/me',User);
 
 /* CARDS */
+/*
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
@@ -51,9 +52,10 @@ const initialCards = new ApiRequest({
                 cardList.renderItems();
             }
         });
-
+*/
 /* FORMS */
 /* add editButton and editform */
+/*
 const editForm = new Form(settings.editForm,{
     callback : () => {
         
@@ -78,7 +80,7 @@ const editForm = new Form(settings.editForm,{
         editForm.close();
     }
 });
-
+*/
 //attach new form to edit button
 editButton.addEventListener('click', (event) => {
     editForm.open();
