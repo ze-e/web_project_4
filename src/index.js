@@ -55,7 +55,6 @@ const initialCards = new ApiRequest({
             }
         });
 
-
 /* FORMS */
 /* add editButton and editform */
 const editForm = new Form(settings.editForm,{

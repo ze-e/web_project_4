@@ -1,6 +1,7 @@
 class Api{
-  constructor({address, token},{callback}){
+  constructor({address, token, method="GET"},{callback}){
     this.address = address;
+    this.method = method;
     this.token = token;
     this.callback = callback;
     return this.getResponse();
@@ -8,6 +9,7 @@ class Api{
 
   getResponse(){
     return fetch(this.address,{
+      method: this.method,
       headers: {
         authorization: this.token
         }
