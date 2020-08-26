@@ -14,6 +14,7 @@ class Api{
     })
     .then((res)=>{
       if(res.ok){
+        console.log(`res:${res}`);
         this.callback;
         return res.json();
       }

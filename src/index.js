@@ -39,27 +39,22 @@ const session = new ApiRequest({
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
-const initialCards = () =>{
-    try{
-        return new ApiRequest({
+const initialCards = new ApiRequest({
             address:`https://around.nomoreparties.co/v1/${groupId}/cards`,
             token: token
+        },{   
+            callback: () => {
+                const cardList = new Section({
+                    items : res.json(),
+                    renderer : (item) => {
+                        const card = new Card(item, "#card", popupImage);
+                        cardList.addItem(card);
+                    }
+                }, ".elements");
+                cardList.renderItems();
+            }
         });
-    }
-    catch(error){
-        console.error("Could not load initial cards");
-        return [];
-    }
-}
 
-const cardList = new Section({
-    items : initialCards,
-    renderer : (item) => {
-        const card = new Card(item, "#card", popupImage);
-        cardList.addItem(card);
-    }
-}, ".elements");
-cardList.renderItems();
 
 /* FORMS */
 /* add editButton and editform */
