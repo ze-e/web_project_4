@@ -1,7 +1,8 @@
 class Api{
-  constructor({options}){
-    this.address = options.address;
-    this.token = options.token;
+  constructor({address, token},callback){
+    this.address = address;
+    this.token = token;
+    this.callback = callback;
     return this.getResponse();
   }
 
@@ -13,6 +14,7 @@ class Api{
     })
     .then((res)=>{
       if(res.ok){
+        this.callback;
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -21,6 +23,14 @@ class Api{
       console.log(err);
     });
   }
+
+  loadUser(){
+    console.log(session);
+    console.log(`name:${session.name},about:${session.about}`);
+    const sessionUser = new User(session.name,session.about);
+    sessionUser.writeUserInfo();
+  }
 }
+
 
 export {Api};

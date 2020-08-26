@@ -23,12 +23,10 @@ import{
 } from "./scripts/elements.js"
 
 /* LOAD USER */
-const Session = new ApiRequest({
+const session = new ApiRequest({
     address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
     token: token
-});
-
-console.log(Session);
+}, () => {this.loadUser()});
 
 /* CARDS */
 //popup
