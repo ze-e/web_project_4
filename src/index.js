@@ -26,7 +26,14 @@ import{
 const session = new ApiRequest({
     address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
     token: token
-}, () => {this.loadUser()});
+}, {
+    callback: () => {
+    //save data into a new User object
+    const sessionUser = new User(session.name,session.about);
+    //write user data to page
+    sessionUser.writeUserInfo();
+    }
+});
 
 /* CARDS */
 //popup

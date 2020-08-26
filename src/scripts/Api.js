@@ -1,5 +1,5 @@
 class Api{
-  constructor({address, token},callback){
+  constructor({address, token},{callback}){
     this.address = address;
     this.token = token;
     this.callback = callback;
@@ -22,13 +22,6 @@ class Api{
     .catch((err) => {
       console.log(err);
     });
-  }
-
-  loadUser(){
-    console.log(session);
-    console.log(`name:${session.name},about:${session.about}`);
-    const sessionUser = new User(session.name,session.about);
-    sessionUser.writeUserInfo();
   }
 }
 
