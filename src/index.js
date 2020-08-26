@@ -8,9 +8,10 @@ import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/UserInfo";
-import {Api} from "./scripts/Api.js"
+import {Api as ApiRequest} from "./scripts/Api.js"
 //settings
 import {settings} from "./scripts/settings.js";
+import {groupId, token} from "./scripts/config.js";
 //import {initialCards} from "./scripts/initialCards.js";
 
 //elements
@@ -21,16 +22,24 @@ import{
     cardLink
 } from "./scripts/elements.js"
 
-/* CONNECT TO THE APP */
-const api = new Api();
-const user = api.getUser();
+/* LOAD USER */
+const Session = new ApiRequest({
+    address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
+    token: token
+});
+
+console.log(Session);
+
 /* CARDS */
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
 const initialCards = () =>{
     try{
-        return api.getCards();
+        return new ApiRequest({
+            address:`https://around.nomoreparties.co/v1/${groupId}/cards`,
+            token: token
+        });
     }
     catch(error){
         console.error("Could not load initial cards");
