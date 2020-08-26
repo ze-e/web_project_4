@@ -7,8 +7,8 @@ class Api{
     this.method = method;
   }
 
-  getUser(path, User){
-    return fetch(`${this.baseUrl}/${path}`,{
+  getUser({callback}){
+    return fetch(`${this.baseUrl}/users/me`,{
       headers: {
         authorization: this.token
         }
@@ -21,19 +21,15 @@ class Api{
       return Promise.reject(`Error: ${res.status}`);
     })
     .then( (data) => {  
-      //save data into a new User object
-      const sessionUser = new User(data.name,data.about);
-      //write user data to page
-      sessionUser.writeUserInfo();
-    }
-      )
+      callback(data);
+    })
     .catch((err) => {
       console.log(err);
       });
   }
 
-  getCards(path, User){
-    return fetch(`${this.baseUrl}/${path}`,{
+  getInitialCards({callback}){
+    return fetch(`${this.baseUrl}/cards`,{
       headers: {
         authorization: this.token
         }
@@ -45,13 +41,9 @@ class Api{
       }
       return Promise.reject(`Error: ${res.status}`);
     })
-    .then( (data) => {  
-      //save data into a new User object
-      const sessionUser = new User(data.name,data.about);
-      //write user data to page
-      sessionUser.writeUserInfo();
-    }
-      )
+    .then((data) => {  
+      callback(data);
+    })
     .catch((err) => {
       console.log(err);
       });

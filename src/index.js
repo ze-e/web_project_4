@@ -30,29 +30,36 @@ const api = new Api({
     }
 });
 /* LOAD USER */
-api.getUser('users/me',User);
+api.getUser({
+    callback: (data) => {
+      //save data into a new User object
+      const sessionUser = new User(data.name,data.about);
+      //write user data to page
+      sessionUser.writeUserInfo();
+    }
+});
 
 /* CARDS */
-/*
+
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 //add initial cards
-const initialCards = new ApiRequest({
-            address:`https://around.nomoreparties.co/v1/${groupId}/cards`,
-            token: token
-        },{   
-            callback: () => {
-                const cardList = new Section({
-                    items : res.json(),
-                    renderer : (item) => {
-                        const card = new Card(item, "#card", popupImage);
-                        cardList.addItem(card);
-                    }
-                }, ".elements");
-                cardList.renderItems();
-            }
-        });
-*/
+api.getInitialCards({
+    callback: (data) => {
+        {   
+            const cardList = new Section({
+                items : data,
+                renderer : (item) => {
+                    const card = new Card(item, "#card", popupImage);
+                    cardList.addItem(card);
+                }
+            }, ".elements");
+            cardList.renderItems();
+        }
+      }
+    }
+);
+
 /* FORMS */
 /* add editButton and editform */
 /*
