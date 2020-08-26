@@ -8,7 +8,7 @@ import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/UserInfo";
-import {Api as ApiRequest} from "./scripts/Api.js"
+import {Api} from "./scripts/Api.js"
 //settings
 import {settings} from "./scripts/settings.js";
 import {groupId, token} from "./scripts/config.js";
@@ -22,18 +22,15 @@ import{
     cardLink
 } from "./scripts/elements.js"
 
-/* LOAD USER */
-const session = new ApiRequest({
-    address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
-    token: token
-}, {
-    callback: () => {
-    //save data into a new User object
-    const sessionUser = new User(session.name,session.about);
-    //write user data to page
-    sessionUser.writeUserInfo();
+/* CREATE API CONNECTION */
+const api = new Api({
+    baseUrl : 'https://around.nomoreparties.co/v1/group-42/cards',
+    headers : {
+        authorization : token
     }
 });
+/* LOAD USER */
+api.getUser(User);
 
 /* CARDS */
 //popup
@@ -62,8 +59,22 @@ const editForm = new Form(settings.editForm,{
         
         //write our form values to the user object
         const inputValues = editForm.getFormInfo();
-        const user = new User(inputValues.name,inputValues.description);
-        user.writeUserInfo();
+        //const user = new User(inputValues.name,inputValues.description);
+        //user.writeUserInfo();
+
+        const session = new ApiRequest({
+            address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
+            token: token,
+            method: "PATCH" 
+        }, {
+            callback: () => {
+            //save data into a new User object
+            const sessionUser = new User(session.name,session.about);
+            //write user data to page
+            sessionUser.writeUserInfo();
+            }
+        });
+
         editForm.close();
     }
 });
