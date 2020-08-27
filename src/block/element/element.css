@@ -1,4 +1,6 @@
 @import url(./__image/element__image.css);
+@import url(./__likes-container/element__likes-container.css);
+@import url(./__likes-display/element__likes-display.css);
 @import url(./__like-button/element__like-button.css);
 @import url(./__title/element__title.css);
 @import url(./__text/element__text.css);

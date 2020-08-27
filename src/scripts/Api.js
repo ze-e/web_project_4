@@ -100,7 +100,7 @@ class Api{
       });
   }
 
-//
+
 }
 
 export {Api};

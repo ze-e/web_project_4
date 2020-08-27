@@ -2,6 +2,7 @@ class Card{
   constructor(data, selector = "#card", Popup){
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._selector = selector;
     this.popup = Popup;
     return this.createCard();
@@ -50,12 +51,14 @@ _getTemplate() {
     _elements.imageElement = this._element.querySelector(".element__image");
     _elements.textElement = this._element.querySelector(".element__title");
     _elements.likeButton = this._element.querySelector('.element__like-button');
+    _elements.likes = this._element.querySelector('.element__likes-display');
     _elements.deleteButton = this._element.querySelector('.element__delete-button');
 
     //populate elements with data
     _elements.textElement.textContent = this._name;
     _elements.imageElement.src = this._link;
     _elements.imageElement.alt = this._name;
+    _elements.likes.textContent = this._likes.length;
 
     //add event listners
     this._setEventListeners(_elements);
