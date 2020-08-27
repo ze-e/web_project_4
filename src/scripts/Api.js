@@ -12,7 +12,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`res:${res}`);
+        console.log(`createUser:${res}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -33,7 +33,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`res:${res}`);
+        console.log(`getInitialCards:${res}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -46,7 +46,7 @@ class Api{
       });
   }
 
-  editProfile({method, contentType, name, about, user, callback}){
+  editProfile({method, contentType, name, about, callback}){
     return fetch(`${this.baseUrl}/users/me`,{
       method: method,
       headers: {
@@ -60,7 +60,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`res:${res}`);
+        console.log(`editProfile:${res}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -73,7 +73,32 @@ class Api{
       });
   }
 
-
+  addCard({method, contentType, name, link, callback}){
+    return fetch(`${this.baseUrl}/cards`,{
+      method: method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          name: name,
+          link: link
+        })
+    })
+    .then((res) => {
+      if(res.ok){
+        console.log(`addCard:${res}`);
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
 
 //
 }

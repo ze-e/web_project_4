@@ -73,10 +73,10 @@ const editForm = new Form(settings.editForm,{
             name : inputValues.name,
             about: inputValues.description,
             callback: (data) => {
-            //save data into a new User object
-            const user = new User(data.name,data.about);
-            //write user data to page
-            user.writeUserInfo();
+                //save data into a new User object
+                const user = new User(data.name, data.about);
+                //write user data to page
+                user.writeUserInfo();
             }
         });
 
@@ -90,27 +90,35 @@ editButton.addEventListener('click', (event) => {
 });
 
 /* addCard button and form */
+
 const addCardForm = new Form(settings.addForm,{
     callback : () => {
-        //create new card object and add it to the grid
-        const newCard = {};
-        newCard.name = cardName.value;
-        newCard.link = cardLink.value;
-    
-        const newCardList = new Section({
-            items : [newCard],
-            renderer : (item) => {
-                const card = new Card(item, "#card",popupImage);
-                newCardList.addItem(card);
-            }
-        }, ".elements");
+        api.addCard({
+            method: "POST",
+            contentType: "application/json",
+            name: cardName.value,
+            link: cardLink.value,
+            callback: (data) => {
+                //create new card object and add it to the grid
+                const newCard = data;
+            
+                const newCardList = new Section({
+                    items : [newCard],
+                    renderer : (item) => {
+                        const card = new Card(item, "#card",popupImage);
+                        newCardList.addItem(card);
+                    }
+                }, ".elements");
 
-        //render card list and close the form
-        newCardList.renderItems();
-        addCardForm.close();
+                //render card list and close the form
+                newCardList.renderItems();
+                addCardForm.close();
+            }
+        });
     }
 });
 
+        
 //attach new form to add button
 addCardButton.addEventListener('click', (event) => {
     addCardForm.open();
