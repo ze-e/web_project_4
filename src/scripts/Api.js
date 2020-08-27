@@ -1,13 +1,10 @@
 class Api{
-  constructor({baseUrl, headers, body, method}){
+  constructor({baseUrl, token}){
     this.baseUrl = baseUrl;
-    this.headers = headers;
-    this.token = this.headers.authorization;
-    this.body = body;
-    this.method = method;
+    this.token = token;
   }
 
-  getUser({callback}){
+  createUser({callback}){
     return fetch(`${this.baseUrl}/users/me`,{
       headers: {
         authorization: this.token
@@ -27,7 +24,7 @@ class Api{
       console.log(err);
       });
   }
-
+  
   getInitialCards({callback}){
     return fetch(`${this.baseUrl}/cards`,{
       headers: {
@@ -48,7 +45,37 @@ class Api{
       console.log(err);
       });
   }
-}
 
+  editProfile({method, contentType, name, about, user, callback}){
+    return fetch(`${this.baseUrl}/users/me`,{
+      method: method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          name: name,
+          about: about
+        })
+    })
+    .then((res) => {
+      if(res.ok){
+        console.log(`res:${res}`);
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
+
+
+
+//
+}
 
 export {Api};

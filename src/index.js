@@ -8,7 +8,7 @@ import {Section} from "./scripts/Section.js";
 import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
 import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/UserInfo";
-import {Api} from "./scripts/Api.js"
+import {Api} from "./scripts/Api.js";
 //settings
 import {settings} from "./scripts/settings.js";
 import {groupId, token} from "./scripts/config.js";
@@ -25,17 +25,15 @@ import{
 /* CREATE API CONNECTION */
 const api = new Api({
     baseUrl : `https://around.nomoreparties.co/v1/${groupId}`,
-    headers : {
-        authorization : token
-    }
+    token : token
 });
 /* LOAD USER */
-api.getUser({
+api.createUser({
     callback: (data) => {
       //save data into a new User object
-      const sessionUser = new User(data.name,data.about);
+      const user = new User(data.name,data.about);
       //write user data to page
-      sessionUser.writeUserInfo();
+      user.writeUserInfo();
     }
 });
 
@@ -62,32 +60,30 @@ api.getInitialCards({
 
 /* FORMS */
 /* add editButton and editform */
-/*
+
 const editForm = new Form(settings.editForm,{
     callback : () => {
         
-        //write our form values to the user object
+        //save our form values
         const inputValues = editForm.getFormInfo();
-        //const user = new User(inputValues.name,inputValues.description);
-        //user.writeUserInfo();
 
-        const session = new ApiRequest({
-            address:`https://around.nomoreparties.co/v1/${groupId}/users/me`,
-            token: token,
-            method: "PATCH" 
-        }, {
-            callback: () => {
+        api.editProfile({
+            method: "PATCH",
+            contentType: "application/json",
+            name : inputValues.name,
+            about: inputValues.description,
+            callback: (data) => {
             //save data into a new User object
-            const sessionUser = new User(session.name,session.about);
+            const user = new User(data.name,data.about);
             //write user data to page
-            sessionUser.writeUserInfo();
+            user.writeUserInfo();
             }
         });
 
         editForm.close();
     }
 });
-*/
+
 //attach new form to edit button
 editButton.addEventListener('click', (event) => {
     editForm.open();
