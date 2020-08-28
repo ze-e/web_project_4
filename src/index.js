@@ -12,7 +12,6 @@ import {Api} from "./scripts/Api.js";
 //settings
 import {settings} from "./scripts/settings.js";
 import {groupId, token} from "./scripts/config.js";
-//import {initialCards} from "./scripts/initialCards.js";
 
 //elements
 import{
@@ -48,7 +47,7 @@ api.getInitialCards({
             const cardList = new Section({
                 items : data,
                 renderer : (item) => {
-                    const card = new Card(item, "#card", popupImage);
+                    const card = new Card(item, "#card", popupImage, api);
                     cardList.addItem(card);
                 }
             }, ".elements");
@@ -105,7 +104,7 @@ const addCardForm = new Form(settings.addForm,{
                 const newCardList = new Section({
                     items : [newCard],
                     renderer : (item) => {
-                        const card = new Card(item, "#card",popupImage);
+                        const card = new Card(item, "#card", popupImage, api);
                         newCardList.addItem(card);
                     }
                 }, ".elements");

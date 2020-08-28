@@ -1,3 +1,5 @@
+import { call } from "file-loader";
+
 class Section{
   constructor({items, renderer}, selector){
     this._items = items;

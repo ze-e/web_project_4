@@ -1,10 +1,12 @@
 class Card{
-  constructor(data, selector = "#card", Popup){
+  constructor(data, selector = "#card", Popup, Api){
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
     this._selector = selector;
     this.popup = Popup;
+    this.api = Api;
     return this.createCard();
   }
 
@@ -18,13 +20,21 @@ class Card{
 
     //add eventListener to like button
     _elements.likeButton.addEventListener('click', (event) => {
-      _elements.likeButton.classList.toggle('element__like-button_state_liked');
+      this.api.addLike({
+        method: "PUT",
+        contentType: "application/json",
+        cardId: this._id,
+        callback: (data) => {
+          _elements.likes.textContent = data.likes.length;
+          _elements.likeButton.classList.add('element__like-button_state_liked');
+        }
+      });
     });
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
       _elements.deleteButton.closest('.element').remove();
-    });  
+    });   
   }
 
   handleCardClick(){
@@ -48,20 +58,23 @@ _getTemplate() {
 
     //query elements and save them in the _elements object
     const _elements = {};
-    _elements.imageElement = this._element.querySelector(".element__image");
-    _elements.textElement = this._element.querySelector(".element__title");
+    _elements.imageElement = this._element.querySelector('.element__image');
+    _elements.textElement = this._element.querySelector('.element__title');
     _elements.likeButton = this._element.querySelector('.element__like-button');
     _elements.likes = this._element.querySelector('.element__likes-display');
     _elements.deleteButton = this._element.querySelector('.element__delete-button');
+    _elements.element = this._element.querySelector('.element');
 
     //populate elements with data
+    _elements.element.classList.add(this._id);
     _elements.textElement.textContent = this._name;
     _elements.imageElement.src = this._link;
     _elements.imageElement.alt = this._name;
     _elements.likes.textContent = this._likes.length;
 
-    //add event listners
-    this._setEventListeners(_elements);
+    //add event listners 
+    this._setEventListeners(_elements);    
+
     return this._element;
   }
 

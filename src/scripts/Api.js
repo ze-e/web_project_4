@@ -100,6 +100,28 @@ class Api{
       });
   }
 
+  addLike({method, contentType, cardId, callback}){
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
+      method: method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": contentType
+        }
+    })
+    .then((res) => {
+      if(res.ok){
+        console.log(`addLike:${res}`);
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
 
 }
 
