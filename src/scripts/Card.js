@@ -68,20 +68,18 @@ class Card{
 
 /* OWNER PERMISSIONS */
 _setOwnerPermissions(_elements){
-  if(!this._isOwner()){
-    //remove delete button
-    delete _elements.deleteButton;
-  }
-}
-
-_isOwner(){
-  return this.api.getUser({
+  //get the current user
+  this.api.getUser({
     callback: (data) => {
       const currentUser = data._id;
-      return currentUser === this._owner ? true : false; 
+      if (currentUser != this._owner){
+        //set owner permissions here
+        _elements.deleteButton.remove();
+      }
     }
   });
 }
+
  
 /* FUNCTIONS */
 
