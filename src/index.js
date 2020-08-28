@@ -27,10 +27,10 @@ const api = new Api({
     token : token
 });
 /* LOAD USER */
-api.createUser({
+api.getUser({
     callback: (data) => {
       //save data into a new User object
-      const user = new User(data.name,data.about);
+      const user = new User(data.name, data.about);
       //write user data to page
       user.writeUserInfo();
     }

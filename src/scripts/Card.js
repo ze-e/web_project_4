@@ -5,6 +5,7 @@ class Card{
     this._likes = data.likes;
     this._liked = false;
     this._id = data._id;
+    this._owner = data.owner._id;
     this._selector = selector;
     this.popup = Popup;
     this.api = Api;
@@ -63,9 +64,25 @@ class Card{
         this._liked = !this._liked;
       }
     });
-
   }
-  
+
+/* OWNER PERMISSIONS */
+_setOwnerPermissions(_elements){
+  if(!this._isOwner()){
+    //remove delete button
+    delete _elements.deleteButton;
+  }
+}
+
+_isOwner(){
+  return this.api.getUser({
+    callback: (data) => {
+      const currentUser = data._id;
+      return currentUser === this._owner ? true : false; 
+    }
+  });
+}
+ 
 /* FUNCTIONS */
 
 _getTemplate() {
@@ -87,8 +104,8 @@ _getTemplate() {
     _elements.textElement = this._element.querySelector('.element__title');
     _elements.likeButton = this._element.querySelector('.element__like-button');
     _elements.likes = this._element.querySelector('.element__likes-display');
-    _elements.deleteButton = this._element.querySelector('.element__delete-button');
     _elements.element = this._element.querySelector('.element');
+    _elements.deleteButton = this._element.querySelector('.element__delete-button');
 
     //populate elements with data
     _elements.element.classList.add(this._id);
@@ -98,11 +115,13 @@ _getTemplate() {
     _elements.likes.textContent = this._likes.length;
 
     //add event listners 
-    this._setEventListeners(_elements);    
+    this._setEventListeners(_elements);  
+
+    //set user permissions
+    this._setOwnerPermissions(_elements);  
 
     return this._element;
   }
-
   
 }
 

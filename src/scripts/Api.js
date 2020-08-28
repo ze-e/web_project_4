@@ -4,7 +4,7 @@ class Api{
     this.token = token;
   }
 
-  createUser({callback}){
+  getUser({callback}){
     return fetch(`${this.baseUrl}/users/me`,{
       headers: {
         authorization: this.token
@@ -12,7 +12,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`createUser:${res.status}`);
+        console.log(`getUser:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);

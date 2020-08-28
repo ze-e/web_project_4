@@ -1,13 +1,15 @@
 class UserInfo{
-  constructor(username, userjob){
+  constructor(username, userjob, userId){
     this._username = username;
     this._userjob = userjob;
+    this._userId = userId;
   }
 
   getUserInfo(){
     const userInfo = {
       name : this._username,
-      job: this._userjob
+      job: this._userjob,
+      id: this._userId
     };
     return userInfo;
   }
