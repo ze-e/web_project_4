@@ -73,7 +73,6 @@ _setOwnerPermissions(_elements){
     callback: (data) => {
       const currentUser = data._id;
       if (currentUser != this._owner){
-        //set owner permissions here
         _elements.deleteButton.remove();
       }
     }
