@@ -12,7 +12,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`createUser:${res}`);
+        console.log(`createUser:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -33,7 +33,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`getInitialCards:${res}`);
+        console.log(`getInitialCards:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -60,7 +60,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`editProfile:${res}`);
+        console.log(`editProfile:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -87,7 +87,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`addCard:${res}`);
+        console.log(`addCard:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -100,7 +100,7 @@ class Api{
       });
   }
 
-  addLike({method, contentType, cardId, callback}){
+  editLikes({method, contentType, cardId, callback}){
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
       method: method,
       headers: {
@@ -110,7 +110,7 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`addLike:${res}`);
+        console.log(`addLike:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -123,6 +123,7 @@ class Api{
       });
   }
 
+////
 }
 
 export {Api};

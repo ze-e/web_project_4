@@ -3,6 +3,7 @@ class Card{
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._liked = false;
     this._id = data._id;
     this._selector = selector;
     this.popup = Popup;
@@ -20,15 +21,7 @@ class Card{
 
     //add eventListener to like button
     _elements.likeButton.addEventListener('click', (event) => {
-      this.api.addLike({
-        method: "PUT",
-        contentType: "application/json",
-        cardId: this._id,
-        callback: (data) => {
-          _elements.likes.textContent = data.likes.length;
-          _elements.likeButton.classList.add('element__like-button_state_liked');
-        }
-      });
+      this._handleLike(_elements);
     });
 
     //add eventListener to delete button
@@ -39,6 +32,38 @@ class Card{
 
   handleCardClick(){
     this.popup.open(this._link, this._name);
+  }
+
+  //like methods
+  _handleLike(_elements){
+    !this._liked ? this._addLike(_elements) : this._removeLike(_elements);
+  }
+
+  _addLike(_elements){
+    this.api.editLikes({
+      method: "PUT",
+      contentType: "application/json",
+      cardId: this._id,
+      callback: (data) => {
+        _elements.likes.textContent = data.likes.length;
+        _elements.likeButton.classList.add('element__like-button_state_liked');
+        this._liked = !this._liked;
+      }
+    });
+  }
+
+  _removeLike(_elements){
+    this.api.editLikes({
+      method: "DELETE",
+      contentType: "application/json",
+      cardId: this._id,
+      callback: (data) => {
+        _elements.likes.textContent = data.likes.length;
+        _elements.likeButton.classList.remove('element__like-button_state_liked');
+        this._liked = !this._liked;
+      }
+    });
+
   }
   
 /* FUNCTIONS */
