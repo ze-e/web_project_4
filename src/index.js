@@ -40,6 +40,8 @@ api.getUser({
 
 //popup
 const popupImage = new PopupImage('.popup_type_image');
+const popupDelete = new Form('.popup_type_delete');
+
 //add initial cards
 api.getInitialCards({
     callback: (data) => {
@@ -47,7 +49,13 @@ api.getInitialCards({
             const cardList = new Section({
                 items : data,
                 renderer : (item) => {
-                    const card = new Card(item, "#card", popupImage, api);
+                    const card = new Card(item, 
+                        "#card", 
+                        {
+                            Popup: popupImage,
+                            PopupDelete: popupDelete,
+                            Api: api
+                        });
                     cardList.addItem(card);
                 }
             }, ".elements");

@@ -1,5 +1,5 @@
 class Card{
-  constructor(data, selector = "#card", Popup, Api){
+  constructor(data, selector = "#card", {Popup, PopupDelete, Api}){
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -8,6 +8,7 @@ class Card{
     this._owner = data.owner._id;
     this._selector = selector;
     this.popup = Popup;
+    this.confirmDeletePopup = PopupDelete;
     this.api = Api;
     return this.createCard();
   }
@@ -27,12 +28,22 @@ class Card{
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-      _elements.deleteButton.closest('.element').remove();
+      this.handleDeleteClick();
     });   
   }
 
+  //open modal window
   handleCardClick(){
     this.popup.open(this._link, this._name);
+  }
+
+  //delete window
+  handleDeleteClick(){
+    this.confirmDeletePopup.open();
+  }
+
+  deleteCard(){
+    _elements.deleteButton.closest('.element').remove();
   }
 
   //like methods
