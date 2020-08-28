@@ -2,6 +2,7 @@
 @import url(./__container/popup__container.css);
 @import url(./__form/popup__form.css);
 @import url(./__title/popup__title.css);
+@import url(./__title/_type_no-bottom-margin/popup__title_type_no-bottom-margin.css);
 @import url(./__input-name/popup__input-name.css);
 @import url(./__input-description/popup__input-description.css);
 @import url(./__input-card-name/popup__input-card-name.css);
@@ -10,7 +11,6 @@
 @import url(./__input-error/popup__input-error.css);
 @import url(./__submit/popup__submit.css);
 @import url(./__profile-submit/popup__profile-submit.css);
-
 @import url(./__error/_visible/popup__error_visible.css);
 @import url(./__image/popup__image.css);
 @import url(./__card-submit/popup__card-submit.css);
@@ -30,7 +30,6 @@
   z-index: 1; 
   left: 0; 
   top: 0;
-
 }
 
 .popup.popup_state_opened{

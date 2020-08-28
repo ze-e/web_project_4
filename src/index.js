@@ -40,7 +40,11 @@ api.getUser({
 
 //popup
 const popupImage = new PopupImage('.popup_type_image');
-const popupDelete = new Form('.popup_type_delete');
+const popupDelete = new Form('.popup_type_delete', {callback: ()=>
+    {   
+        return;
+    }
+});
 
 //add initial cards
 api.getInitialCards({
