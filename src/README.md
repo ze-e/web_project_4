@@ -4,14 +4,29 @@
 ### Overview
 
 * Figma
-* Images
+* Skills used
 
 **Figma**
 
+This project was created based on a design made in Figma:
+
 * [Link to the project in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+**Skills**
 
-Have fun with JavaScript!
+Some of the skills used to build this project were:
+HTML:
+-Descriptive html tags to maximize seo
+
+CSS:
+-BEM file structure
+
+js:
+-ES10 javascript syntax
+-asynchronous functions and communicating with apis
+
+Other:
+-NPM
+-webpack
+-babel
