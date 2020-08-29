@@ -7,7 +7,8 @@ const settings = {
   errorClass: "popup__error_visible",
   
   editForm: '.popup_type_edit-profile',
-  addForm: '.popup_type_add-card'
+  addForm: '.popup_type_add-card',
+  avatarForm: '.popup_type_edit-avatar'
 }
 
 export {settings}

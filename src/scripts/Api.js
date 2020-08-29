@@ -73,6 +73,32 @@ class Api{
       });
   }
 
+  editAvatar({method, link, callback}){
+    return fetch(`${this.baseUrl}/users/me/avatar`,{
+      method: method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          avatar: link
+        })
+    })
+    .then((res) => {
+      if(res.ok){
+        console.log(`editAvatar:${res.status}`);
+        return res.json();
+      }
+      return Promise.reject(`editAvatar Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
+
   addCard({method, name, link, callback}){
     return fetch(`${this.baseUrl}/cards`,{
       method: method,

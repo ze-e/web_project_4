@@ -18,7 +18,9 @@ import{
     editButton,
     addCardButton,
     cardName,
-    cardLink
+    cardLink,
+    avatar,
+    avatarLink
 } from "./scripts/elements.js"
 
 /* CREATE API CONNECTION */
@@ -26,6 +28,7 @@ const api = new Api({
     baseUrl : `https://around.nomoreparties.co/v1/${groupId}`,
     token : token
 });
+
 /* LOAD USER */
 api.getUser({
     callback: (data) => {
@@ -125,11 +128,29 @@ const addCardForm = new Form(settings.addForm,{
         });
     }
 });
-
-        
-//attach new form to add button
+    
+//attach form to add button
 addCardButton.addEventListener('click', (event) => {
     addCardForm.open();
+});
+
+/* avatar button and form */
+const avatarForm = new Form(settings.avatarForm,{
+    callback : () => {
+        api.editAvatar({
+            method: "PATCH",
+            link: avatarLink.value,
+            callback: (data) => {
+                avatar.src = data.avatar;
+                avatarForm.close();
+            }
+        });
+    }
+});
+
+//attach form to avatar
+avatar.addEventListener('click', (event) => {
+    avatarForm.open();
 });
 
 /* FORM VALIDATION */
@@ -140,3 +161,7 @@ editFormValidator.enableValidation();
 //validate fields on addCard form
 const addCardValidator = new FormValidator(document.querySelector(settings.addForm));
 addCardValidator.enableValidation();
+
+//validate field on avatar form
+const avatarValidator = new FormValidator(document.querySelector(settings.avatarForm));
+avatarValidator.enableValidation();
