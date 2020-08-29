@@ -1,5 +1,12 @@
+//I have no idea how to attach this form to the eventListener without importing it here
+//if I pass the form in the constructor as I did for Popup and Api, 
+//I cannot create the form callback because the card object has not been created and I cannot
+//access its methods
+
+import {PopupWithForm as Form} from './PopupWithForm.js';
+
 class Card{
-  constructor(data, selector = "#card", {Popup, PopupDelete, Api}){
+  constructor(data, selector = "#card", {Popup, Api}){
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -8,14 +15,14 @@ class Card{
     this._owner = data.owner._id;
     this._selector = selector;
     this.popup = Popup;
-    this.confirmDeletePopup = PopupDelete;
     this.api = Api;
     return this.createCard();
   }
 
   /* EVENT HANDLERS */
 
-  _setEventListeners(_elements) {
+  _setEventListeners(_elements){
+
     //add _openModalImage to image
     _elements.imageElement.addEventListener('click', (event) => {
       this.handleCardClick();
@@ -28,19 +35,22 @@ class Card{
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-      //this.handleDeleteClick();
-      this.deleteCard(_elements);
-    });   
+      this.handleDeleteClick(_elements);
+    });
   }
 
-  //open modal window
   handleCardClick(){
     this.popup.open(this._link, this._name);
   }
 
-  //delete window
-  handleDeleteClick(){
-    this.confirmDeletePopup.open();
+    //delete form
+  handleDeleteClick(_elements){
+    const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
+      this.deleteCard(_elements);
+      confirmDeletePopup.close();
+      }
+    });
+    confirmDeletePopup.open();
   }
 
   deleteCard(_elements){

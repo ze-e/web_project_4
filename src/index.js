@@ -40,11 +40,6 @@ api.getUser({
 
 //popup
 const popupImage = new PopupImage('.popup_type_image');
-const popupDelete = new Form('.popup_type_delete', {callback: ()=>
-    {   
-        return;
-    }
-});
 
 //add initial cards
 api.getInitialCards({
@@ -57,7 +52,6 @@ api.getInitialCards({
                         "#card", 
                         {
                             Popup: popupImage,
-                            PopupDelete: popupDelete,
                             Api: api
                         });
                     cardList.addItem(card);
@@ -118,7 +112,6 @@ const addCardForm = new Form(settings.addForm,{
                             "#card", 
                             {
                                 Popup: popupImage,
-                                PopupDelete: popupDelete,
                                 Api: api
                             });
                         newCardList.addItem(card);
