@@ -28,7 +28,8 @@ class Card{
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-      this.handleDeleteClick();
+      //this.handleDeleteClick();
+      this.deleteCard(_elements);
     });   
   }
 
@@ -42,8 +43,14 @@ class Card{
     this.confirmDeletePopup.open();
   }
 
-  deleteCard(){
-    _elements.deleteButton.closest('.element').remove();
+  deleteCard(_elements){
+    this.api.deleteCard({
+      cardId: this._id,
+      method: "DELETE",
+      callback: (data) =>{
+        _elements.deleteButton.closest('.element').remove();
+      }
+    })
   }
 
   //like methods
@@ -54,7 +61,6 @@ class Card{
   _addLike(_elements){
     this.api.editLikes({
       method: "PUT",
-      contentType: "application/json",
       cardId: this._id,
       callback: (data) => {
         _elements.likes.textContent = data.likes.length;
@@ -67,7 +73,6 @@ class Card{
   _removeLike(_elements){
     this.api.editLikes({
       method: "DELETE",
-      contentType: "application/json",
       cardId: this._id,
       callback: (data) => {
         _elements.likes.textContent = data.likes.length;

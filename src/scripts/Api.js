@@ -46,12 +46,12 @@ class Api{
       });
   }
 
-  editProfile({method, contentType, name, about, callback}){
+  editProfile({method, name, about, callback}){
     return fetch(`${this.baseUrl}/users/me`,{
       method: method,
       headers: {
         authorization: this.token,
-        "Content-Type": contentType
+        "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: name,
@@ -73,12 +73,12 @@ class Api{
       });
   }
 
-  addCard({method, contentType, name, link, callback}){
+  addCard({method, name, link, callback}){
     return fetch(`${this.baseUrl}/cards`,{
       method: method,
       headers: {
         authorization: this.token,
-        "Content-Type": contentType
+        "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: name,
@@ -100,12 +100,35 @@ class Api{
       });
   }
 
-  editLikes({method, contentType, cardId, callback}){
+  deleteCard({method, cardId, callback}){
+    return fetch(`${this.baseUrl}/cards/${cardId}`,{
+      method: method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json"
+        }
+    })
+    .then((res) => {
+      if(res.ok){
+        console.log(`deleteCard:${res.status}`);
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
+
+  editLikes({method, cardId, callback}){
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
       method: method,
       headers: {
         authorization: this.token,
-        "Content-Type": contentType
+        "Content-Type": "application/json"
         }
     })
     .then((res) => {

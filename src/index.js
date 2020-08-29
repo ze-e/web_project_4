@@ -80,7 +80,6 @@ const editForm = new Form(settings.editForm,{
 
         api.editProfile({
             method: "PATCH",
-            contentType: "application/json",
             name : inputValues.name,
             about: inputValues.description,
             callback: (data) => {
@@ -106,7 +105,6 @@ const addCardForm = new Form(settings.addForm,{
     callback : () => {
         api.addCard({
             method: "POST",
-            contentType: "application/json",
             name: cardName.value,
             link: cardLink.value,
             callback: (data) => {
@@ -116,7 +114,13 @@ const addCardForm = new Form(settings.addForm,{
                 const newCardList = new Section({
                     items : [newCard],
                     renderer : (item) => {
-                        const card = new Card(item, "#card", popupImage, api);
+                        const card = new Card(item, 
+                            "#card", 
+                            {
+                                Popup: popupImage,
+                                PopupDelete: popupDelete,
+                                Api: api
+                            });
                         newCardList.addItem(card);
                     }
                 }, ".elements");
