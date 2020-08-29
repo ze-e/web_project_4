@@ -20,6 +20,7 @@ import{
     cardName,
     cardLink,
     avatar,
+    avatarButton,
     avatarLink,
     profileSubmit,
     addCardSubmit,
@@ -158,7 +159,7 @@ const avatarForm = new Form(settings.avatarForm,{
 });
 
 //attach form to avatar
-avatar.addEventListener('click', (event) => {
+avatarButton.addEventListener('click', (event) => {
     avatarForm.open();
 });
 
