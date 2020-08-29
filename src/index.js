@@ -20,7 +20,10 @@ import{
     cardName,
     cardLink,
     avatar,
-    avatarLink
+    avatarLink,
+    profileSubmit,
+    addCardSubmit,
+    avatarSubmit
 } from "./scripts/elements.js"
 
 /* CREATE API CONNECTION */
@@ -84,10 +87,12 @@ const editForm = new Form(settings.editForm,{
                 const user = new User(data.name, data.about);
                 //write user data to page
                 user.writeUserInfo();
-            }
+            },
+            element: profileSubmit,
+            originalText: profileSubmit.textContent
         });
 
-        editForm.close();
+        //editForm.close();
     }
 });
 
@@ -124,7 +129,9 @@ const addCardForm = new Form(settings.addForm,{
                 //render card list and close the form
                 newCardList.renderItems();
                 addCardForm.close();
-            }
+            },
+            element: addCardSubmit,
+            originalText: addCardSubmit.textContent
         });
     }
 });
@@ -143,7 +150,9 @@ const avatarForm = new Form(settings.avatarForm,{
             callback: (data) => {
                 avatar.src = data.avatar;
                 avatarForm.close();
-            }
+            },
+            element: avatarSubmit,
+            originalText: avatarSubmit.textContent
         });
     }
 });

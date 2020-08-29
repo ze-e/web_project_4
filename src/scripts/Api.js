@@ -3,7 +3,18 @@ class Api{
     this.baseUrl = baseUrl;
     this.token = token;
   }
+  
+  /* HELPER FUNCTIONS */
+  loading(isLoading, element, originalText){
+    if(isLoading){
+      element.textContent = "Loading..."
+    }
+    else{
+      element.textContent = originalText;
+    }
+  }
 
+  /* API FUNCTIONS */
   getUser({callback}){
     return fetch(`${this.baseUrl}/users/me`,{
       headers: {
@@ -46,7 +57,8 @@ class Api{
       });
   }
 
-  editProfile({method, name, about, callback}){
+  editProfile({method, name, about, callback, element, originalText}){
+    this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me`,{
       method: method,
       headers: {
@@ -70,10 +82,14 @@ class Api{
     })
     .catch((err) => {
       console.log(err);
-      });
+      })
+    .finally(() => {
+      this.loading(false, element, originalText);
+    });
   }
 
-  editAvatar({method, link, callback}){
+  editAvatar({method, link, callback, element, originalText}){
+    this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me/avatar`,{
       method: method,
       headers: {
@@ -96,10 +112,14 @@ class Api{
     })
     .catch((err) => {
       console.log(err);
-      });
+      })
+    .finally(() => {
+      this.loading(false, element, originalText);
+    });
   }
 
-  addCard({method, name, link, callback}){
+  addCard({method, name, link, callback, element, originalText}){
+    this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/cards`,{
       method: method,
       headers: {
@@ -123,7 +143,10 @@ class Api{
     })
     .catch((err) => {
       console.log(err);
-      });
+      })
+    .finally(() => {
+      this.loading(false, element, originalText);
+    });
   }
 
   deleteCard({method, cardId, callback}){
