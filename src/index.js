@@ -2,13 +2,13 @@
 import "./pages/index.css";
 
 //js
-import {Card} from "./scripts/Card.js";
-import {FormValidator} from "./scripts/FormValidator.js";
-import {Section} from "./scripts/Section.js";
-import {PopupWithForm as Form} from "./scripts/PopupWithForm.js";
-import {PopupWithImage as PopupImage} from "./scripts/PopupWithImage.js";
-import {UserInfo as User} from "./scripts/UserInfo";
-import {Api} from "./scripts/Api.js";
+import {Card} from "./scripts/components/Card.js";
+import {FormValidator} from "./scripts/components/FormValidator.js";
+import {Section} from "./scripts/components/Section.js";
+import {PopupWithForm as Form} from "./scripts/components/PopupWithForm.js";
+import {PopupWithImage as PopupImage} from "./scripts/components/PopupWithImage.js";
+import {UserInfo as User} from "./scripts/components/UserInfo";
+import {Api} from "./scripts/components/Api.js";
 //settings
 import {settings} from "./scripts/settings.js";
 import {groupId, token} from "./scripts/config.js";
