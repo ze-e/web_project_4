@@ -136,7 +136,7 @@ class Api{
         console.log(`addLike:${res.status}`);
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`editLikes Error: ${res.status}`);
     })
     .then((data) => {  
       callback(data);

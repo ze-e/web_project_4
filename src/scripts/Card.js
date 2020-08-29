@@ -75,26 +75,26 @@ class Card{
       callback: (data) => {
         _elements.likes.textContent = data.likes.length;
         _elements.likeButton.classList.add('element__like-button_state_liked');
-        this._liked = !this._liked;
+        this._liked = true;
       }
     });
   }
 
   _removeLike(_elements){
     this.api.editLikes({
+      cardId: this._id,      
       method: "DELETE",
-      cardId: this._id,
       callback: (data) => {
         _elements.likes.textContent = data.likes.length;
         _elements.likeButton.classList.remove('element__like-button_state_liked');
-        this._liked = !this._liked;
+        this._liked = false;
       }
     });
   }
 
 /* OWNER PERMISSIONS */
 _setOwnerPermissions(_elements){
-  //get the current user
+  //remove delete button if currentuser does not equal the owner
   this.api.getUser({
     callback: (data) => {
       const currentUser = data._id;
@@ -103,6 +103,13 @@ _setOwnerPermissions(_elements){
       }
     }
   });
+
+  //set initial like state
+  const selfLike = this._likes.find((item) => item._id == this._owner);
+    if(selfLike){
+      _elements.likeButton.classList.add('element__like-button_state_liked');
+      this._liked = true;
+    }
 }
 
  
