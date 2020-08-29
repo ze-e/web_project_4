@@ -101,6 +101,9 @@ _setOwnerPermissions(_elements){
       if (currentUser != this._owner){
         _elements.deleteButton.remove();
       }
+
+      //remove loading status
+      this.cardLoaded(_elements);
     }
   });
 
@@ -124,6 +127,10 @@ _getTemplate() {
   return _cardElement;
 }
 
+cardLoaded(_elements){
+  _elements.loading.remove();
+}
+
   createCard() {
     //clone template
     this._element = this._getTemplate();
@@ -136,6 +143,7 @@ _getTemplate() {
     _elements.likes = this._element.querySelector('.element__likes-display');
     _elements.element = this._element.querySelector('.element');
     _elements.deleteButton = this._element.querySelector('.element__delete-button');
+    _elements.loading = this._element.querySelector('.element__loading');
 
     //populate elements with data
     _elements.element.classList.add(this._id);
@@ -148,7 +156,7 @@ _getTemplate() {
     this._setEventListeners(_elements);  
 
     //set user permissions
-    this._setOwnerPermissions(_elements);  
+    this._setOwnerPermissions(_elements);
 
     return this._element;
   }

@@ -92,7 +92,7 @@ const editForm = new Form(settings.editForm,{
             originalText: profileSubmit.textContent
         });
 
-        //editForm.close();
+        editForm.close();
     }
 });
 

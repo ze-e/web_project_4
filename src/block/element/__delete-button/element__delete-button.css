@@ -10,6 +10,7 @@
   top: 19px;
   right: 15px;
   position: absolute;
+  z-index: 1;
 }
 
 .element__delete-button:hover{
