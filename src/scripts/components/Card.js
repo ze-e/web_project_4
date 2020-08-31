@@ -55,10 +55,9 @@ class Card{
 
   deleteCard(_elements){
     this.api.deleteCard({
-      cardId: this._id,
-      callback: (data) =>{
-        _elements.deleteButton.closest('.element').remove();
-      }
+      cardId: this._id
+    }).then((data) =>{
+      _elements.deleteButton.closest('.element').remove();
     })
   }
 
@@ -70,40 +69,37 @@ class Card{
   _addLike(_elements){
     this.api.addLike({
       method: "PUT",
-      cardId: this._id,
-      callback: (data) => {
-        _elements.likes.textContent = data.likes.length;
-        _elements.likeButton.classList.add('element__like-button_state_liked');
-        this._liked = true;
-      }
-    });
+      cardId: this._id
+    }).then((data) => {
+      _elements.likes.textContent = data.likes.length;
+      _elements.likeButton.classList.add('element__like-button_state_liked');
+      this._liked = true;
+    })
   }
 
   _removeLike(_elements){
     this.api.deleteLike({
-      cardId: this._id,      
-      callback: (data) => {
-        _elements.likes.textContent = data.likes.length;
-        _elements.likeButton.classList.remove('element__like-button_state_liked');
-        this._liked = false;
-      }
-    });
+      cardId: this._id
+    }).then((data) => {
+      _elements.likes.textContent = data.likes.length;
+      _elements.likeButton.classList.remove('element__like-button_state_liked');
+      this._liked = false;
+    })
   }
 
 /* OWNER PERMISSIONS */
 _setOwnerPermissions(_elements){
   //remove delete button if currentuser does not equal the owner
   this.api.getUser({
-    callback: (data) => {
-      const currentUser = data._id;
-      if (currentUser != this._owner){
-        _elements.deleteButton.remove();
-      }
-
-      //remove loading status
-      this.cardLoaded(_elements);
+  }).then((data) => {
+    const currentUser = data._id;
+    if (currentUser != this._owner){
+      _elements.deleteButton.remove();
     }
-  });
+
+    //remove loading status
+    this.cardLoaded(_elements);
+  })
 
   //set initial like state
   const selfLike = this._likes.find((item) => item._id == this._owner);

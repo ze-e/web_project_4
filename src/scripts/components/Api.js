@@ -15,7 +15,7 @@ class Api{
   }
 
   /* API FUNCTIONS */
-  getUser({callback}){
+  getUser(){
     return fetch(`${this.baseUrl}/users/me`,{
       headers: {
         authorization: this.token
@@ -25,17 +25,14 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then( (data) => {  
-      callback(data);
+      return Promise.reject(`Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
       });
   }
   
-  getInitialCards({callback}){
+  getInitialCards(){
     return fetch(`${this.baseUrl}/cards`,{
       headers: {
         authorization: this.token
@@ -45,17 +42,14 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
       });
   }
 
-  editProfile({name, about, callback, element, originalText}){
+  editProfile({name, about, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me`,{
       method: "PATCH",
@@ -72,10 +66,7 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
@@ -85,7 +76,7 @@ class Api{
     });
   }
 
-  editAvatar({method, link, callback, element, originalText}){
+  editAvatar({link, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me/avatar`,{
       headers: {
@@ -100,10 +91,7 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`editAvatar Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`editAvatar Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
@@ -113,7 +101,7 @@ class Api{
     });
   }
 
-  addCard({name, link, callback, element, originalText}){
+  addCard({name, link, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/cards`,{
       method: "POST",
@@ -130,10 +118,7 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
@@ -143,7 +128,7 @@ class Api{
     });
   }
 
-  deleteCard({method, cardId, callback}){
+  deleteCard({cardId}){
     return fetch(`${this.baseUrl}/cards/${cardId}`,{
       method: "DELETE",
       headers: {
@@ -155,17 +140,14 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
       });
   }
 
-  addLike({cardId, callback}){
+  addLike({cardId}){
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
       method: "PUT",
       headers: {
@@ -177,17 +159,14 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`editLikes Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`editLikes Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);
       });
   }
 
-  deleteLike({cardId, callback}){
+  deleteLike({cardId}){
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
       method: "DELETE",
       headers: {
@@ -199,10 +178,7 @@ class Api{
       if(res.ok){
         return res.json();
       }
-      return Promise.reject(`editLikes Error: ${res.status}`);
-    })
-    .then((data) => {  
-      callback(data);
+      return Promise.reject(`editLikes Error: ${res.statusText}`);
     })
     .catch((err) => {
       console.log(err);

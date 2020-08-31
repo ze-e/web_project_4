@@ -26,6 +26,7 @@ import{
     addCardSubmit,
     avatarSubmit
 } from "./scripts/utils/elements.js"
+import { data } from "autoprefixer";
 
 /* CREATE API CONNECTION */
 const api = new Api({
@@ -34,14 +35,12 @@ const api = new Api({
 });
 
 /* LOAD USER */
-const sessionUser = api.getUser({
-    callback: (data) => {
+const sessionUser = api.getUser().then((data) => {
       //save data into a new User object
       const user = new User(data.name, data.about);
       //write user data to page
       user.writeUserInfo();
       return user;
-    }
 });
 
 /* CARDS */
@@ -50,8 +49,7 @@ const sessionUser = api.getUser({
 const popupImage = new PopupImage('.popup_type_image');
 
 //add initial cards
-api.getInitialCards({
-    callback: (data) => {
+api.getInitialCards().then((data) => {
         {   
             const cardList = new Section({
                 items : data,
@@ -68,30 +66,27 @@ api.getInitialCards({
             cardList.renderItems();
         }
       }
-    }
 );
 
 /* FORMS */
 /* add editButton and editform */
 
 const editForm = new Form(settings.editForm,{
-    callback : () => {
-        
+    callback : () => {        
         //save our form values
         const inputValues = editForm.getFormInfo();
 
         api.editProfile({
             name : inputValues.name,
             about: inputValues.description,
-            callback: (data) => {
-                //save data into a new User object
-                const user = new User(data.name, data.about);
-                //write user data to page
-                user.writeUserInfo();
-            },
             element: profileSubmit,
             originalText: profileSubmit.textContent
-        });
+        }).then((data)=> {
+            //save data into a new User object
+            const user = new User(data.name, data.about);
+            //write user data to page
+            user.writeUserInfo();
+        })
 
         editForm.close();
     }
@@ -109,30 +104,29 @@ const addCardForm = new Form(settings.addForm,{
         api.addCard({
             name: cardName.value,
             link: cardLink.value,
-            callback: (data) => {
-                //create new card object and add it to the grid
-                const newCard = data;
-            
-                const newCardList = new Section({
-                    items : [newCard],
-                    renderer : (item) => {
-                        const card = new Card(item, 
-                            "#card", 
-                            {
-                                Popup: popupImage,
-                                Api: api
-                            });
-                        newCardList.addItem(card);
-                    }
-                }, ".elements");
-
-                //render card list and close the form
-                newCardList.renderItems();
-                addCardForm.close();
-            },
             element: addCardSubmit,
             originalText: addCardSubmit.textContent
-        });
+        }).then((data) => {
+            //create new card object and add it to the grid
+            const newCard = data;
+        
+            const newCardList = new Section({
+                items : [newCard],
+                renderer : (item) => {
+                    const card = new Card(item, 
+                        "#card", 
+                        {
+                            Popup: popupImage,
+                            Api: api
+                        });
+                    newCardList.addItem(card);
+                }
+            }, ".elements");
+
+            //render card list and close the form
+            newCardList.renderItems();
+            addCardForm.close();
+        })
     }
 });
     
@@ -146,13 +140,12 @@ const avatarForm = new Form(settings.avatarForm,{
     callback : () => {
         api.editAvatar({
             link: avatarLink.value,
-            callback: (data) => {
-                avatar.src = data.avatar;
-                avatarForm.close();
-            },
             element: avatarSubmit,
             originalText: avatarSubmit.textContent
-        });
+        }).then((data) => {
+            avatar.src = data.avatar;
+            avatarForm.close();
+        })
     }
 });
 
