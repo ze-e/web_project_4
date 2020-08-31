@@ -56,7 +56,6 @@ class Card{
   deleteCard(_elements){
     this.api.deleteCard({
       cardId: this._id,
-      method: "DELETE",
       callback: (data) =>{
         _elements.deleteButton.closest('.element').remove();
       }
@@ -69,7 +68,7 @@ class Card{
   }
 
   _addLike(_elements){
-    this.api.editLikes({
+    this.api.addLike({
       method: "PUT",
       cardId: this._id,
       callback: (data) => {
@@ -81,9 +80,8 @@ class Card{
   }
 
   _removeLike(_elements){
-    this.api.editLikes({
+    this.api.deleteLike({
       cardId: this._id,      
-      method: "DELETE",
       callback: (data) => {
         _elements.likes.textContent = data.likes.length;
         _elements.likeButton.classList.remove('element__like-button_state_liked');

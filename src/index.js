@@ -34,12 +34,13 @@ const api = new Api({
 });
 
 /* LOAD USER */
-api.getUser({
+const sessionUser = api.getUser({
     callback: (data) => {
       //save data into a new User object
       const user = new User(data.name, data.about);
       //write user data to page
       user.writeUserInfo();
+      return user;
     }
 });
 
@@ -80,7 +81,6 @@ const editForm = new Form(settings.editForm,{
         const inputValues = editForm.getFormInfo();
 
         api.editProfile({
-            method: "PATCH",
             name : inputValues.name,
             about: inputValues.description,
             callback: (data) => {
@@ -107,7 +107,6 @@ editButton.addEventListener('click', (event) => {
 const addCardForm = new Form(settings.addForm,{
     callback : () => {
         api.addCard({
-            method: "POST",
             name: cardName.value,
             link: cardLink.value,
             callback: (data) => {
@@ -146,7 +145,6 @@ addCardButton.addEventListener('click', (event) => {
 const avatarForm = new Form(settings.avatarForm,{
     callback : () => {
         api.editAvatar({
-            method: "PATCH",
             link: avatarLink.value,
             callback: (data) => {
                 avatar.src = data.avatar;

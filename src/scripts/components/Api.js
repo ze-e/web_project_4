@@ -23,7 +23,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`getUser:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -44,7 +43,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`getInitialCards:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -57,10 +55,10 @@ class Api{
       });
   }
 
-  editProfile({method, name, about, callback, element, originalText}){
+  editProfile({name, about, callback, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me`,{
-      method: method,
+      method: "PATCH",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
@@ -72,7 +70,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`editProfile:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -91,7 +88,6 @@ class Api{
   editAvatar({method, link, callback, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/users/me/avatar`,{
-      method: method,
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
@@ -102,7 +98,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`editAvatar:${res.status}`);
         return res.json();
       }
       return Promise.reject(`editAvatar Error: ${res.status}`);
@@ -118,10 +113,10 @@ class Api{
     });
   }
 
-  addCard({method, name, link, callback, element, originalText}){
+  addCard({name, link, callback, element, originalText}){
     this.loading(true, element, originalText);
     return fetch(`${this.baseUrl}/cards`,{
-      method: method,
+      method: "POST",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
@@ -133,7 +128,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`addCard:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -151,7 +145,7 @@ class Api{
 
   deleteCard({method, cardId, callback}){
     return fetch(`${this.baseUrl}/cards/${cardId}`,{
-      method: method,
+      method: "DELETE",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
@@ -159,7 +153,6 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`deleteCard:${res.status}`);
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
@@ -172,9 +165,9 @@ class Api{
       });
   }
 
-  editLikes({method, cardId, callback}){
+  addLike({cardId, callback}){
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
-      method: method,
+      method: "PUT",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
@@ -182,7 +175,28 @@ class Api{
     })
     .then((res) => {
       if(res.ok){
-        console.log(`addLike:${res.status}`);
+        return res.json();
+      }
+      return Promise.reject(`editLikes Error: ${res.status}`);
+    })
+    .then((data) => {  
+      callback(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      });
+  }
+
+  deleteLike({cardId, callback}){
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`,{
+      method: "DELETE",
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json"
+        }
+    })
+    .then((res) => {
+      if(res.ok){
         return res.json();
       }
       return Promise.reject(`editLikes Error: ${res.status}`);
