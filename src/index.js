@@ -10,8 +10,8 @@ import {PopupWithImage as PopupImage} from "./scripts/components/PopupWithImage.
 import {UserInfo as User} from "./scripts/components/UserInfo";
 import {Api} from "./scripts/components/Api.js";
 //settings
-import {settings} from "./scripts/settings.js";
-import {groupId, token} from "./scripts/config.js";
+import {settings} from "./scripts/utils/settings.js";
+import {groupId, token} from "./scripts/utils/config.js";
 
 //elements
 import{
@@ -25,7 +25,7 @@ import{
     profileSubmit,
     addCardSubmit,
     avatarSubmit
-} from "./scripts/elements.js"
+} from "./scripts/utils/elements.js"
 
 /* CREATE API CONNECTION */
 const api = new Api({
