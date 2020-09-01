@@ -33,6 +33,19 @@ const api = new Api({
     token : token
 });
 
+/* show loading when api is running */
+function loading(isLoading, element, originalText="Submit"){
+    if(isLoading){
+        const previousText = element.textContent;
+        element.textContent = "Loading...";
+        console.log(element.textContent);
+        return previousText;
+      }
+    else{ 
+        element.textContent = originalText; 
+      }
+}
+
 /* LOAD USER */
 const sessionUser = api.getUser().then((data) => {
       //save data into a new User object
@@ -123,7 +136,10 @@ api.getInitialCards().then((data) => {
 /* add editButton and editform */
 
 const editForm = new Form(settings.editForm,{
-    callback : () => {        
+    callback : () => { 
+        
+        const originalText = loading(true, profileSubmit);   
+
         //save our form values
         const inputValues = editForm.getFormInfo();
 
@@ -137,7 +153,9 @@ const editForm = new Form(settings.editForm,{
             const user = new User(data.name, data.about);
             //write user data to page
             user.writeUserInfo();
-        })
+        }).finally(() => {
+            loading(false, profileSubmit, originalText);
+        });
 
         editForm.close();
     }
@@ -152,6 +170,7 @@ editButton.addEventListener('click', (event) => {
 
 const addCardForm = new Form(settings.addForm,{
     callback : () => {
+        const originalText = loading(true, addCardSubmit);
         api.addCard({
             name: cardName.value,
             link: cardLink.value,
@@ -229,7 +248,9 @@ const addCardForm = new Form(settings.addForm,{
             //render card list and close the form
             newCardList.renderItems();
             addCardForm.close();
-        })
+        }).finally(
+            loading(false, addCardSubmit, originalText)
+            );
     }
 });
     
@@ -241,6 +262,7 @@ addCardButton.addEventListener('click', (event) => {
 /* avatar button and form */
 const avatarForm = new Form(settings.avatarForm,{
     callback : () => {
+        const originalText = loading(true, avatarSubmit);
         api.editAvatar({
             link: avatarLink.value,
             element: avatarSubmit,
@@ -248,7 +270,9 @@ const avatarForm = new Form(settings.avatarForm,{
         }).then((data) => {
             avatar.src = data.avatar;
             avatarForm.close();
-        })
+        }).finally(() => {
+            loading(false, avatarSubmit, originalText);
+          });
     }
 });
 

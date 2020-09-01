@@ -4,16 +4,6 @@ class Api{
     this.token = token;
   }
   
-  /* HELPER FUNCTIONS */
-  loading(isLoading, element, originalText){
-    if(isLoading){
-      element.textContent = "Loading..."
-    }
-    else{
-      element.textContent = originalText;
-    }
-  }
-
   /* API FUNCTIONS */
   getUser(){
     return fetch(`${this.baseUrl}/users/me`,{
@@ -49,8 +39,7 @@ class Api{
       });
   }
 
-  editProfile({name, about, element, originalText}){
-    this.loading(true, element, originalText);
+  editProfile({name, about}){
     return fetch(`${this.baseUrl}/users/me`,{
       method: "PATCH",
       headers: {
@@ -71,13 +60,9 @@ class Api{
     .catch((err) => {
       console.log(err);
       })
-    .finally(() => {
-      this.loading(false, element, originalText);
-    });
   }
 
-  editAvatar({link, element, originalText}){
-    this.loading(true, element, originalText);
+  editAvatar({link}){
     return fetch(`${this.baseUrl}/users/me/avatar`,{
       headers: {
         authorization: this.token,
@@ -96,13 +81,9 @@ class Api{
     .catch((err) => {
       console.log(err);
       })
-    .finally(() => {
-      this.loading(false, element, originalText);
-    });
   }
 
-  addCard({name, link, element, originalText}){
-    this.loading(true, element, originalText);
+  addCard({name, link}){
     return fetch(`${this.baseUrl}/cards`,{
       method: "POST",
       headers: {
@@ -123,9 +104,6 @@ class Api{
     .catch((err) => {
       console.log(err);
       })
-    .finally(() => {
-      this.loading(false, element, originalText);
-    });
   }
 
   deleteCard({cardId}){
