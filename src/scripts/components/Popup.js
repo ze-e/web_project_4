@@ -7,16 +7,16 @@ class Popup{
   open(){
     this._selector.classList.add('popup_state_opened');
     //escape button
-    document.addEventListener("keydown", (event) => {this._handleEscClose(event)});
+    document.addEventListener("keydown", this._handleEscClose(event));
 
   }
   close(){
     this._selector.classList.remove('popup_state_opened');
     //escape button
-    document.removeEventListener("keydown", (event) => {this._handleEscClose(event)});
+    document.removeEventListener("keydown", this._handleEscClose(event));
   }
 
-  _handleEscClose(event){
+  _handleEscClose (event) {
     if ((event.key) === "Escape") {
       this.close();
     }
