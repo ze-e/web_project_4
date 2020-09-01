@@ -126,7 +126,7 @@ const cardRenderer = new Section({
           });
       cardRenderer.addItem(card);
   }
-}, ".elements");
+, selector: ".elements"});
 
 //add initial cards
 api.getInitialCards().then((data) => {

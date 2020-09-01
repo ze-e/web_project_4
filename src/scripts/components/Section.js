@@ -1,5 +1,5 @@
 class Section{
-  constructor({renderer}, selector){
+  constructor({renderer, selector}){
     this._renderer = renderer;
     this._selector = document.querySelector(selector);
   }
