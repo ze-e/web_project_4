@@ -19,14 +19,11 @@ import{
     addCardButton,
     cardName,
     cardLink,
-    avatar,
     avatarButton,
     avatarLink,
     profileSubmit,
     addCardSubmit,
-    avatarSubmit,
-    profileName,
-    profileDescription
+    avatarSubmit
 } from "./scripts/utils/elements.js"
 
 /* CREATE API CONNECTION */
