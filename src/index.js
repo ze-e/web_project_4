@@ -60,77 +60,78 @@ api.getUser().then((data) => {
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 
+//card renderer
+const cardRenderer = new Section({
+  renderer : (item) => {
+      const card = new Card(item, 
+          "#card", 
+          {
+              handleCardClick:()=>{
+                  popupImage.open(item.link, item.name);
+              },
+              handleDeleteClick:(_elements)=>{
+                  const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
+                  api.deleteCard({
+                      cardId: item._id
+                    }).then((data) =>{
+                      _elements.deleteButton.closest('.element').remove();
+                    })
+                    confirmDeletePopup.close();
+                    }
+                  });
+                  confirmDeletePopup.open();
+                },
+                handleLike:(_elements)=>{
+                  if(!item._liked){
+                    api.addLike({
+                      method: "PUT",
+                      cardId: item._id
+                    }).then((data) => {
+                      _elements.likes.textContent = data.likes.length;
+                      _elements.likeButton.classList.add('element__like-button_state_liked');
+                      item._liked = true;
+                    })} else {
+                      api.deleteLike({
+                        cardId: item._id
+                      }).then((data) => {
+                        _elements.likes.textContent = data.likes.length;
+                        _elements.likeButton.classList.remove('element__like-button_state_liked');
+                        item._liked = false;
+                      })
+                  };
+                }, 
+                ownerFunctions:(_elements)=>{
+                  //load user 
+                  api.getUser({
+                  }).then((data) => {
+                    //remove delete button if currentuser does not equal the owner
+                    const currentUser = data._id;
+                    if (currentUser != item.owner._id){
+                      _elements.deleteButton.remove();
+                    }
+                
+                    //remove loading status
+                    _elements.loading.remove();
+
+                    //show likes by current user
+                      const selfLike = item.likes.find((i) => i._id == currentUser);
+                      if(selfLike){
+                        _elements.likeButton.classList.add('element__like-button_state_liked');
+                        item._liked = true;
+                      }
+                    
+                  })
+                },
+
+          });
+      cardRenderer.addItem(card);
+  }
+}, ".elements");
+
 //add initial cards
 api.getInitialCards().then((data) => {
         {   
-            const cardList = new Section({
-                items : data,
-                renderer : (item) => {
-                    const card = new Card(item, 
-                        "#card", 
-                        {
-                            handleCardClick:()=>{
-                                popupImage.open(item.link, item.name);
-                            },
-                            handleDeleteClick:(_elements)=>{
-                                const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
-                                api.deleteCard({
-                                    cardId: item._id
-                                  }).then((data) =>{
-                                    _elements.deleteButton.closest('.element').remove();
-                                  })
-                                  confirmDeletePopup.close();
-                                  }
-                                });
-                                confirmDeletePopup.open();
-                              },
-                              handleLike:(_elements)=>{
-                                if(!item._liked){
-                                  api.addLike({
-                                    method: "PUT",
-                                    cardId: item._id
-                                  }).then((data) => {
-                                    _elements.likes.textContent = data.likes.length;
-                                    _elements.likeButton.classList.add('element__like-button_state_liked');
-                                    item._liked = true;
-                                  })} else {
-                                    api.deleteLike({
-                                      cardId: item._id
-                                    }).then((data) => {
-                                      _elements.likes.textContent = data.likes.length;
-                                      _elements.likeButton.classList.remove('element__like-button_state_liked');
-                                      item._liked = false;
-                                    })
-                                };
-                              }, 
-                              ownerFunctions:(_elements)=>{
-                                //load user 
-                                api.getUser({
-                                }).then((data) => {
-                                  //remove delete button if currentuser does not equal the owner
-                                  const currentUser = data._id;
-                                  if (currentUser != item.owner._id){
-                                    _elements.deleteButton.remove();
-                                  }
-                              
-                                  //remove loading status
-                                  _elements.loading.remove();
-
-                                  //show likes by current user
-                                    const selfLike = item.likes.find((i) => i._id == currentUser);
-                                    if(selfLike){
-                                      _elements.likeButton.classList.add('element__like-button_state_liked');
-                                      item._liked = true;
-                                    }
-                                  
-                                })
-                              },
-
-                        });
-                    cardList.addItem(card);
-                }
-            }, ".elements");
-            cardList.renderItems();
+            cardRenderer.renderItems(data);
         }
       }
 );
@@ -176,74 +177,8 @@ const addCardForm = new Form(settings.addForm,{
         }).then((data) => {
             //create new card object and add it to the grid
             const newCard = data;
-        
-            const newCardList = new Section({
-                items : [newCard],
-                renderer : (item) => {
-                    const card = new Card(item, 
-                        "#card", 
-                        {
-                            handleCardClick:()=>{
-                                popupImage.open(item.link, item.name);
-                            },
-                            handleDeleteClick:(_elements)=>{
-                                const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
-                                api.deleteCard({
-                                    cardId: item._id
-                                  }).then((data) =>{
-                                    _elements.deleteButton.closest('.element').remove();
-                                  })
-                                  confirmDeletePopup.close();
-                                  }
-                                });
-                                confirmDeletePopup.open();
-                              },
-                              handleLike:(_elements)=>{
-                                if(!item._liked){
-                                  api.addLike({
-                                    method: "PUT",
-                                    cardId: item._id
-                                  }).then((data) => {
-                                    _elements.likes.textContent = data.likes.length;
-                                    _elements.likeButton.classList.add('element__like-button_state_liked');
-                                    item._liked = true;
-                                  })} else {
-                                    api.deleteLike({
-                                      cardId: item._id
-                                    }).then((data) => {
-                                      _elements.likes.textContent = data.likes.length;
-                                      _elements.likeButton.classList.remove('element__like-button_state_liked');
-                                      item._liked = false;
-                                    })
-                                };
-                              },
-                              ownerFunctions:(_elements)=>{
-                                //remove delete button if currentuser does not equal the owner
-                                api.getUser({
-                                }).then((data) => {
-                                  const currentUser = data._id;
-                                  if (currentUser != item.owner._id){
-                                    _elements.deleteButton.remove();
-                                  }
-                              
-                                  //remove loading status
-                                  _elements.loading.remove();
-                                })                              
-                              }, 
-                              setState(_elements){
-                                const selfLike = item.likes.find((i) => i._id == item.owner._id);
-                                if(selfLike){
-                                _elements.likeButton.classList.add('element__like-button_state_liked');
-                                item._liked = true;
-                                }
-                              }                                   
-                        });
-                    newCardList.addItem(card);
-                }
-            }, ".elements");
-
             //render card list and close the form
-            newCardList.renderItems();
+            cardRenderer.renderItems([newCard]);
             addCardForm.close();
         }).finally(
             loading(false, addCardSubmit, originalText)
@@ -263,7 +198,6 @@ const avatarForm = new Form(settings.avatarForm,{
         api.editAvatar({
             link: avatarLink.value
         }).then((data) => {
-          console.log(`${JSON.stringify(data)}`);
             sessionUser.setUserInfo({avatar: data.avatar});
             avatarForm.close();
         }).finally(() => {
