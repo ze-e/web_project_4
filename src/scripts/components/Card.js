@@ -5,7 +5,7 @@ class Card{
     {handleCardClick, 
     handleDeleteClick, 
     handleLike,
-    setOwnerPermissions,
+    ownerFunctions,
     setState}
     ){
     this._name = data.name;
@@ -19,7 +19,7 @@ class Card{
     this.handleCardClick = handleCardClick;
     this.handleDeleteClick = handleDeleteClick;
     this.handleLike = handleLike;
-    this.setOwnerPermissions = setOwnerPermissions;
+    this.ownerFunctions = ownerFunctions;
     this.setState = setState;
     return this.createCard();
   }
@@ -82,10 +82,7 @@ _getTemplate() {
     this._setEventListeners(_elements);  
 
     //set user permissions
-    this.setOwnerPermissions(_elements);
-
-    //set state
-    this.setState(_elements);
+    this.ownerFunctions(_elements);
 
     return this._element;
   }

@@ -24,7 +24,9 @@ import{
     avatarLink,
     profileSubmit,
     addCardSubmit,
-    avatarSubmit
+    avatarSubmit,
+    profileName,
+    profileDescription
 } from "./scripts/utils/elements.js"
 
 /* CREATE API CONNECTION */
@@ -38,7 +40,6 @@ function loading(isLoading, element, originalText="Submit"){
     if(isLoading){
         const previousText = element.textContent;
         element.textContent = "Loading...";
-        console.log(element.textContent);
         return previousText;
       }
     else{ 
@@ -47,12 +48,13 @@ function loading(isLoading, element, originalText="Submit"){
 }
 
 /* LOAD USER */
-const sessionUser = api.getUser().then((data) => {
-      //save data into a new User object
-      const user = new User(data.name, data.about);
-      //write user data to page
-      user.writeUserInfo();
-      return user;
+//create a user
+const sessionUser = new User();
+
+//load user from server
+api.getUser().then((data) => {
+      //save data into user object
+      sessionUser.setUserInfo({name: data.name, job: data.about, userId: data._id, avatar: data.avatar});
 });
 
 /* CARDS */
@@ -103,10 +105,11 @@ api.getInitialCards().then((data) => {
                                     })
                                 };
                               }, 
-                              setOwnerPermissions:(_elements)=>{
-                                //remove delete button if currentuser does not equal the owner
+                              ownerFunctions:(_elements)=>{
+                                //load user 
                                 api.getUser({
                                 }).then((data) => {
+                                  //remove delete button if currentuser does not equal the owner
                                   const currentUser = data._id;
                                   if (currentUser != item.owner._id){
                                     _elements.deleteButton.remove();
@@ -114,15 +117,17 @@ api.getInitialCards().then((data) => {
                               
                                   //remove loading status
                                   _elements.loading.remove();
+
+                                  //show likes by current user
+                                    const selfLike = item.likes.find((i) => i._id == currentUser);
+                                    if(selfLike){
+                                      _elements.likeButton.classList.add('element__like-button_state_liked');
+                                      item._liked = true;
+                                    }
+                                  
                                 })
                               },
-                              setState(_elements){
-                                const selfLike = item.likes.find((i) => i._id == item.owner._id);
-                                if(selfLike){
-                                _elements.likeButton.classList.add('element__like-button_state_liked');
-                                item._liked = true;
-                                }
-                              }
+
                         });
                     cardList.addItem(card);
                 }
@@ -145,14 +150,10 @@ const editForm = new Form(settings.editForm,{
 
         api.editProfile({
             name : inputValues.name,
-            about: inputValues.description,
-            element: profileSubmit,
-            originalText: profileSubmit.textContent
+            about: inputValues.description
         }).then((data)=> {
-            //save data into a new User object
-            const user = new User(data.name, data.about);
-            //write user data to page
-            user.writeUserInfo();
+            //save data to User object
+            sessionUser.setUserInfo({name: data.name, job: data.about});
         }).finally(() => {
             loading(false, profileSubmit, originalText);
         });
@@ -173,9 +174,7 @@ const addCardForm = new Form(settings.addForm,{
         const originalText = loading(true, addCardSubmit);
         api.addCard({
             name: cardName.value,
-            link: cardLink.value,
-            element: addCardSubmit,
-            originalText: addCardSubmit.textContent
+            link: cardLink.value
         }).then((data) => {
             //create new card object and add it to the grid
             const newCard = data;
@@ -220,7 +219,7 @@ const addCardForm = new Form(settings.addForm,{
                                     })
                                 };
                               },
-                              setOwnerPermissions:(_elements)=>{
+                              ownerFunctions:(_elements)=>{
                                 //remove delete button if currentuser does not equal the owner
                                 api.getUser({
                                 }).then((data) => {
@@ -264,11 +263,10 @@ const avatarForm = new Form(settings.avatarForm,{
     callback : () => {
         const originalText = loading(true, avatarSubmit);
         api.editAvatar({
-            link: avatarLink.value,
-            element: avatarSubmit,
-            originalText: avatarSubmit.textContent
+            link: avatarLink.value
         }).then((data) => {
-            avatar.src = data.avatar;
+          console.log(`${JSON.stringify(data)}`);
+            sessionUser.setUserInfo({avatar: data.avatar});
             avatarForm.close();
         }).finally(() => {
             loading(false, avatarSubmit, originalText);

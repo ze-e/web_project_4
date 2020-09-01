@@ -64,6 +64,7 @@ class Api{
 
   editAvatar({link}){
     return fetch(`${this.baseUrl}/users/me/avatar`,{
+      method: "PATCH",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json"
