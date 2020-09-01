@@ -16,7 +16,6 @@ class Popup{
   }
 
   _handleEscClose (event) {
-    console.log(event.key);
     if ((event.key) == "Escape") {
       this.close();
     }
