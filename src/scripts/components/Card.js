@@ -1,12 +1,14 @@
-//I have no idea how to attach this form to the eventListener without importing it here
-//if I pass the form in the constructor as I did for Popup and Api, 
-//I cannot create the form callback because the card object has not been created and I cannot
-//access its methods
-
-import {PopupWithForm as Form} from './PopupWithForm.js';
-
 class Card{
-  constructor(data, selector = "#card", {Popup, Api}){
+  constructor(
+    data, 
+    selector = "#card", 
+    {handleCardClick, 
+    handleDeleteClick, 
+    handleLike,
+    setOwnerPermissions,
+    setState,
+    Api}
+    ){
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -14,7 +16,12 @@ class Card{
     this._id = data._id;
     this._owner = data.owner._id;
     this._selector = selector;
-    this.popup = Popup;
+
+    this.handleCardClick = handleCardClick;
+    this.handleDeleteClick = handleDeleteClick;
+    this.handleLike = handleLike;
+    this.setOwnerPermissions = setOwnerPermissions;
+    this.setState = setState;
     this.api = Api;
     return this.createCard();
   }
@@ -30,7 +37,7 @@ class Card{
 
     //add eventListener to like button
     _elements.likeButton.addEventListener('click', (event) => {
-      this._handleLike(_elements);
+      this.handleLike(_elements);
     });
 
     //add eventListener to delete button
@@ -39,75 +46,6 @@ class Card{
     });
   }
 
-  handleCardClick(){
-    this.popup.open(this._link, this._name);
-  }
-
-    //delete form
-  handleDeleteClick(_elements){
-    const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
-      this.deleteCard(_elements);
-      confirmDeletePopup.close();
-      }
-    });
-    confirmDeletePopup.open();
-  }
-
-  deleteCard(_elements){
-    this.api.deleteCard({
-      cardId: this._id
-    }).then((data) =>{
-      _elements.deleteButton.closest('.element').remove();
-    })
-  }
-
-  //like methods
-  _handleLike(_elements){
-    !this._liked ? this._addLike(_elements) : this._removeLike(_elements);
-  }
-
-  _addLike(_elements){
-    this.api.addLike({
-      method: "PUT",
-      cardId: this._id
-    }).then((data) => {
-      _elements.likes.textContent = data.likes.length;
-      _elements.likeButton.classList.add('element__like-button_state_liked');
-      this._liked = true;
-    })
-  }
-
-  _removeLike(_elements){
-    this.api.deleteLike({
-      cardId: this._id
-    }).then((data) => {
-      _elements.likes.textContent = data.likes.length;
-      _elements.likeButton.classList.remove('element__like-button_state_liked');
-      this._liked = false;
-    })
-  }
-
-/* OWNER PERMISSIONS */
-_setOwnerPermissions(_elements){
-  //remove delete button if currentuser does not equal the owner
-  this.api.getUser({
-  }).then((data) => {
-    const currentUser = data._id;
-    if (currentUser != this._owner){
-      _elements.deleteButton.remove();
-    }
-
-    //remove loading status
-    this.cardLoaded(_elements);
-  })
-
-  //set initial like state
-  const selfLike = this._likes.find((item) => item._id == this._owner);
-    if(selfLike){
-      _elements.likeButton.classList.add('element__like-button_state_liked');
-      this._liked = true;
-    }
-}
 
  
 /* FUNCTIONS */
@@ -119,10 +57,6 @@ _getTemplate() {
     .content;
 
   return _cardElement;
-}
-
-cardLoaded(_elements){
-  _elements.loading.remove();
 }
 
   createCard() {
@@ -150,7 +84,10 @@ cardLoaded(_elements){
     this._setEventListeners(_elements);  
 
     //set user permissions
-    this._setOwnerPermissions(_elements);
+    this.setOwnerPermissions(_elements);
+
+    //set state
+    this.setState(_elements);
 
     return this._element;
   }

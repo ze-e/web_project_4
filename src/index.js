@@ -26,7 +26,6 @@ import{
     addCardSubmit,
     avatarSubmit
 } from "./scripts/utils/elements.js"
-import { data } from "autoprefixer";
 
 /* CREATE API CONNECTION */
 const api = new Api({
@@ -57,8 +56,61 @@ api.getInitialCards().then((data) => {
                     const card = new Card(item, 
                         "#card", 
                         {
-                            Popup: popupImage,
-                            Api: api
+                            handleCardClick:()=>{
+                                popupImage.open(item.link, item.name);
+                            },
+                            handleDeleteClick:(_elements)=>{
+                                const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
+                                api.deleteCard({
+                                    cardId: item._id
+                                  }).then((data) =>{
+                                    _elements.deleteButton.closest('.element').remove();
+                                  })
+                                  confirmDeletePopup.close();
+                                  }
+                                });
+                                confirmDeletePopup.open();
+                              },
+                              handleLike:(_elements)=>{
+                                if(!item._liked){
+                                  api.addLike({
+                                    method: "PUT",
+                                    cardId: item._id
+                                  }).then((data) => {
+                                    _elements.likes.textContent = data.likes.length;
+                                    _elements.likeButton.classList.add('element__like-button_state_liked');
+                                    item._liked = true;
+                                  })} else {
+                                    api.deleteLike({
+                                      cardId: item._id
+                                    }).then((data) => {
+                                      _elements.likes.textContent = data.likes.length;
+                                      _elements.likeButton.classList.remove('element__like-button_state_liked');
+                                      item._liked = false;
+                                    })
+                                };
+                              }, 
+                              setOwnerPermissions:(_elements)=>{
+                                //remove delete button if currentuser does not equal the owner
+                                api.getUser({
+                                }).then((data) => {
+                                  const currentUser = data._id;
+                                  if (currentUser != item.owner._id){
+                                    _elements.deleteButton.remove();
+                                  }
+                              
+                                  //remove loading status
+                                  _elements.loading.remove();
+                                })
+                              },
+                              setState(_elements){
+                                const selfLike = item.likes.find((i) => i._id == item.owner._id);
+                                if(selfLike){
+                                _elements.likeButton.classList.add('element__like-button_state_liked');
+                                item._liked = true;
+                                }
+                              },                         
+                              Api:api
                         });
                     cardList.addItem(card);
                 }
@@ -116,7 +168,53 @@ const addCardForm = new Form(settings.addForm,{
                     const card = new Card(item, 
                         "#card", 
                         {
-                            Popup: popupImage,
+                            handleCardClick:()=>{
+                                popupImage.open(item.link, item.name);
+                            },
+                            handleDeleteClick:(_elements)=>{
+                                const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
+                                api.deleteCard({
+                                    cardId: item._id
+                                  }).then((data) =>{
+                                    _elements.deleteButton.closest('.element').remove();
+                                  })
+                                  confirmDeletePopup.close();
+                                  }
+                                });
+                                confirmDeletePopup.open();
+                              },
+                              handleLike:(_elements)=>{
+                                if(!item._liked){
+                                  api.addLike({
+                                    method: "PUT",
+                                    cardId: item._id
+                                  }).then((data) => {
+                                    _elements.likes.textContent = data.likes.length;
+                                    _elements.likeButton.classList.add('element__like-button_state_liked');
+                                    item._liked = true;
+                                  })} else {
+                                    api.deleteLike({
+                                      cardId: item._id
+                                    }).then((data) => {
+                                      _elements.likes.textContent = data.likes.length;
+                                      _elements.likeButton.classList.remove('element__like-button_state_liked');
+                                      item._liked = false;
+                                    })
+                                };
+                              },
+                              setOwnerPermissions:(_elements)=>{
+                                //remove delete button if currentuser does not equal the owner
+                                api.getUser({
+                                }).then((data) => {
+                                  const currentUser = data._id;
+                                  if (currentUser != item.owner._id){
+                                    _elements.deleteButton.remove();
+                                  }
+                              
+                                  //remove loading status
+                                  _elements.loading.remove();
+                                })                              
+                              },                                 
                             Api: api
                         });
                     newCardList.addItem(card);
