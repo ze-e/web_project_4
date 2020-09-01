@@ -35,14 +35,7 @@ const api = new Api({
 
 /* show loading when api is running */
 function loading(isLoading, element, originalText="Submit"){
-    if(isLoading){
-        const previousText = element.textContent;
-        element.textContent = "Loading...";
-        return previousText;
-      }
-    else{ 
-        element.textContent = originalText; 
-      }
+  isLoading ? element.textContent = "Loading..." : element.textContent = originalText; 
 }
 
 /* LOAD USER */
@@ -142,8 +135,10 @@ api.getInitialCards().then((data) => {
 const editForm = new Form(settings.editForm,{
     callback : () => { 
         
-        const originalText = loading(true, profileSubmit);   
-
+        //handle loading
+        const originalText = profileSubmit.textContent;
+        loading(true, profileSubmit);   
+        
         //save our form values
         const inputValues = editForm.getFormInfo();
 
@@ -170,7 +165,8 @@ editButton.addEventListener('click', (event) => {
 
 const addCardForm = new Form(settings.addForm,{
     callback : () => {
-        const originalText = loading(true, addCardSubmit);
+        const originalText = addCardSubmit.textContent;
+        loading(true, addCardSubmit);
         api.addCard({
             name: cardName.value,
             link: cardLink.value
@@ -194,7 +190,8 @@ addCardButton.addEventListener('click', (event) => {
 /* avatar button and form */
 const avatarForm = new Form(settings.avatarForm,{
     callback : () => {
-        const originalText = loading(true, avatarSubmit);
+        const originalText = avatarSubmit.textContent;
+        loading(true, avatarSubmit);
         api.editAvatar({
             link: avatarLink.value
         }).then((data) => {
