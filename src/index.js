@@ -109,8 +109,7 @@ api.getInitialCards().then((data) => {
                                 _elements.likeButton.classList.add('element__like-button_state_liked');
                                 item._liked = true;
                                 }
-                              },                         
-                              Api:api
+                              }
                         });
                     cardList.addItem(card);
                 }
@@ -214,8 +213,14 @@ const addCardForm = new Form(settings.addForm,{
                                   //remove loading status
                                   _elements.loading.remove();
                                 })                              
-                              },                                 
-                            Api: api
+                              }, 
+                              setState(_elements){
+                                const selfLike = item.likes.find((i) => i._id == item.owner._id);
+                                if(selfLike){
+                                _elements.likeButton.classList.add('element__like-button_state_liked');
+                                item._liked = true;
+                                }
+                              }                                   
                         });
                     newCardList.addItem(card);
                 }

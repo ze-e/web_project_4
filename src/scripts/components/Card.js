@@ -6,8 +6,7 @@ class Card{
     handleDeleteClick, 
     handleLike,
     setOwnerPermissions,
-    setState,
-    Api}
+    setState}
     ){
     this._name = data.name;
     this._link = data.link;
@@ -22,7 +21,6 @@ class Card{
     this.handleLike = handleLike;
     this.setOwnerPermissions = setOwnerPermissions;
     this.setState = setState;
-    this.api = Api;
     return this.createCard();
   }
 
