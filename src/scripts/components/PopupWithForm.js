@@ -25,6 +25,7 @@ class PopupWithForm extends Popup {
       super.setEventListeners();
       const _submitButton = this._selector.querySelector('.popup__submit');
       _submitButton.addEventListener("click", (event) => {
+        event.preventDefault();
         this._callback();
       });
     }
