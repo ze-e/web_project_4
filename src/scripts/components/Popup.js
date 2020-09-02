@@ -7,18 +7,20 @@ class Popup{
   open(){
     this._selector.classList.add('popup_state_opened');
     //use escape button to close window
-    document.addEventListener("keydown", this._handleEscClose);
+    document.addEventListener("keydown", (event) =>{
+      if ((event.key) === "Escape") {
+        this.close();
+      }
+    });
   }
   close(){
     this._selector.classList.remove('popup_state_opened');
     //use escape button to close window
-    document.removeEventListener("keydown", this._handleEscClose);
-  }
-
-  _handleEscClose (event) {
-    if ((event.key) == "Escape") {
-      this.close();
-    }
+    document.removeEventListener("keydown", (event) =>{
+      if ((event.key) === "Escape") {
+        this.close();
+      }
+    });
   }
 
   setEventListeners(){
