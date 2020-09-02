@@ -46,7 +46,7 @@ const sessionUser = new User();
 api.getUser().then((data) => {
       //save data into user object
       sessionUser.setUserInfo({name: data.name, job: data.about, userId: data._id, avatar: data.avatar});
-});
+}).then(()=>{
 
 /* CARDS */
 
@@ -94,11 +94,7 @@ const cardRenderer = new Section({
                   };
                 }, 
                 ownerFunctions:(_elements)=>{
-                  //load user 
-                  api.getUser({
-                  }).then((data) => {
-                    //remove delete button if currentuser does not equal the owner
-                    const currentUser = data._id;
+                    const currentUser = sessionUser.setUserInfo().id;
                     if (currentUser != item.owner._id){
                       _elements.deleteButton.remove();
                     }
@@ -112,8 +108,6 @@ const cardRenderer = new Section({
                         _elements.likeButton.classList.add('element__like-button_state_liked');
                         item._liked = true;
                       }
-                    
-                  })
                 },
 
           });
@@ -126,8 +120,39 @@ api.getInitialCards().then((data) => {
         {   
             cardRenderer.renderItems(data);
         }
-      }
-);
+      });
+
+
+/* addCard button and form */
+
+const addCardForm = new Form(settings.addForm,{
+  callback : () => {
+      const originalText = addCardSubmit.textContent;
+      loading(true, addCardSubmit);
+      api.addCard({
+          name: cardName.value,
+          link: cardLink.value
+      }).then((data) => {
+          //create new card object and add it to the grid
+          const newCard = data;
+          //render card list and close the form
+          cardRenderer.renderItems([newCard]);
+          addCardForm.close();
+      }).finally(
+          loading(false, addCardSubmit, originalText)
+          );
+  }
+});
+  
+//attach form to add button
+addCardButton.addEventListener('click', (event) => {
+  addCardForm.open();
+});
+
+///
+})
+
+
 
 /* FORMS */
 /* add editButton and editform */
@@ -161,31 +186,6 @@ editButton.addEventListener('click', (event) => {
     editForm.open();
 });
 
-/* addCard button and form */
-
-const addCardForm = new Form(settings.addForm,{
-    callback : () => {
-        const originalText = addCardSubmit.textContent;
-        loading(true, addCardSubmit);
-        api.addCard({
-            name: cardName.value,
-            link: cardLink.value
-        }).then((data) => {
-            //create new card object and add it to the grid
-            const newCard = data;
-            //render card list and close the form
-            cardRenderer.renderItems([newCard]);
-            addCardForm.close();
-        }).finally(
-            loading(false, addCardSubmit, originalText)
-            );
-    }
-});
-    
-//attach form to add button
-addCardButton.addEventListener('click', (event) => {
-    addCardForm.open();
-});
 
 /* avatar button and form */
 const avatarForm = new Form(settings.avatarForm,{
