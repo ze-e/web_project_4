@@ -46,6 +46,14 @@ const sessionUser = new User();
 api.getUser().then((data) => {
       //save data into user object
       sessionUser.setUserInfo({name: data.name, job: data.about, userId: data._id, avatar: data.avatar});
+}).then(()=>{
+  //add initial cards
+  api.getInitialCards().then((data) => {
+    {   
+        cardRenderer.renderItems(data);
+    }
+  });
+
 })
 
 /* CARDS */
@@ -94,7 +102,7 @@ const cardRenderer = new Section({
                   };
                 }, 
                 ownerFunctions:(_elements)=>{
-                    const currentUser = sessionUser.setUserInfo().id;
+                    const currentUser = sessionUser.getUserInfo().id;
                     if (currentUser != item.owner._id){
                       _elements.deleteButton.remove();
                     }
@@ -114,15 +122,6 @@ const cardRenderer = new Section({
       cardRenderer.addItem(card);
   }
 , selector: ".elements"});
-
-//add initial cards
-api.getInitialCards().then((data) => {
-        {   
-            cardRenderer.renderItems(data);
-        }
-  });
-
-
 
 /* FORMS */
 /* add editButton and editform */
