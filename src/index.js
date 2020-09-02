@@ -46,88 +46,112 @@ const sessionUser = new User();
 api.getUser().then((data) => {
       //save data into user object
       sessionUser.setUserInfo({name: data.name, job: data.about, userId: data._id, avatar: data.avatar});
-});
+}).then((userInfo)=>{
 
-/* CARDS */
+  /* CARDS */
 
-//popup
-const popupImage = new PopupImage('.popup_type_image');
+  //popup
+  const popupImage = new PopupImage('.popup_type_image');
 
-//card renderer
-const cardRenderer = new Section({
-  renderer : (item) => {
-      const card = new Card(item, 
-          "#card", 
-          {
-              handleCardClick:()=>{
-                  popupImage.open(item.link, item.name);
-              },
-              handleDeleteClick:(_elements)=>{
-                  const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
-                  api.deleteCard({
-                      cardId: item._id
-                    }).then((data) =>{
-                      _elements.deleteButton.closest('.element').remove();
-                    })
-                    confirmDeletePopup.close();
-                    }
-                  });
-                  confirmDeletePopup.open();
+  //card renderer
+  const cardRenderer = new Section({
+    renderer : (item) => {
+        const card = new Card(item, 
+            "#card", 
+            {
+                handleCardClick:()=>{
+                    popupImage.open(item.link, item.name);
                 },
-                handleLike:(_elements)=>{
-                  if(!item._liked){
-                    api.addLike({
-                      method: "PUT",
-                      cardId: item._id
-                    }).then((data) => {
-                      _elements.likes.textContent = data.likes.length;
-                      _elements.likeButton.classList.add('element__like-button_state_liked');
-                      item._liked = true;
-                    })} else {
-                      api.deleteLike({
+                handleDeleteClick:(_elements)=>{
+                    const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
+                    api.deleteCard({
+                        cardId: item._id
+                      }).then((data) =>{
+                        _elements.deleteButton.closest('.element').remove();
+                      })
+                      confirmDeletePopup.close();
+                      }
+                    });
+                    confirmDeletePopup.open();
+                  },
+                  handleLike:(_elements)=>{
+                    if(!item._liked){
+                      api.addLike({
+                        method: "PUT",
                         cardId: item._id
                       }).then((data) => {
                         _elements.likes.textContent = data.likes.length;
-                        _elements.likeButton.classList.remove('element__like-button_state_liked');
-                        item._liked = false;
-                      })
-                  };
-                }, 
-                ownerFunctions:(_elements)=>{
-                  //load user 
-                  api.getUser({
-                  }).then((data) => {
-                    //remove delete button if currentuser does not equal the owner
-                    const currentUser = data._id;
-                    if (currentUser != item.owner._id){
-                      _elements.deleteButton.remove();
-                    }
-                
-                    //remove loading status
-                    _elements.loading.remove();
-
-                    //show likes by current user
-                      const selfLike = item.likes.find((i) => i._id == currentUser);
-                      if(selfLike){
                         _elements.likeButton.classList.add('element__like-button_state_liked');
                         item._liked = true;
+                      })} else {
+                        api.deleteLike({
+                          cardId: item._id
+                        }).then((data) => {
+                          _elements.likes.textContent = data.likes.length;
+                          _elements.likeButton.classList.remove('element__like-button_state_liked');
+                          item._liked = false;
+                        })
+                    };
+                  }, 
+                  ownerFunctions:(_elements)=>{
+                      //remove delete button if currentuser does not equal the owner
+                      const currentUser = sessionUser.getUserInfo().id;
+                      if (currentUser != item.owner._id){
+                        _elements.deleteButton.remove();
                       }
-                    
-                  })
-                },
+                  
+                      //remove loading status
+                      _elements.loading.remove();
 
-          });
-      cardRenderer.addItem(card);
-  }
-, selector: ".elements"});
+                      //show likes by current user
+                        const selfLike = item.likes.find((i) => i._id == currentUser);
+                        if(selfLike){
+                          _elements.likeButton.classList.add('element__like-button_state_liked');
+                          item._liked = true;
+                        }
+                  },
 
-//add initial cards
-api.getInitialCards().then((data) => {
-        {   
-            cardRenderer.renderItems(data);
+            });
+        cardRenderer.addItem(card);
+    }
+  , selector: ".elements"});
+
+  //add initial cards
+  api.getInitialCards().then((data) => {
+          {   
+              cardRenderer.renderItems(data);
+          }
         }
+  );
+
+    /* addCard button and form */
+
+    const addCardForm = new Form(settings.addForm,{
+      callback : () => {
+          const originalText = addCardSubmit.textContent;
+          loading(true, addCardSubmit);
+          api.addCard({
+              name: cardName.value,
+              link: cardLink.value
+          }).then((data) => {
+              //create new card object and add it to the grid
+              const newCard = data;
+              //render card list and close the form
+              cardRenderer.renderItems([newCard]);
+              addCardForm.close();
+          }).finally(
+              loading(false, addCardSubmit, originalText)
+              );
       }
-);
+    });
+      
+    //attach form to add button
+    addCardButton.addEventListener('click', (event) => {
+      addCardForm.open();
+    });
+////
+})
+
 
 /* FORMS */
 /* add editButton and editform */
@@ -159,32 +183,6 @@ const editForm = new Form(settings.editForm,{
 //attach new form to edit button
 editButton.addEventListener('click', (event) => {
     editForm.open();
-});
-
-/* addCard button and form */
-
-const addCardForm = new Form(settings.addForm,{
-    callback : () => {
-        const originalText = addCardSubmit.textContent;
-        loading(true, addCardSubmit);
-        api.addCard({
-            name: cardName.value,
-            link: cardLink.value
-        }).then((data) => {
-            //create new card object and add it to the grid
-            const newCard = data;
-            //render card list and close the form
-            cardRenderer.renderItems([newCard]);
-            addCardForm.close();
-        }).finally(
-            loading(false, addCardSubmit, originalText)
-            );
-    }
-});
-    
-//attach form to add button
-addCardButton.addEventListener('click', (event) => {
-    addCardForm.open();
 });
 
 /* avatar button and form */
