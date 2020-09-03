@@ -85,7 +85,6 @@ const cardRenderer = new Section({
                 handleLike:(_elements)=>{
                   if(!item._liked){
                     api.addLike({
-                      method: "PUT",
                       cardId: item._id
                     }).then((data) => {
                       _elements.likes.textContent = data.likes.length;
