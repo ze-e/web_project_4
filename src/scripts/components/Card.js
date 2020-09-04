@@ -58,7 +58,7 @@ _getTemplate() {
 }
 
 removeCard(){
-  this._element.remove();
+  event.target.closest('.element').remove();
 }
 
   createCard() {
