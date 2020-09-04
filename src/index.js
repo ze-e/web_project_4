@@ -81,10 +81,10 @@ const cardRenderer = new Section({
                       cardId: item._id
                     }).then(() =>{
                       _elements.deleteButton.closest('.element').remove();
-                      //item.remove();
                     })
-                  }});
-                },
+                  }
+                });
+              },
                 handleLike:(_elements)=>{
                   if(!item._liked){
                     api.addLike({

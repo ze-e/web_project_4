@@ -57,6 +57,10 @@ _getTemplate() {
   return _cardElement;
 }
 
+removeCard(_elements){
+  _elements.deleteButton.closest('.element').remove();
+}
+
   createCard() {
     //clone template
     this._element = this._getTemplate();
