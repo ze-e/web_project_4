@@ -5,6 +5,7 @@ class PopupWithForm extends Popup {
     super(selector);
     this._callback = callback;
   }
+  
   _getInputValues(){
     //returns an object of all form key value pairs
     const _formValues = {};

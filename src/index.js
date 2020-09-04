@@ -6,6 +6,8 @@ import {Card} from "./scripts/components/Card.js";
 import {FormValidator} from "./scripts/components/FormValidator.js";
 import {Section} from "./scripts/components/Section.js";
 import {PopupWithForm as Form} from "./scripts/components/PopupWithForm.js";
+import {PopupDeleteForm as ConfirmDeletePopup} from "./scripts/components/PopupDeleteForm.js";
+
 import {PopupWithImage as PopupImage} from "./scripts/components/PopupWithImage.js";
 import {UserInfo as User} from "./scripts/components/UserInfo";
 import {Api} from "./scripts/components/Api.js";
@@ -61,6 +63,9 @@ api.getUser().then((data) => {
 //popup
 const popupImage = new PopupImage('.popup_type_image');
 
+//confirm delete popup
+const confirmDeletePopup = new ConfirmDeletePopup('.popup_type_delete');
+
 //card renderer
 const cardRenderer = new Section({
   renderer : (item) => {
@@ -71,16 +76,14 @@ const cardRenderer = new Section({
                   popupImage.open(item.link, item.name);
               },
               handleDeleteClick:(_elements)=>{
-                  const confirmDeletePopup = new Form('.popup_type_delete', {callback: () =>{
-                  api.deleteCard({
+                  confirmDeletePopup.open({callback:()=>{
+                    api.deleteCard({
                       cardId: item._id
-                    }).then((data) =>{
+                    }).then(() =>{
                       _elements.deleteButton.closest('.element').remove();
+                      //item.remove();
                     })
-                    confirmDeletePopup.close();
-                    }
-                  });
-                  confirmDeletePopup.open();
+                  }});
                 },
                 handleLike:(_elements)=>{
                   if(!item._liked){
