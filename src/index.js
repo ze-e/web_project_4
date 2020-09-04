@@ -75,12 +75,12 @@ const cardRenderer = new Section({
               handleCardClick:()=>{
                   popupImage.open(item.link, item.name);
               },
-              handleDeleteClick:(card)=>{
+              handleDeleteClick:(card, _elements)=>{
                   confirmDeletePopup.open({callback:()=>{
                     api.deleteCard({
                       cardId: item._id
                     }).then(() =>{
-                      card.removeCard();
+                      card.removeCard(_elements);
                     })
                   }
                 });

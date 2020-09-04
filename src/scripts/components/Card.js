@@ -40,7 +40,7 @@ class Card{
 
     //add eventListener to delete button
     _elements.deleteButton.addEventListener('click', (event) => {
-      this.handleDeleteClick(this);
+      this.handleDeleteClick(this, _elements);
     });
   }
 
@@ -57,8 +57,8 @@ _getTemplate() {
   return _cardElement;
 }
 
-removeCard(){
-  event.target.closest('.element').remove();
+removeCard(_elements){
+  _elements.deleteButton.closest('.element').remove();
 }
 
   createCard() {
