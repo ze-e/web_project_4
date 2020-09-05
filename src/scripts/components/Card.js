@@ -48,21 +48,26 @@ class Card{
 
  
 /* FUNCTIONS */
-
-  getElements(){
-    return this._elements;
-  }
-
   like(){
+    this._elements.likeButton.classList.add('element__like-button_stateliked');
     this._liked = true;
   }
 
   unlike(){
+    this._elements.likeButton.classList.remove('element__like-button_stateliked');
     this._liked = false;
   }
 
   isLiked(){
     return this._liked;
+  }
+
+  renderLikes(likes){
+    this._elements.likes.textContent = likes;
+  }
+
+  removeDeleteButton(){
+    this._elements.deleteButton.remove();
   }
 
   _getTemplate() {
@@ -89,7 +94,6 @@ class Card{
     this._elements.likes = this._element.querySelector('.element__likes-display');
     this._elements.element = this._element.querySelector('.element');
     this._elements.deleteButton = this._element.querySelector('.element__delete-button');
-    this._elements.loading = this._element.querySelector('.element__loading');
 
     //populate _elements with data
     this._elements.element.classList.add(this._id);

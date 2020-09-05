@@ -86,42 +86,34 @@ const cardRenderer = new Section({
                 });
               },
                 handleLike:(card)=>{
-                  const elements = card.getElements();
                   if(!card.isLiked()){
                     api.addLike({
                       cardId: item._id
                     }).then((data) => {
-                      elements.likes.textContent = data.likes.length;
-                      elements.likeButton.classList.add('element__like-button_stateliked');
+                      card.renderLikes(data.likes.length);
                       card.like();
                     })} else {
                       api.deleteLike({
                         cardId: item._id
                       }).then((data) => {
-                        elements.likes.textContent = data.likes.length;
-                        elements.likeButton.classList.remove('element__like-button_stateliked');
+                        card.renderLikes(data.likes.length);
                         card.unlike();
                       })
                   };
                 }, 
                 ownerFunctions:(card)=>{
-                  const elements = card.getElements();
                     const currentUser = sessionUser.getUserInfo().id;
                     if (currentUser != item.owner._id){
-                      elements.deleteButton.remove();
+                      card.removeDeleteButton();
                     }
-                
-                    //remove loading status
-                    elements.loading.remove();
 
                     //show likes by current user
                       const selfLike = item.likes.find((i) => i._id == currentUser);
                       if(selfLike){
-                        elements.likeButton.classList.add('element__like-button_stateliked');
                         card.like();
                       }
-                },
-
+                    
+                }
           });
       cardRenderer.addItem(card);
   }
