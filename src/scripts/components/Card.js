@@ -21,26 +21,27 @@ class Card{
     this.handleLike = handleLike;
     this.ownerFunctions = ownerFunctions;
     this.setState = setState;
+    this._elements ={};
     return this.createCard();
   }
 
   /* EVENT HANDLERS */
 
-  _setEventListeners(elements){
+  _setEventListeners(){
 
     //add _openModalImage to image
-    elements.imageElement.addEventListener('click', (event) => {
+    this._elements.imageElement.addEventListener('click', (event) => {
       this.handleCardClick();
     });
 
     //add eventListener to like button
-    elements.likeButton.addEventListener('click', (event) => {
-      this.handleLike(elements);
+    this._elements.likeButton.addEventListener('click', (event) => {
+      this.handleLike(this);
     });
 
     //add eventListener to delete button
-    elements.deleteButton.addEventListener('click', (event) => {
-      this.handleDeleteClick(this, elements);
+    this._elements.deleteButton.addEventListener('click', (event) => {
+      this.handleDeleteClick(this);
     });
   }
 
@@ -48,45 +49,48 @@ class Card{
  
 /* FUNCTIONS */
 
-_getTemplate() {
-  const _cardElement = document
-    .querySelector(this._selector)
-    .cloneNode(true)
-    .content;
+  getElements(){
+    return this._elements;
+  }
 
-  return _cardElement;
-}
+  _getTemplate() {
+    const _cardElement = document
+      .querySelector(this._selector)
+      .cloneNode(true)
+      .content;
 
-removeCard(elements){
-  elements.deleteButton.closest('.element').remove();
-}
+    return _cardElement;
+  }
+
+  removeCard(){
+    this._elements.deleteButton.closest('.element').remove();
+  }
 
   createCard() {
     //clone template
     this._element = this._getTemplate();
 
-    //query elements and save them in the elements object
-    const elements = {};
-    elements.imageElement = this._element.querySelector('.element__image');
-    elements.textElement = this._element.querySelector('.element__title');
-    elements.likeButton = this._element.querySelector('.element__like-button');
-    elements.likes = this._element.querySelector('.element__likes-display');
-    elements.element = this._element.querySelector('.element');
-    elements.deleteButton = this._element.querySelector('.element__delete-button');
-    elements.loading = this._element.querySelector('.element__loading');
+    //query _elements and save them in the _elements object
+    this._elements.imageElement = this._element.querySelector('.element__image');
+    this._elements.textElement = this._element.querySelector('.element__title');
+    this._elements.likeButton = this._element.querySelector('.element__like-button');
+    this._elements.likes = this._element.querySelector('.element__likes-display');
+    this._elements.element = this._element.querySelector('.element');
+    this._elements.deleteButton = this._element.querySelector('.element__delete-button');
+    this._elements.loading = this._element.querySelector('.element__loading');
 
-    //populate elements with data
-    elements.element.classList.add(this._id);
-    elements.textElement.textContent = this._name;
-    elements.imageElement.src = this._link;
-    elements.imageElement.alt = this._name;
-    elements.likes.textContent = this._likes.length;
+    //populate _elements with data
+    this._elements.element.classList.add(this._id);
+    this._elements.textElement.textContent = this._name;
+    this._elements.imageElement.src = this._link;
+    this._elements.imageElement.alt = this._name;
+    this._elements.likes.textContent = this._likes.length;
 
     //add event listners 
-    this._setEventListeners(elements);  
+    this._setEventListeners();  
 
     //set user permissions
-    this.ownerFunctions(elements);
+    this.ownerFunctions(this);
 
     return this._element;
   }

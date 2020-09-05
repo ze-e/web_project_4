@@ -75,17 +75,18 @@ const cardRenderer = new Section({
               handleCardClick:()=>{
                   popupImage.open(item.link, item.name);
               },
-              handleDeleteClick:(card, elements)=>{
+              handleDeleteClick:(card)=>{
                   confirmDeletePopup.open({callback:()=>{
                     api.deleteCard({
                       cardId: item._id
                     }).then(() =>{
-                      card.removeCard(elements);
+                      card.removeCard();
                     })
                   }
                 });
               },
-                handleLike:(elements)=>{
+                handleLike:(card)=>{
+                  const elements = card.getElements();
                   if(!item._liked){
                     api.addLike({
                       cardId: item._id
@@ -103,7 +104,8 @@ const cardRenderer = new Section({
                       })
                   };
                 }, 
-                ownerFunctions:(elements)=>{
+                ownerFunctions:(card)=>{
+                  const elements = card.getElements();
                     const currentUser = sessionUser.getUserInfo().id;
                     if (currentUser != item.owner._id){
                       elements.deleteButton.remove();
