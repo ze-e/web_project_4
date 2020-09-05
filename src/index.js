@@ -87,20 +87,20 @@ const cardRenderer = new Section({
               },
                 handleLike:(card)=>{
                   const elements = card.getElements();
-                  if(!item._liked){
+                  if(!card.isLiked()){
                     api.addLike({
                       cardId: item._id
                     }).then((data) => {
                       elements.likes.textContent = data.likes.length;
-                      elements.likeButton.classList.add('element__like-button_state_liked');
-                      item._liked = true;
+                      elements.likeButton.classList.add('element__like-button_stateliked');
+                      card.like();
                     })} else {
                       api.deleteLike({
                         cardId: item._id
                       }).then((data) => {
                         elements.likes.textContent = data.likes.length;
-                        elements.likeButton.classList.remove('element__like-button_state_liked');
-                        item._liked = false;
+                        elements.likeButton.classList.remove('element__like-button_stateliked');
+                        card.unlike();
                       })
                   };
                 }, 
@@ -117,8 +117,8 @@ const cardRenderer = new Section({
                     //show likes by current user
                       const selfLike = item.likes.find((i) => i._id == currentUser);
                       if(selfLike){
-                        elements.likeButton.classList.add('element__like-button_state_liked');
-                        item._liked = true;
+                        elements.likeButton.classList.add('element__like-button_stateliked');
+                        card.like();
                       }
                 },
 

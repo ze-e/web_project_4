@@ -16,6 +16,6 @@
   cursor: pointer;
 }
 
-.element__like-button.element__like-button_state_liked{
+.element__like-button.element__like-button_stateliked{
   background-image: url('../../../images/like_filled.svg');
 }

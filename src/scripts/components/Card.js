@@ -53,6 +53,18 @@ class Card{
     return this._elements;
   }
 
+  like(){
+    this._liked = true;
+  }
+
+  unlike(){
+    this._liked = false;
+  }
+
+  isLiked(){
+    return this._liked;
+  }
+
   _getTemplate() {
     const _cardElement = document
       .querySelector(this._selector)
