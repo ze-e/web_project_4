@@ -75,47 +75,47 @@ const cardRenderer = new Section({
               handleCardClick:()=>{
                   popupImage.open(item.link, item.name);
               },
-              handleDeleteClick:(card, _elements)=>{
+              handleDeleteClick:(card, elements)=>{
                   confirmDeletePopup.open({callback:()=>{
                     api.deleteCard({
                       cardId: item._id
                     }).then(() =>{
-                      card.removeCard(_elements);
+                      card.removeCard(elements);
                     })
                   }
                 });
               },
-                handleLike:(_elements)=>{
+                handleLike:(elements)=>{
                   if(!item._liked){
                     api.addLike({
                       cardId: item._id
                     }).then((data) => {
-                      _elements.likes.textContent = data.likes.length;
-                      _elements.likeButton.classList.add('element__like-button_state_liked');
+                      elements.likes.textContent = data.likes.length;
+                      elements.likeButton.classList.add('element__like-button_state_liked');
                       item._liked = true;
                     })} else {
                       api.deleteLike({
                         cardId: item._id
                       }).then((data) => {
-                        _elements.likes.textContent = data.likes.length;
-                        _elements.likeButton.classList.remove('element__like-button_state_liked');
+                        elements.likes.textContent = data.likes.length;
+                        elements.likeButton.classList.remove('element__like-button_state_liked');
                         item._liked = false;
                       })
                   };
                 }, 
-                ownerFunctions:(_elements)=>{
+                ownerFunctions:(elements)=>{
                     const currentUser = sessionUser.getUserInfo().id;
                     if (currentUser != item.owner._id){
-                      _elements.deleteButton.remove();
+                      elements.deleteButton.remove();
                     }
                 
                     //remove loading status
-                    _elements.loading.remove();
+                    elements.loading.remove();
 
                     //show likes by current user
                       const selfLike = item.likes.find((i) => i._id == currentUser);
                       if(selfLike){
-                        _elements.likeButton.classList.add('element__like-button_state_liked');
+                        elements.likeButton.classList.add('element__like-button_state_liked');
                         item._liked = true;
                       }
                 },

@@ -4,7 +4,7 @@
   "description": "* [Link to the project on github](https://ze-e.github.io/web_project_4/) ### Overview",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack", 
+    "build": "rimraf dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ze-e/web_project_4#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
@@ -29,10 +30,10 @@
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.10.0",
     "postcss-loader": "^3.0.0",
+    "rimraf": "^3.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "rimraf": "^3.0.2"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0"

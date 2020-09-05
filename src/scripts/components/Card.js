@@ -26,21 +26,21 @@ class Card{
 
   /* EVENT HANDLERS */
 
-  _setEventListeners(_elements){
+  _setEventListeners(elements){
 
     //add _openModalImage to image
-    _elements.imageElement.addEventListener('click', (event) => {
+    elements.imageElement.addEventListener('click', (event) => {
       this.handleCardClick();
     });
 
     //add eventListener to like button
-    _elements.likeButton.addEventListener('click', (event) => {
-      this.handleLike(_elements);
+    elements.likeButton.addEventListener('click', (event) => {
+      this.handleLike(elements);
     });
 
     //add eventListener to delete button
-    _elements.deleteButton.addEventListener('click', (event) => {
-      this.handleDeleteClick(this, _elements);
+    elements.deleteButton.addEventListener('click', (event) => {
+      this.handleDeleteClick(this, elements);
     });
   }
 
@@ -57,36 +57,36 @@ _getTemplate() {
   return _cardElement;
 }
 
-removeCard(_elements){
-  _elements.deleteButton.closest('.element').remove();
+removeCard(elements){
+  elements.deleteButton.closest('.element').remove();
 }
 
   createCard() {
     //clone template
     this._element = this._getTemplate();
 
-    //query elements and save them in the _elements object
-    const _elements = {};
-    _elements.imageElement = this._element.querySelector('.element__image');
-    _elements.textElement = this._element.querySelector('.element__title');
-    _elements.likeButton = this._element.querySelector('.element__like-button');
-    _elements.likes = this._element.querySelector('.element__likes-display');
-    _elements.element = this._element.querySelector('.element');
-    _elements.deleteButton = this._element.querySelector('.element__delete-button');
-    _elements.loading = this._element.querySelector('.element__loading');
+    //query elements and save them in the elements object
+    const elements = {};
+    elements.imageElement = this._element.querySelector('.element__image');
+    elements.textElement = this._element.querySelector('.element__title');
+    elements.likeButton = this._element.querySelector('.element__like-button');
+    elements.likes = this._element.querySelector('.element__likes-display');
+    elements.element = this._element.querySelector('.element');
+    elements.deleteButton = this._element.querySelector('.element__delete-button');
+    elements.loading = this._element.querySelector('.element__loading');
 
     //populate elements with data
-    _elements.element.classList.add(this._id);
-    _elements.textElement.textContent = this._name;
-    _elements.imageElement.src = this._link;
-    _elements.imageElement.alt = this._name;
-    _elements.likes.textContent = this._likes.length;
+    elements.element.classList.add(this._id);
+    elements.textElement.textContent = this._name;
+    elements.imageElement.src = this._link;
+    elements.imageElement.alt = this._name;
+    elements.likes.textContent = this._likes.length;
 
     //add event listners 
-    this._setEventListeners(_elements);  
+    this._setEventListeners(elements);  
 
     //set user permissions
-    this.ownerFunctions(_elements);
+    this.ownerFunctions(elements);
 
     return this._element;
   }
